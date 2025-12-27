@@ -2,7 +2,7 @@ import asyncio
 
 import httpx
 
-from pydantic_cpd.cdp.page.library import PageClient
+from pydantic_cpd.cdp.page import PageClient
 from pydantic_cpd.client import CDPClient
 
 
@@ -26,7 +26,6 @@ async def test_basic():
     async with CDPClient(ws_url) as client:
         page_client = PageClient(client)
 
-        # ❌ Verbose - muss Params-Klasse importieren und instanzieren
         result = await page_client.navigate(url="https://example.com")
         print(f"Navigation Result: {result}")
 
