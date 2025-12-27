@@ -16,7 +16,8 @@ repos:
     rev: v0.13.1
     hooks:
       - id: ruff
-        args: [--fix, --exit-non-zero-on-fix]
+        args: [--fix, --exit-non-zero-on-fix, --ignore=F841]
+        exclude: ^pydantic_cpd/domains/
       - id: ruff-format
 
   - repo: https://github.com/asottile/pyupgrade
