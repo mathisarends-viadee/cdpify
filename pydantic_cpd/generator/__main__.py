@@ -1,5 +1,7 @@
 import asyncio
 from pydantic_cpd.generator.downloader import download_specs
+from pydantic_cpd.generator.parser import filter_domains
+from pydantic_cpd.generator.writer import generate_all_domains
 
 
 async def main() -> None:
@@ -7,10 +9,14 @@ async def main() -> None:
 
     specs = await download_specs()
 
-    print(f"\n📊 Browser Protocol: {specs.version_string}")
-    print(f"📊 Total domains: {len(specs.all_domains)}")
-    print(f"   - Browser domains: {len(specs.browser.domains)}")
-    print(f"   - JS domains: {len(specs.js.domains)}")
+    print(f"\n📊 CDP Version: {specs.version_string}")
+    print(f"📊 Total domains available: {len(specs.all_domains)}")
+
+    print("\n🔍 Filtering domains...")
+    domains = filter_domains(specs)
+    print(f"✅ Selected {len(domains)} domains for generation")
+
+    generate_all_domains(domains)
 
     print("\n✅ Generation complete!")
 
