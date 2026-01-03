@@ -20,7 +20,7 @@ async def test_connect_when_already_connected_raises_connection_error():
     client = CDPClient("ws://localhost")
     await client.connect()
 
-    with pytest.raises(CDPConnectionError, match="Already connected"):
+    with pytest.raises(CDPConnectionException, match="Already connected"):
         await client.connect()
 
 # ✗ Bad - unclear name requiring docstring
@@ -41,7 +41,7 @@ async def test_send_raw_timeout_raises_timeout_error():
     client = CDPClient("ws://localhost", default_timeout=0.1)
     await client.connect()
 
-    with pytest.raises(CDPTimeoutError, match="timed out after 0.1s"):
+    with pytest.raises(CDPTimeoutException, match="timed out after 0.1s"):
         await client.send_raw("Page.navigate", {"url": "https://example.com"})
 
 # ✗ Bad - unnecessary comments
@@ -52,7 +52,7 @@ async def test_timeout():
     await client.connect()
 
     # This should timeout because we set timeout to 0.1s
-    with pytest.raises(CDPTimeoutError):
+    with pytest.raises(CDPTimeoutException):
         await client.send_raw("Page.navigate", {"url": "https://example.com"})
 ```
 
@@ -161,7 +161,7 @@ async def connected_client():
         yield client
 
 async def test_send_raw_requires_connection(client):
-    with pytest.raises(CDPConnectionError, match="Not connected"):
+    with pytest.raises(CDPConnectionException, match="Not connected"):
         await client.send_raw("Page.navigate")
 ```
 
@@ -248,14 +248,14 @@ async def client():
 async def test_send_raw_when_disconnected_raises_error():
     client = CDPClient("ws://localhost")
 
-    with pytest.raises(CDPConnectionError, match="Not connected"):
+    with pytest.raises(CDPConnectionException, match="Not connected"):
         await client.send_raw("Page.navigate")
 
 async def test_command_error_wraps_cdp_error():
     client = CDPClient("ws://localhost")
     error_data = {"code": -32601, "message": "Method not found"}
 
-    with pytest.raises(CDPCommandError) as exc_info:
+    with pytest.raises(CDPCommandException) as exc_info:
         # Setup to trigger error...
         pass
 
@@ -358,7 +358,7 @@ async def test_disconnect_cancels_pending_requests():
 
     await client.disconnect()
 
-    with pytest.raises(CDPConnectionError, match="Disconnected"):
+    with pytest.raises(CDPConnectionException, match="Disconnected"):
         await request_task
 ```
 

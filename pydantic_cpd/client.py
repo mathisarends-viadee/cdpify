@@ -8,9 +8,9 @@ from websockets.asyncio.client import ClientConnection, connect
 
 from pydantic_cpd.events import EventDispatcher, EventHandler
 from pydantic_cpd.exceptions import (
-    CDPCommandError,
-    CDPConnectionError,
-    CDPTimeoutError,
+    CDPCommandException,
+    CDPConnectionException,
+    CDPTimeoutException,
 )
 
 logger = logging.getLogger(__name__)
@@ -78,7 +78,7 @@ class CDPClient:
 
     async def connect(self) -> None:
         if self._ws is not None:
-            raise CDPConnectionError("Already connected")
+            raise CDPConnectionException("Already connected")
 
         logger.info(f"Connecting to {self.url}")
 
@@ -92,7 +92,7 @@ class CDPClient:
             self._message_loop_task = asyncio.create_task(self._run_message_loop())
             logger.info("Connected")
         except Exception as e:
-            raise CDPConnectionError(f"Connection failed: {e}") from e
+            raise CDPConnectionException(f"Connection failed: {e}") from e
 
     async def disconnect(self) -> None:
         if self._is_shutting_down:
@@ -115,7 +115,7 @@ class CDPClient:
         timeout: float | None = None,
     ) -> dict[str, Any]:
         if not self.is_connected:
-            raise CDPConnectionError("Not connected")
+            raise CDPConnectionException("Not connected")
 
         timeout = timeout or self.default_timeout
         msg_id = self._next_message_id
@@ -159,11 +159,11 @@ class CDPClient:
             logger.debug(f"← #{msg_id}: OK")
             return result
         except asyncio.TimeoutError:
-            raise CDPTimeoutError(f"{method} timed out after {timeout}s") from None
-        except (CDPCommandError, CDPConnectionError):
+            raise CDPTimeoutException(f"{method} timed out after {timeout}s") from None
+        except (CDPCommandException, CDPConnectionException):
             raise
         except Exception as e:
-            raise CDPConnectionError(f"Command failed: {e}") from e
+            raise CDPConnectionException(f"Command failed: {e}") from e
 
     async def _run_message_loop(self) -> None:
         try:
@@ -203,7 +203,7 @@ class CDPClient:
             return
 
         if "error" in msg:
-            future.set_exception(CDPCommandError(msg["error"]))
+            future.set_exception(CDPCommandException(msg["error"]))
         else:
             future.set_result(msg.get("result", {}))
 
@@ -227,7 +227,7 @@ class CDPClient:
                 pass
 
     def _cancel_pending_requests(self) -> None:
-        error = CDPConnectionError("Disconnected")
+        error = CDPConnectionException("Disconnected")
         for future in self._pending_requests.values():
             if not future.done():
                 future.set_exception(error)

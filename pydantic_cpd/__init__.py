@@ -43,6 +43,12 @@ from .domains import (
     WebAudioClient,
     WebAuthnClient,
 )
+from .exceptions import (
+    CDPCommandException,
+    CDPConnectionException,
+    CDPException,
+    CDPTimeoutException,
+)
 
 __all__ = [
     "AuditsClient",
@@ -89,4 +95,9 @@ __all__ = [
     "PerformanceClient",
     # CDPClient
     "CDPClient",
+    # Exceptions
+    "CDPException",
+    "CDPConnectionException",
+    "CDPCommandException",
+    "CDPTimeoutException",
 ]
