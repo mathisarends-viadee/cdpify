@@ -1,6 +1,5 @@
-import re
-
-from pydantic_cpd.generator.models import Command, Domain
+from pydantic_cpd.generator.generators.base import BaseGenerator
+from pydantic_cpd.generator.models import Command, Domain, Parameter
 from pydantic_cpd.generator.type_mapper import (
     map_cdp_type,
     to_pascal_case,
@@ -8,23 +7,17 @@ from pydantic_cpd.generator.type_mapper import (
 )
 
 
-class LibraryGenerator:
-    def __init__(self):
-        self.cross_domain_refs: set[str] = set()
-
+class LibraryGenerator(BaseGenerator):
     def generate(self, domain: Domain) -> str:
-        self.cross_domain_refs.clear()
+        self._reset_tracking()
 
         sections = [
-            self._header(domain),
+            self._header(),
             self._imports(domain),
             self._client_class(domain),
         ]
 
         return "\n\n".join(sections)
-
-    def _header(self, domain: Domain) -> str:
-        return '"""Generated client library from CDP specification"""'
 
     def _imports(self, domain: Domain) -> str:
         lines = [
@@ -38,41 +31,51 @@ class LibraryGenerator:
         ]
 
         if domain.commands:
-            # Nur Params-Klassen importieren (intern verwendet)
-            param_classes = {
-                f"{to_pascal_case(cmd.name)}Params"
-                for cmd in domain.commands
-                if cmd.parameters
-            }
-            return_classes = {
-                f"{to_pascal_case(cmd.name)}Result"
-                for cmd in domain.commands
-                if cmd.returns
-            }
-
-            all_classes = sorted(param_classes | return_classes)
-
-            if all_classes:
-                lines.append("from .commands import (")
-                for cls in all_classes:
-                    lines.append(f"    {cls},")
-                lines.append(")")
-                lines.append("")
-
+            lines.extend(self._build_command_imports(domain))
             self._pre_scan_for_types(domain)
+            lines.extend(self._build_type_imports(domain))
 
-            type_imports = self._collect_type_imports(domain)
-            if type_imports:
-                lines.append("from .types import (")
-                for type_name in sorted(type_imports):
-                    lines.append(f"    {type_name},")
-                lines.append(")")
-                lines.append("")
-
-            if self.cross_domain_refs:
+            if self._cross_domain_refs:
                 lines.append(self._cross_domain_imports())
 
         return "\n".join(lines)
+
+    def _build_command_imports(self, domain: Domain) -> list[str]:
+        param_classes = {
+            f"{to_pascal_case(cmd.name)}Params"
+            for cmd in domain.commands
+            if cmd.parameters
+        }
+        return_classes = {
+            f"{to_pascal_case(cmd.name)}Result"
+            for cmd in domain.commands
+            if cmd.returns
+        }
+
+        all_classes = sorted(param_classes | return_classes)
+        if not all_classes:
+            return []
+
+        lines = ["from .commands import ("]
+        for cls in all_classes:
+            lines.append(f"    {cls},")
+        lines.append(")")
+        lines.append("")
+
+        return lines
+
+    def _build_type_imports(self, domain: Domain) -> list[str]:
+        type_imports = self._collect_type_imports(domain)
+        if not type_imports:
+            return []
+
+        lines = ["from .types import ("]
+        for type_name in sorted(type_imports):
+            lines.append(f"    {type_name},")
+        lines.append(")")
+        lines.append("")
+
+        return lines
 
     def _pre_scan_for_types(self, domain: Domain) -> None:
         for command in domain.commands:
@@ -81,19 +84,10 @@ class LibraryGenerator:
 
             for param in command.parameters:
                 param_type = map_cdp_type(param)
-                self._track_cross_domain_refs(param_type)
+                self._track_type_usage(param_type)
 
     def _cross_domain_imports(self) -> str:
-        unique_domains = set()
-        for ref in self.cross_domain_refs:
-            domain_name = ref.split(".")[0].lower()
-            unique_domains.add(domain_name)
-
-        lines = []
-        for domain in sorted(unique_domains):
-            lines.append(f"from pydantic_cpd.cdp import {domain}")
-
-        return "\n".join(lines)
+        return self._build_cross_domain_imports(use_type_checking=False)
 
     def _collect_type_imports(self, domain: Domain) -> set[str]:
         type_imports = set()
@@ -103,27 +97,27 @@ class LibraryGenerator:
                 continue
 
             for param in command.parameters:
-                if param.ref and "." in param.ref:
-                    continue
-
-                if param.ref:
-                    type_imports.add(param.ref)
-
-                if param.type == "array" and param.items:
-                    if "$ref" in param.items:
-                        ref = param.items["$ref"]
-                        if "." not in ref:
-                            type_imports.add(ref)
+                self._add_direct_type_reference(param, type_imports)
+                self._add_array_item_reference(param, type_imports)
 
         return type_imports
 
-    def _track_cross_domain_refs(self, type_str: str) -> None:
-        pattern = r"\b([a-z]+)\.([A-Z][a-zA-Z0-9]*)\b"
-        matches = re.findall(pattern, type_str)
+    def _add_direct_type_reference(
+        self, param: Parameter, type_imports: set[str]
+    ) -> None:
+        if not param.ref or "." in param.ref:
+            return
+        type_imports.add(param.ref)
 
-        for domain, type_name in matches:
-            ref = f"{domain}.{type_name}"
-            self.cross_domain_refs.add(ref)
+    def _add_array_item_reference(
+        self, param: Parameter, type_imports: set[str]
+    ) -> None:
+        if param.type != "array" or not param.items:
+            return
+
+        ref = param.items.get("$ref")
+        if ref and "." not in ref:
+            type_imports.add(ref)
 
     def _client_class(self, domain: Domain) -> str:
         class_name = f"{domain.domain}Client"
@@ -157,93 +151,94 @@ class LibraryGenerator:
         return "\n".join(lines)
 
     def _build_params(self, command: Command) -> list[str]:
-        """Build parameter list - nur kwargs, kein params object!"""
         params = ["self"]
 
-        if command.parameters:
-            # Alle Parameter sind keyword-only
-            params.append("*")
+        if not command.parameters:
+            params.append("session_id: str | None = None")
+            return params
 
-            for param in command.parameters:
-                param_name = to_snake_case(param.name)
+        params.append("*")
 
-                # Handle session_id collision
-                if param_name == "session_id":
-                    param_name = f"{to_snake_case(command.name)}_session_id"
-
-                param_type = map_cdp_type(param)
-                self._track_cross_domain_refs(param_type)
-
-                # Behalte die Optionalität wie im CDP-Spec
-                # Optional parameters behalten " | None = None"
-                # Required parameters bekommen kein Default
-                if param.optional:
-                    if not param_type.endswith(" | None"):
-                        param_type = f"{param_type} | None"
-                    params.append(f"{param_name}: {param_type} = None")
-                else:
-                    # Required - kein Default!
-                    if param_type.endswith(" | None"):
-                        param_type = param_type[:-7]  # Entferne | None
-                    params.append(f"{param_name}: {param_type}")
+        for param in command.parameters:
+            param_signature = self._build_param_signature(command, param)
+            params.append(param_signature)
 
         params.append("session_id: str | None = None")
         return params
 
+    def _build_param_signature(self, command: Command, param) -> str:
+        param_name = self._resolve_param_name(command, param)
+        base_type = self._resolve_base_param_type(param)
+
+        if param.optional:
+            return f"{param_name}: {base_type} | None = None"
+        return f"{param_name}: {base_type}"
+
+    def _resolve_param_name(self, command: Command, param: Parameter) -> str:
+        param_name = to_snake_case(param.name)
+
+        if param_name == "session_id":
+            return f"{to_snake_case(command.name)}_session_id"
+
+        return param_name
+
+    def _resolve_base_param_type(self, param) -> str:
+        param_type = map_cdp_type(param)
+        self._track_type_usage(param_type)
+        return param_type.removesuffix(" | None")
+
     def _build_method_body(self, command: Command, cdp_method: str) -> list[str]:
-        """Generate method body - konstruiere Params intern"""
         lines = []
 
         if command.parameters:
-            param_class = f"{to_pascal_case(command.name)}Params"
-
-            # Map snake_case kwargs zu camelCase Params
-            param_mapping = {}
-            for p in command.parameters:
-                snake_name = to_snake_case(p.name)
-                if snake_name == "session_id":
-                    kwarg_name = f"{to_snake_case(command.name)}_session_id"
-                else:
-                    kwarg_name = snake_name
-
-                # Original CDP name (camelCase) für Params-Konstruktor
-                param_mapping[p.name] = kwarg_name
-
-            # Konstruiere Params intern
-            constructor_args = ", ".join(
-                f"{original_name}={kwarg_name}"
-                for original_name, kwarg_name in param_mapping.items()
-            )
-            lines.append(f"params = {param_class}({constructor_args})")
+            lines.extend(self._build_params_construction(command))
             lines.append("")
-
-            lines.extend(
-                [
-                    "result = await self._client.send_raw(",
-                    f'    method="{cdp_method}",',
-                    "    params=params.to_cdp_params(),",
-                    "    session_id=session_id,",
-                    ")",
-                ]
-            )
+            lines.extend(self._build_send_with_params(cdp_method))
         else:
-            lines.extend(
-                [
-                    "result = await self._client.send_raw(",
-                    f'    method="{cdp_method}",',
-                    "    params=None,",
-                    "    session_id=session_id,",
-                    ")",
-                ]
-            )
+            lines.extend(self._build_send_without_params(cdp_method))
 
+        lines.extend(self._build_return_statement(command))
+        return lines
+
+    def _build_params_construction(self, command: Command) -> list[str]:
+        param_class = f"{to_pascal_case(command.name)}Params"
+        param_mapping = self._build_param_name_mapping(command)
+
+        constructor_args = ", ".join(
+            f"{cdp_name}={kwarg_name}" for cdp_name, kwarg_name in param_mapping.items()
+        )
+
+        return [f"params = {param_class}({constructor_args})"]
+
+    def _build_param_name_mapping(self, command: Command) -> dict[str, str]:
+        return {
+            param.name: self._resolve_param_name(command, param)
+            for param in command.parameters
+        }
+
+    def _build_send_with_params(self, cdp_method: str) -> list[str]:
+        return [
+            "result = await self._client.send_raw(",
+            f'    method="{cdp_method}",',
+            "    params=params.to_cdp_params(),",
+            "    session_id=session_id,",
+            ")",
+        ]
+
+    def _build_send_without_params(self, cdp_method: str) -> list[str]:
+        return [
+            "result = await self._client.send_raw(",
+            f'    method="{cdp_method}",',
+            "    params=None,",
+            "    session_id=session_id,",
+            ")",
+        ]
+
+    def _build_return_statement(self, command: Command) -> list[str]:
         if command.returns:
             result_class = f"{to_pascal_case(command.name)}Result"
-            lines.append(f"return {result_class}.model_validate(result)")
-        else:
-            lines.append("return result")
-
-        return lines
+            return [f"return {result_class}.model_validate(result)"]
+        return ["return result"]
 
     def _get_return_type(self, command: Command) -> str:
         if command.returns:

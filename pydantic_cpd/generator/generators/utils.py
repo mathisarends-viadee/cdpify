@@ -5,7 +5,6 @@ def format_docstring(text: str, indent: int = 4) -> str:
     indent_str = " " * indent
     max_length = 88 - indent
 
-    # Wrap text
     words = text.split()
     lines = []
     current_line = []
