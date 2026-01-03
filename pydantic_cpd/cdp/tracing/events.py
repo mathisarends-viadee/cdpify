@@ -3,12 +3,19 @@
 # Generated from Chrome DevTools Protocol specifications.
 
 from typing import Any, TYPE_CHECKING
+from enum import StrEnum
 from pydantic_cpd.cdp.base import CDPModel
 
 from .types import *
 
 if TYPE_CHECKING:
     from pydantic_cpd.cdp import io
+
+
+class TracingEvent(StrEnum):
+    BUFFER_USAGE = "Tracing.bufferUsage"
+    DATA_COLLECTED = "Tracing.dataCollected"
+    TRACING_COMPLETE = "Tracing.tracingComplete"
 
 
 class BufferUsageEvent(CDPModel):

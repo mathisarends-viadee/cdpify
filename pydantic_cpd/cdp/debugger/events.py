@@ -3,12 +3,21 @@
 # Generated from Chrome DevTools Protocol specifications.
 
 from typing import Any, Literal, TYPE_CHECKING
+from enum import StrEnum
 from pydantic_cpd.cdp.base import CDPModel
 
 from .types import *
 
 if TYPE_CHECKING:
     from pydantic_cpd.cdp import debugger, runtime
+
+
+class DebuggerEvent(StrEnum):
+    BREAKPOINT_RESOLVED = "Debugger.breakpointResolved"
+    PAUSED = "Debugger.paused"
+    RESUMED = "Debugger.resumed"
+    SCRIPT_FAILED_TO_PARSE = "Debugger.scriptFailedToParse"
+    SCRIPT_PARSED = "Debugger.scriptParsed"
 
 
 class BreakpointResolvedEvent(CDPModel):

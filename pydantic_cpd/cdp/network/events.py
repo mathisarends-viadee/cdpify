@@ -3,12 +3,66 @@
 # Generated from Chrome DevTools Protocol specifications.
 
 from typing import Literal, TYPE_CHECKING
+from enum import StrEnum
 from pydantic_cpd.cdp.base import CDPModel
 
 from .types import *
 
 if TYPE_CHECKING:
     from pydantic_cpd.cdp import page
+
+
+class NetworkEvent(StrEnum):
+    DATA_RECEIVED = "Network.dataReceived"
+    EVENT_SOURCE_MESSAGE_RECEIVED = "Network.eventSourceMessageReceived"
+    LOADING_FAILED = "Network.loadingFailed"
+    LOADING_FINISHED = "Network.loadingFinished"
+    REQUEST_INTERCEPTED = "Network.requestIntercepted"
+    REQUEST_SERVED_FROM_CACHE = "Network.requestServedFromCache"
+    REQUEST_WILL_BE_SENT = "Network.requestWillBeSent"
+    RESOURCE_CHANGED_PRIORITY = "Network.resourceChangedPriority"
+    SIGNED_EXCHANGE_RECEIVED = "Network.signedExchangeReceived"
+    RESPONSE_RECEIVED = "Network.responseReceived"
+    WEB_SOCKET_CLOSED = "Network.webSocketClosed"
+    WEB_SOCKET_CREATED = "Network.webSocketCreated"
+    WEB_SOCKET_FRAME_ERROR = "Network.webSocketFrameError"
+    WEB_SOCKET_FRAME_RECEIVED = "Network.webSocketFrameReceived"
+    WEB_SOCKET_FRAME_SENT = "Network.webSocketFrameSent"
+    WEB_SOCKET_HANDSHAKE_RESPONSE_RECEIVED = (
+        "Network.webSocketHandshakeResponseReceived"
+    )
+    WEB_SOCKET_WILL_SEND_HANDSHAKE_REQUEST = "Network.webSocketWillSendHandshakeRequest"
+    WEB_TRANSPORT_CREATED = "Network.webTransportCreated"
+    WEB_TRANSPORT_CONNECTION_ESTABLISHED = "Network.webTransportConnectionEstablished"
+    WEB_TRANSPORT_CLOSED = "Network.webTransportClosed"
+    DIRECT_T_C_P_SOCKET_CREATED = "Network.directTCPSocketCreated"
+    DIRECT_T_C_P_SOCKET_OPENED = "Network.directTCPSocketOpened"
+    DIRECT_T_C_P_SOCKET_ABORTED = "Network.directTCPSocketAborted"
+    DIRECT_T_C_P_SOCKET_CLOSED = "Network.directTCPSocketClosed"
+    DIRECT_T_C_P_SOCKET_CHUNK_SENT = "Network.directTCPSocketChunkSent"
+    DIRECT_T_C_P_SOCKET_CHUNK_RECEIVED = "Network.directTCPSocketChunkReceived"
+    DIRECT_U_D_P_SOCKET_JOINED_MULTICAST_GROUP = (
+        "Network.directUDPSocketJoinedMulticastGroup"
+    )
+    DIRECT_U_D_P_SOCKET_LEFT_MULTICAST_GROUP = (
+        "Network.directUDPSocketLeftMulticastGroup"
+    )
+    DIRECT_U_D_P_SOCKET_CREATED = "Network.directUDPSocketCreated"
+    DIRECT_U_D_P_SOCKET_OPENED = "Network.directUDPSocketOpened"
+    DIRECT_U_D_P_SOCKET_ABORTED = "Network.directUDPSocketAborted"
+    DIRECT_U_D_P_SOCKET_CLOSED = "Network.directUDPSocketClosed"
+    DIRECT_U_D_P_SOCKET_CHUNK_SENT = "Network.directUDPSocketChunkSent"
+    DIRECT_U_D_P_SOCKET_CHUNK_RECEIVED = "Network.directUDPSocketChunkReceived"
+    REQUEST_WILL_BE_SENT_EXTRA_INFO = "Network.requestWillBeSentExtraInfo"
+    RESPONSE_RECEIVED_EXTRA_INFO = "Network.responseReceivedExtraInfo"
+    RESPONSE_RECEIVED_EARLY_HINTS = "Network.responseReceivedEarlyHints"
+    TRUST_TOKEN_OPERATION_DONE = "Network.trustTokenOperationDone"
+    POLICY_UPDATED = "Network.policyUpdated"
+    REPORTING_API_REPORT_ADDED = "Network.reportingApiReportAdded"
+    REPORTING_API_REPORT_UPDATED = "Network.reportingApiReportUpdated"
+    REPORTING_API_ENDPOINTS_CHANGED_FOR_ORIGIN = (
+        "Network.reportingApiEndpointsChangedForOrigin"
+    )
 
 
 class DataReceivedEvent(CDPModel):

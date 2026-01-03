@@ -81,25 +81,21 @@ __all__ = ["{domain.domain}Client"]
         logger.info("  ✓ base.py")
 
     def _build_base_content(self) -> str:
-        return '''"""Base Pydantic models for CDP."""
-
+        return """
 from typing import Any
 from pydantic import BaseModel, ConfigDict
 from pydantic.alias_generators import to_camel
 
 
 class CDPModel(BaseModel):
-    """Base model for CDP with automatic camelCase alias generation."""
-
     model_config = ConfigDict(
         populate_by_name=True,
         alias_generator=to_camel,
     )
 
     def to_cdp_params(self) -> dict[str, Any]:
-        """Convert model to CDP parameters format."""
         return self.model_dump(by_alias=True, exclude_none=True)
-'''
+"""
 
     def _generate_init_file(self, domains: list[Domain]) -> None:
         content = self._build_main_init_content(domains)

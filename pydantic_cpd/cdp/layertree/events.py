@@ -3,12 +3,18 @@
 # Generated from Chrome DevTools Protocol specifications.
 
 from typing import TYPE_CHECKING
+from enum import StrEnum
 from pydantic_cpd.cdp.base import CDPModel
 
 from .types import *
 
 if TYPE_CHECKING:
     from pydantic_cpd.cdp import dom
+
+
+class LayerTreeEvent(StrEnum):
+    LAYER_PAINTED = "LayerTree.layerPainted"
+    LAYER_TREE_DID_CHANGE = "LayerTree.layerTreeDidChange"
 
 
 class LayerPaintedEvent(CDPModel):

@@ -3,12 +3,20 @@
 # Generated from Chrome DevTools Protocol specifications.
 
 from typing import TYPE_CHECKING
+from enum import StrEnum
 from pydantic_cpd.cdp.base import CDPModel
 
 from .types import *
 
 if TYPE_CHECKING:
     from pydantic_cpd.cdp import dom, page
+
+
+class OverlayEvent(StrEnum):
+    INSPECT_NODE_REQUESTED = "Overlay.inspectNodeRequested"
+    NODE_HIGHLIGHT_REQUESTED = "Overlay.nodeHighlightRequested"
+    SCREENSHOT_REQUESTED = "Overlay.screenshotRequested"
+    INSPECT_MODE_CANCELED = "Overlay.inspectModeCanceled"
 
 
 class InspectNodeRequestedEvent(CDPModel):

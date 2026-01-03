@@ -3,12 +3,34 @@
 # Generated from Chrome DevTools Protocol specifications.
 
 from typing import TYPE_CHECKING
+from enum import StrEnum
 from pydantic_cpd.cdp.base import CDPModel
 
 from .types import *
 
 if TYPE_CHECKING:
     from pydantic_cpd.cdp import dom
+
+
+class DOMEvent(StrEnum):
+    ATTRIBUTE_MODIFIED = "DOM.attributeModified"
+    ADOPTED_STYLE_SHEETS_MODIFIED = "DOM.adoptedStyleSheetsModified"
+    ATTRIBUTE_REMOVED = "DOM.attributeRemoved"
+    CHARACTER_DATA_MODIFIED = "DOM.characterDataModified"
+    CHILD_NODE_COUNT_UPDATED = "DOM.childNodeCountUpdated"
+    CHILD_NODE_INSERTED = "DOM.childNodeInserted"
+    CHILD_NODE_REMOVED = "DOM.childNodeRemoved"
+    DISTRIBUTED_NODES_UPDATED = "DOM.distributedNodesUpdated"
+    DOCUMENT_UPDATED = "DOM.documentUpdated"
+    INLINE_STYLE_INVALIDATED = "DOM.inlineStyleInvalidated"
+    PSEUDO_ELEMENT_ADDED = "DOM.pseudoElementAdded"
+    TOP_LAYER_ELEMENTS_UPDATED = "DOM.topLayerElementsUpdated"
+    SCROLLABLE_FLAG_UPDATED = "DOM.scrollableFlagUpdated"
+    AFFECTED_BY_STARTING_STYLES_FLAG_UPDATED = "DOM.affectedByStartingStylesFlagUpdated"
+    PSEUDO_ELEMENT_REMOVED = "DOM.pseudoElementRemoved"
+    SET_CHILD_NODES = "DOM.setChildNodes"
+    SHADOW_ROOT_POPPED = "DOM.shadowRootPopped"
+    SHADOW_ROOT_PUSHED = "DOM.shadowRootPushed"
 
 
 class AttributeModifiedEvent(CDPModel):

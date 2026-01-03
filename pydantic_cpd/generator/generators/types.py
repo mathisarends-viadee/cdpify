@@ -1,11 +1,10 @@
+from pydantic_cpd.generator.generators.base import BaseGenerator
 from pydantic_cpd.generator.generators.utils import (
     format_docstring,
     map_cdp_type,
     to_snake_case,
 )
 from pydantic_cpd.generator.models import Domain, Parameter, TypeDefinition
-
-from .base import BaseGenerator
 
 
 class TypesGenerator(BaseGenerator):

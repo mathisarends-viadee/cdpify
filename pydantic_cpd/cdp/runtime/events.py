@@ -3,9 +3,21 @@
 # Generated from Chrome DevTools Protocol specifications.
 
 from typing import Any, Literal
+from enum import StrEnum
 from pydantic_cpd.cdp.base import CDPModel
 
 from .types import *
+
+
+class RuntimeEvent(StrEnum):
+    BINDING_CALLED = "Runtime.bindingCalled"
+    CONSOLE_A_P_I_CALLED = "Runtime.consoleAPICalled"
+    EXCEPTION_REVOKED = "Runtime.exceptionRevoked"
+    EXCEPTION_THROWN = "Runtime.exceptionThrown"
+    EXECUTION_CONTEXT_CREATED = "Runtime.executionContextCreated"
+    EXECUTION_CONTEXT_DESTROYED = "Runtime.executionContextDestroyed"
+    EXECUTION_CONTEXTS_CLEARED = "Runtime.executionContextsCleared"
+    INSPECT_REQUESTED = "Runtime.inspectRequested"
 
 
 class BindingCalledEvent(CDPModel):

@@ -3,12 +3,22 @@
 # Generated from Chrome DevTools Protocol specifications.
 
 from typing import TYPE_CHECKING
+from enum import StrEnum
 from pydantic_cpd.cdp.base import CDPModel
 
 from .types import *
 
 if TYPE_CHECKING:
     from pydantic_cpd.cdp import dom
+
+
+class CSSEvent(StrEnum):
+    FONTS_UPDATED = "CSS.fontsUpdated"
+    MEDIA_QUERY_RESULT_CHANGED = "CSS.mediaQueryResultChanged"
+    STYLE_SHEET_ADDED = "CSS.styleSheetAdded"
+    STYLE_SHEET_CHANGED = "CSS.styleSheetChanged"
+    STYLE_SHEET_REMOVED = "CSS.styleSheetRemoved"
+    COMPUTED_STYLE_UPDATED = "CSS.computedStyleUpdated"
 
 
 class FontsUpdatedEvent(CDPModel):

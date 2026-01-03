@@ -3,12 +3,18 @@
 # Generated from Chrome DevTools Protocol specifications.
 
 from typing import Literal, TYPE_CHECKING
+from enum import StrEnum
 from pydantic_cpd.cdp.base import CDPModel
 
 from .types import *
 
 if TYPE_CHECKING:
     from pydantic_cpd.cdp import page
+
+
+class BrowserEvent(StrEnum):
+    DOWNLOAD_WILL_BEGIN = "Browser.downloadWillBegin"
+    DOWNLOAD_PROGRESS = "Browser.downloadProgress"
 
 
 class DownloadWillBeginEvent(CDPModel):

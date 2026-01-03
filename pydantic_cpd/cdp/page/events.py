@@ -3,12 +3,44 @@
 # Generated from Chrome DevTools Protocol specifications.
 
 from typing import Literal, TYPE_CHECKING
+from enum import StrEnum
 from pydantic_cpd.cdp.base import CDPModel
 
 from .types import *
 
 if TYPE_CHECKING:
     from pydantic_cpd.cdp import dom, network, runtime
+
+
+class PageEvent(StrEnum):
+    DOM_CONTENT_EVENT_FIRED = "Page.domContentEventFired"
+    FILE_CHOOSER_OPENED = "Page.fileChooserOpened"
+    FRAME_ATTACHED = "Page.frameAttached"
+    FRAME_CLEARED_SCHEDULED_NAVIGATION = "Page.frameClearedScheduledNavigation"
+    FRAME_DETACHED = "Page.frameDetached"
+    FRAME_SUBTREE_WILL_BE_DETACHED = "Page.frameSubtreeWillBeDetached"
+    FRAME_NAVIGATED = "Page.frameNavigated"
+    DOCUMENT_OPENED = "Page.documentOpened"
+    FRAME_RESIZED = "Page.frameResized"
+    FRAME_STARTED_NAVIGATING = "Page.frameStartedNavigating"
+    FRAME_REQUESTED_NAVIGATION = "Page.frameRequestedNavigation"
+    FRAME_SCHEDULED_NAVIGATION = "Page.frameScheduledNavigation"
+    FRAME_STARTED_LOADING = "Page.frameStartedLoading"
+    FRAME_STOPPED_LOADING = "Page.frameStoppedLoading"
+    DOWNLOAD_WILL_BEGIN = "Page.downloadWillBegin"
+    DOWNLOAD_PROGRESS = "Page.downloadProgress"
+    INTERSTITIAL_HIDDEN = "Page.interstitialHidden"
+    INTERSTITIAL_SHOWN = "Page.interstitialShown"
+    JAVASCRIPT_DIALOG_CLOSED = "Page.javascriptDialogClosed"
+    JAVASCRIPT_DIALOG_OPENING = "Page.javascriptDialogOpening"
+    LIFECYCLE_EVENT = "Page.lifecycleEvent"
+    BACK_FORWARD_CACHE_NOT_USED = "Page.backForwardCacheNotUsed"
+    LOAD_EVENT_FIRED = "Page.loadEventFired"
+    NAVIGATED_WITHIN_DOCUMENT = "Page.navigatedWithinDocument"
+    SCREENCAST_FRAME = "Page.screencastFrame"
+    SCREENCAST_VISIBILITY_CHANGED = "Page.screencastVisibilityChanged"
+    WINDOW_OPEN = "Page.windowOpen"
+    COMPILATION_CACHE_PRODUCED = "Page.compilationCacheProduced"
 
 
 class DomContentEventFiredEvent(CDPModel):

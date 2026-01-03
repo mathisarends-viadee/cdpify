@@ -1,3 +1,4 @@
+from pydantic_cpd.generator.generators.base import BaseGenerator
 from pydantic_cpd.generator.generators.utils import (
     format_docstring,
     map_cdp_type,
@@ -6,13 +7,12 @@ from pydantic_cpd.generator.generators.utils import (
 )
 from pydantic_cpd.generator.models import Domain, Event, Parameter
 
-from .base import BaseGenerator
-
 
 class EventsGenerator(BaseGenerator):
     def generate(self, domain: Domain) -> str:
         self._reset_tracking()
 
+        event_enum = self._generate_event_enum(domain)
         event_models = self._generate_event_models(domain)
 
         sections = [
@@ -22,6 +22,9 @@ class EventsGenerator(BaseGenerator):
 
         if self._cross_domain_refs:
             sections.append(self._cross_domain_imports())
+
+        if event_enum:
+            sections.append(event_enum)
 
         sections.append(event_models if event_models else "# No events defined")
 
@@ -34,6 +37,7 @@ class EventsGenerator(BaseGenerator):
         if typing_imports:
             lines.append(typing_imports)
 
+        lines.append("from enum import StrEnum")
         lines.append("from pydantic_cpd.cdp.base import CDPModel")
 
         if has_models:
@@ -44,6 +48,24 @@ class EventsGenerator(BaseGenerator):
 
     def _cross_domain_imports(self) -> str:
         return self._build_cross_domain_imports(use_type_checking=True)
+
+    def _generate_event_enum(self, domain: Domain) -> str:
+        if not domain.events:
+            return ""
+
+        class_name = f"{domain.domain}Event"
+        lines = [f"class {class_name}(StrEnum):"]
+
+        for event in domain.events:
+            enum_name = self._to_enum_name(event.name)
+            event_value = f"{domain.domain}.{event.name}"
+            lines.append(f'    {enum_name} = "{event_value}"')
+
+        return "\n".join(lines)
+
+    def _to_enum_name(self, name: str) -> str:
+        snake = to_snake_case(name)
+        return snake.upper()
 
     def _generate_event_models(self, domain: Domain) -> str:
         if not domain.events:

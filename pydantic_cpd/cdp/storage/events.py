@@ -3,12 +3,41 @@
 # Generated from Chrome DevTools Protocol specifications.
 
 from typing import Any, TYPE_CHECKING
+from enum import StrEnum
 from pydantic_cpd.cdp.base import CDPModel
 
 from .types import *
 
 if TYPE_CHECKING:
     from pydantic_cpd.cdp import network, page, target
+
+
+class StorageEvent(StrEnum):
+    CACHE_STORAGE_CONTENT_UPDATED = "Storage.cacheStorageContentUpdated"
+    CACHE_STORAGE_LIST_UPDATED = "Storage.cacheStorageListUpdated"
+    INDEXED_D_B_CONTENT_UPDATED = "Storage.indexedDBContentUpdated"
+    INDEXED_D_B_LIST_UPDATED = "Storage.indexedDBListUpdated"
+    INTEREST_GROUP_ACCESSED = "Storage.interestGroupAccessed"
+    INTEREST_GROUP_AUCTION_EVENT_OCCURRED = "Storage.interestGroupAuctionEventOccurred"
+    INTEREST_GROUP_AUCTION_NETWORK_REQUEST_CREATED = (
+        "Storage.interestGroupAuctionNetworkRequestCreated"
+    )
+    SHARED_STORAGE_ACCESSED = "Storage.sharedStorageAccessed"
+    SHARED_STORAGE_WORKLET_OPERATION_EXECUTION_FINISHED = (
+        "Storage.sharedStorageWorkletOperationExecutionFinished"
+    )
+    STORAGE_BUCKET_CREATED_OR_UPDATED = "Storage.storageBucketCreatedOrUpdated"
+    STORAGE_BUCKET_DELETED = "Storage.storageBucketDeleted"
+    ATTRIBUTION_REPORTING_SOURCE_REGISTERED = (
+        "Storage.attributionReportingSourceRegistered"
+    )
+    ATTRIBUTION_REPORTING_TRIGGER_REGISTERED = (
+        "Storage.attributionReportingTriggerRegistered"
+    )
+    ATTRIBUTION_REPORTING_REPORT_SENT = "Storage.attributionReportingReportSent"
+    ATTRIBUTION_REPORTING_VERBOSE_DEBUG_REPORT_SENT = (
+        "Storage.attributionReportingVerboseDebugReportSent"
+    )
 
 
 class CacheStorageContentUpdatedEvent(CDPModel):

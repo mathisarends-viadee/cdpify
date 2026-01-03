@@ -3,12 +3,18 @@
 # Generated from Chrome DevTools Protocol specifications.
 
 from typing import TYPE_CHECKING
+from enum import StrEnum
 from pydantic_cpd.cdp.base import CDPModel
 
 from .types import *
 
 if TYPE_CHECKING:
     from pydantic_cpd.cdp import network, page
+
+
+class FetchEvent(StrEnum):
+    REQUEST_PAUSED = "Fetch.requestPaused"
+    AUTH_REQUIRED = "Fetch.authRequired"
 
 
 class RequestPausedEvent(CDPModel):

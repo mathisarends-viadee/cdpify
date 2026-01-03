@@ -3,12 +3,19 @@
 # Generated from Chrome DevTools Protocol specifications.
 
 from typing import TYPE_CHECKING
+from enum import StrEnum
 from pydantic_cpd.cdp.base import CDPModel
 
 from .types import *
 
 if TYPE_CHECKING:
     from pydantic_cpd.cdp import debugger
+
+
+class ProfilerEvent(StrEnum):
+    CONSOLE_PROFILE_FINISHED = "Profiler.consoleProfileFinished"
+    CONSOLE_PROFILE_STARTED = "Profiler.consoleProfileStarted"
+    PRECISE_COVERAGE_DELTA_UPDATE = "Profiler.preciseCoverageDeltaUpdate"
 
 
 class ConsoleProfileFinishedEvent(CDPModel):

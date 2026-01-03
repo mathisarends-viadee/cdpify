@@ -5,8 +5,8 @@ from pathlib import Path
 
 import httpx
 
-from pydantic_cpd.cdp.page.library import PageClient
-from pydantic_cpd.client import CDPClient
+from pydantic_cpd import CDPClient, PageClient
+from pydantic_cpd.cdp.page.events import PageEvent
 
 logging.basicConfig(
     level=logging.DEBUG, format="%(asctime)s - %(name)s - %(levelname)s - %(message)s"
@@ -58,7 +58,7 @@ async def main():
             except Exception as e:
                 print(f"❌ Error processing frame {frame_num}: {e}")
 
-        @client.on("Page.screencastFrame")
+        @client.on(PageEvent.SCREENCAST_FRAME)
         async def on_frame(params, cdp_session_id):
             nonlocal frame_count
             frame_count += 1
