@@ -1,8 +1,8 @@
 """CDP Profiler Domain"""
 
+from .types import *
 from .commands import *
 from .events import *
 from .library import ProfilerClient
-from .types import *
 
 __all__ = ["ProfilerClient"]

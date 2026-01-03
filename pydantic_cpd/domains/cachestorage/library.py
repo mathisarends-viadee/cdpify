@@ -4,7 +4,7 @@
 
 from __future__ import annotations
 
-from typing import TYPE_CHECKING, Any
+from typing import TYPE_CHECKING, Any, Literal
 
 if TYPE_CHECKING:
     from pydantic_cpd.client import CDPClient
@@ -12,13 +12,14 @@ if TYPE_CHECKING:
 from .commands import (
     DeleteCacheParams,
     DeleteEntryParams,
-    RequestCachedResponseParams,
-    RequestCachedResponseResult,
     RequestCacheNamesParams,
     RequestCacheNamesResult,
+    RequestCachedResponseParams,
+    RequestCachedResponseResult,
     RequestEntriesParams,
     RequestEntriesResult,
 )
+
 from .types import (
     CacheId,
     Header,

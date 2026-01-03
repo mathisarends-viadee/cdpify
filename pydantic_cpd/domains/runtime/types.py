@@ -3,8 +3,7 @@
 # Generated from Chrome DevTools Protocol specifications.
 
 from typing import Any, Literal
-
-from pydantic_cpd.cdp.base import CDPModel
+from pydantic_cpd.domains.base import CDPModel
 
 """
 Unique script identifier.

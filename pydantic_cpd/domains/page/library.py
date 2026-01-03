@@ -74,6 +74,7 @@ from .commands import (
     SetWebLifecycleStateParams,
     StartScreencastParams,
 )
+
 from .types import (
     CompilationCacheParams,
     FontFamilies,

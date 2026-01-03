@@ -32,6 +32,7 @@ from .commands import (
     SetPermissionParams,
     SetWindowBoundsParams,
 )
+
 from .types import (
     Bounds,
     BrowserCommandId,

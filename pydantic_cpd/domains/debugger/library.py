@@ -35,9 +35,9 @@ from .commands import (
     SearchInContentParams,
     SearchInContentResult,
     SetAsyncCallStackDepthParams,
-    SetBlackboxedRangesParams,
     SetBlackboxExecutionContextsParams,
     SetBlackboxPatternsParams,
+    SetBlackboxedRangesParams,
     SetBreakpointByUrlParams,
     SetBreakpointByUrlResult,
     SetBreakpointOnFunctionCallParams,
@@ -56,6 +56,7 @@ from .commands import (
     StepIntoParams,
     StepOverParams,
 )
+
 from .types import (
     BreakpointId,
     CallFrameId,

@@ -44,10 +44,10 @@ from .commands import (
     GetFrameOwnerResult,
     GetNodeForLocationParams,
     GetNodeForLocationResult,
-    GetNodesForSubtreeByStyleParams,
-    GetNodesForSubtreeByStyleResult,
     GetNodeStackTracesParams,
     GetNodeStackTracesResult,
+    GetNodesForSubtreeByStyleParams,
+    GetNodesForSubtreeByStyleResult,
     GetOuterHTMLParams,
     GetOuterHTMLResult,
     GetQueryingDescendantsForContainerParams,
@@ -77,8 +77,8 @@ from .commands import (
     ResolveNodeParams,
     ResolveNodeResult,
     ScrollIntoViewIfNeededParams,
-    SetAttributesAsTextParams,
     SetAttributeValueParams,
+    SetAttributesAsTextParams,
     SetFileInputFilesParams,
     SetInspectedNodeParams,
     SetNodeNameParams,
@@ -87,6 +87,7 @@ from .commands import (
     SetNodeValueParams,
     SetOuterHTMLParams,
 )
+
 from .types import (
     BackendNodeId,
     CSSComputedStyleProperty,

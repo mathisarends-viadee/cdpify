@@ -33,7 +33,7 @@ class CommandsGenerator(BaseGenerator):
         if typing_imports:
             lines.append(typing_imports)
 
-        lines.append("from pydantic_cpd.cdp.base import CDPModel")
+        lines.append("from pydantic_cpd.domains.base import CDPModel")
 
         if has_models:
             lines.append("")

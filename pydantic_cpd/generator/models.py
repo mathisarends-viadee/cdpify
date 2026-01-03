@@ -1,5 +1,6 @@
-from pydantic import BaseModel, Field
 from typing import Any
+
+from pydantic import BaseModel, ConfigDict, Field
 
 
 class ProtocolVersion(BaseModel):
@@ -8,6 +9,8 @@ class ProtocolVersion(BaseModel):
 
 
 class Parameter(BaseModel):
+    model_config = ConfigDict(populate_by_name=True)
+
     name: str
     type: str | None = None
     ref: str | None = Field(None, alias="$ref")

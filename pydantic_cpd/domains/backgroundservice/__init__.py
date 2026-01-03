@@ -1,8 +1,8 @@
 """CDP BackgroundService Domain"""
 
+from .types import *
 from .commands import *
 from .events import *
 from .library import BackgroundServiceClient
-from .types import *
 
 __all__ = ["BackgroundServiceClient"]

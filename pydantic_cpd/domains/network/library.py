@@ -4,7 +4,7 @@
 
 from __future__ import annotations
 
-from typing import TYPE_CHECKING, Any
+from typing import TYPE_CHECKING, Any, Literal
 
 if TYPE_CHECKING:
     from pydantic_cpd.client import CDPClient
@@ -57,6 +57,7 @@ from .commands import (
     TakeResponseBodyForInterceptionAsStreamParams,
     TakeResponseBodyForInterceptionAsStreamResult,
 )
+
 from .types import (
     AuthChallengeResponse,
     BlockPattern,

@@ -1,8 +1,8 @@
 """CDP DOM Domain"""
 
+from .types import *
 from .commands import *
 from .events import *
 from .library import DOMClient
-from .types import *
 
 __all__ = ["DOMClient"]

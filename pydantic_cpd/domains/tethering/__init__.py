@@ -1,8 +1,8 @@
 """CDP Tethering Domain"""
 
+from .types import *
 from .commands import *
 from .events import *
 from .library import TetheringClient
-from .types import *
 
 __all__ = ["TetheringClient"]

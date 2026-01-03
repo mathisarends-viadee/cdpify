@@ -4,9 +4,9 @@ import subprocess
 from pathlib import Path
 
 from pydantic_cpd.generator.generators import (
+    ClientGenerator,
     CommandsGenerator,
     EventsGenerator,
-    LibraryGenerator,
     TypesGenerator,
 )
 from pydantic_cpd.generator.models import Domain
@@ -20,7 +20,7 @@ class DomainGenerator:
         self._types_gen = TypesGenerator()
         self._commands_gen = CommandsGenerator()
         self._events_gen = EventsGenerator()
-        self._library_gen = LibraryGenerator()
+        self._client_generator = ClientGenerator()
 
     def generate_all(self, domains: list[Domain]) -> None:
         self._prepare_output_dir()
@@ -62,7 +62,7 @@ class DomainGenerator:
         (domain_dir / "types.py").write_text(self._types_gen.generate(domain))
         (domain_dir / "commands.py").write_text(self._commands_gen.generate(domain))
         (domain_dir / "events.py").write_text(self._events_gen.generate(domain))
-        (domain_dir / "library.py").write_text(self._library_gen.generate(domain))
+        (domain_dir / "library.py").write_text(self._client_generator.generate(domain))
         (domain_dir / "__init__.py").write_text(self._build_domain_init(domain))
 
     def _build_domain_init(self, domain: Domain) -> str:

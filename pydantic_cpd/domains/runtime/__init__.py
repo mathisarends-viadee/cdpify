@@ -1,8 +1,8 @@
 """CDP Runtime Domain"""
 
+from .types import *
 from .commands import *
 from .events import *
 from .library import RuntimeClient
-from .types import *
 
 __all__ = ["RuntimeClient"]

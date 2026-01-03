@@ -4,12 +4,10 @@
 
 from __future__ import annotations
 
-from typing import TYPE_CHECKING, Any
+from typing import TYPE_CHECKING, Any, Literal
 
 if TYPE_CHECKING:
     from pydantic_cpd.client import CDPClient
-
-from pydantic_cpd.cdp import dom
 
 from .commands import (
     GetGridHighlightObjectsForTestParams,
@@ -28,8 +26,8 @@ from .commands import (
     SetShowAdHighlightsParams,
     SetShowContainerQueryOverlaysParams,
     SetShowDebugBordersParams,
-    SetShowFlexOverlaysParams,
     SetShowFPSCounterParams,
+    SetShowFlexOverlaysParams,
     SetShowGridOverlaysParams,
     SetShowHingeParams,
     SetShowHitTestBordersParams,
@@ -42,6 +40,7 @@ from .commands import (
     SetShowWebVitalsParams,
     SetShowWindowControlsOverlayParams,
 )
+
 from .types import (
     ColorFormat,
     ContainerQueryHighlightConfig,
@@ -55,6 +54,8 @@ from .types import (
     SourceOrderConfig,
     WindowControlsOverlayConfig,
 )
+
+from pydantic_cpd.domains import dom
 
 
 class OverlayClient:

@@ -35,7 +35,7 @@ class TypesGenerator(BaseGenerator):
         if typing_imports:
             lines.append(typing_imports)
 
-        lines.append("from pydantic_cpd.cdp.base import CDPModel")
+        lines.append("from pydantic_cpd.domains.base import CDPModel")
 
         return "\n".join(lines)
 

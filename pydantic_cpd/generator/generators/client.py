@@ -7,7 +7,7 @@ from pydantic_cpd.generator.generators.utils import (
 from pydantic_cpd.generator.models import Command, Domain, Parameter
 
 
-class LibraryGenerator(BaseGenerator):
+class ClientGenerator(BaseGenerator):
     def generate(self, domain: Domain) -> str:
         self._reset_tracking()
 

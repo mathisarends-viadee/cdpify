@@ -1,8 +1,8 @@
 """CDP ServiceWorker Domain"""
 
+from .types import *
 from .commands import *
 from .events import *
 from .library import ServiceWorkerClient
-from .types import *
 
 __all__ = ["ServiceWorkerClient"]

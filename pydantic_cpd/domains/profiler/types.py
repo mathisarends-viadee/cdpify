@@ -3,11 +3,10 @@
 # Generated from Chrome DevTools Protocol specifications.
 
 from typing import TYPE_CHECKING
-
-from pydantic_cpd.cdp.base import CDPModel
+from pydantic_cpd.domains.base import CDPModel
 
 if TYPE_CHECKING:
-    from pydantic_cpd.cdp import runtime
+    from pydantic_cpd.domains import runtime
 
 
 class ProfileNode(CDPModel):
