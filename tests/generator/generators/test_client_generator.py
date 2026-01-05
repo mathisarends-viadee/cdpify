@@ -1,7 +1,7 @@
 import pytest
 
-from pydantic_cpd.generator.generators.client import ClientGenerator
-from pydantic_cpd.generator.models import Command, Domain, Parameter
+from cdpify.generator.generators.client import ClientGenerator
+from cdpify.generator.models import Command, Domain, Parameter
 
 
 @pytest.fixture

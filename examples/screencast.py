@@ -5,8 +5,9 @@ from pathlib import Path
 
 import httpx
 
-from pydantic_cpd import CDPClient, PageClient
-from pydantic_cpd.cdp.page.events import PageEvent
+from cdpify import CDPClient
+from cdpify.domains import PageClient
+from cdpify.domains.page.events import PageEvent
 
 logging.basicConfig(
     level=logging.DEBUG, format="%(asctime)s - %(name)s - %(levelname)s - %(message)s"

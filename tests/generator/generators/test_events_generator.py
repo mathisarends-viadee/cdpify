@@ -1,7 +1,7 @@
 import pytest
 
-from pydantic_cpd.generator.generators.events import EventsGenerator
-from pydantic_cpd.generator.models import Domain, Event, Parameter
+from cdpify.generator.generators.events import EventsGenerator
+from cdpify.generator.models import Domain, Event, Parameter
 
 
 @pytest.fixture
@@ -111,14 +111,14 @@ class TestEventsGeneratorGenerate:
         self, events_generator: EventsGenerator, domain_with_simple_event: Domain
     ) -> None:
         result = events_generator.generate(domain_with_simple_event)
-        assert "from pydantic_cpd.domains.base import CDPModel" in result
+        assert "from cdpify.domains.base import CDPModel" in result
 
     def test_generate_with_cross_domain_ref_includes_type_checking_import(
         self, events_generator: EventsGenerator, domain_with_cross_domain_ref: Domain
     ) -> None:
         result = events_generator.generate(domain_with_cross_domain_ref)
         assert "if TYPE_CHECKING:" in result
-        assert "from pydantic_cpd.domains import dom" in result
+        assert "from cdpify.domains import dom" in result
 
     def test_generate_includes_header_comment(
         self, events_generator: EventsGenerator, domain_with_simple_event: Domain

@@ -5,7 +5,7 @@ Type-safe Python client for the Chrome DevTools Protocol (CDP) with Pydantic val
 ## Installation
 
 ```bash
-pip install pydantic-cdp
+pip install cdpify
 ```
 
 ## What it does
@@ -18,7 +18,7 @@ This library provides Python bindings for the Chrome DevTools Protocol with full
 
 ```python
 import asyncio
-from pydantic_cdp import CDPClient
+from cdpify import CDPClient
 
 async def main():
     async with CDPClient("ws://localhost:9222/devtools/browser/...") as client:
@@ -37,7 +37,8 @@ asyncio.run(main())
 Domain-specific clients provide typed methods for all CDP commands:
 
 ```python
-from pydantic_cdp import CDPClient, PageClient, RuntimeClient
+from cdpify import CDPClient
+from cdpify.domains import PageClient, RuntimeClient
 
 async def main():
     async with CDPClient("ws://localhost:9222/devtools/page/...") as client:
@@ -63,7 +64,8 @@ asyncio.run(main())
 Register handlers for CDP events:
 
 ```python
-from pydantic_cdp import CDPClient, PageClient
+from cdpify import CDPClient
+from cdpify.domains import PageClient
 
 async def main():
     client = CDPClient("ws://localhost:9222/devtools/page/...")
@@ -117,7 +119,7 @@ All CDP domains are available as typed clients:
 Import them from the root package:
 
 ```python
-from pydantic_cdp import (
+from cdpify import (
     CDPClient,
     PageClient,
     NetworkClient,

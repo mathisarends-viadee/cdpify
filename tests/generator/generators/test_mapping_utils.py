@@ -1,10 +1,10 @@
-from pydantic_cpd.generator.generators.utils import (
+from cdpify.generator.generators.utils import (
     format_docstring,
     map_cdp_type,
     to_pascal_case,
     to_snake_case,
 )
-from pydantic_cpd.generator.models import Parameter
+from cdpify.generator.models import Parameter
 
 
 class TestToPascalCase:

@@ -1,5 +1,5 @@
 [project]
-name = "pydantic-cdp"
+name = "cdpify"
 version = "0.1.0"
 description = "Add your description here"
 readme = "README.md"
@@ -16,7 +16,7 @@ requires = ["setuptools>=61.0"]
 build-backend = "setuptools.build_meta"
 
 [tool.setuptools.packages.find]
-include = ["pydantic_cdp*"]
+include = ["cdpify*"]
 exclude = ["specs*", "tests*"]
 
 [dependency-groups]

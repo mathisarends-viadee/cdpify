@@ -2,8 +2,8 @@ import asyncio
 
 import httpx
 
-from pydantic_cpd.cdp.page import PageClient
-from pydantic_cpd.client import CDPClient
+from cdpify import CDPClient
+from cdpify.domains import PageClient
 
 
 async def get_ws_url() -> str:

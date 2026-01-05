@@ -1,7 +1,7 @@
 import pytest
 
-from pydantic_cpd.generator.generators.commands import CommandsGenerator
-from pydantic_cpd.generator.models import Command, Domain, Parameter
+from cdpify.generator.generators.commands import CommandsGenerator
+from cdpify.generator.models import Command, Domain, Parameter
 
 
 @pytest.fixture
@@ -109,7 +109,7 @@ class TestCommandsGeneratorGenerate:
         self, commands_generator: CommandsGenerator, domain_with_simple_command: Domain
     ) -> None:
         result = commands_generator.generate(domain_with_simple_command)
-        assert "from pydantic_cpd.domains.base import CDPModel" in result
+        assert "from cdpify.domains.base import CDPModel" in result
 
     def test_generate_with_cross_domain_ref_includes_import(
         self,
@@ -117,7 +117,7 @@ class TestCommandsGeneratorGenerate:
         domain_with_cross_domain_ref: Domain,
     ) -> None:
         result = commands_generator.generate(domain_with_cross_domain_ref)
-        assert "from pydantic_cpd.domains import dom" in result
+        assert "from cdpify.domains import dom" in result
 
     def test_generate_includes_header_comment(
         self, commands_generator: CommandsGenerator, domain_with_simple_command: Domain
