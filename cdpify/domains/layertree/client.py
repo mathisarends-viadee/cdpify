@@ -4,7 +4,7 @@
 
 from __future__ import annotations
 
-from typing import TYPE_CHECKING, Any, Literal
+from typing import TYPE_CHECKING, Any
 
 if TYPE_CHECKING:
     from cdpify.client import CDPClient
@@ -32,7 +32,8 @@ from .types import (
     SnapshotId,
 )
 
-from cdpify.domains import dom
+if TYPE_CHECKING:
+    from cdpify.domains import dom
 
 
 class LayerTreeClient:
@@ -127,7 +128,7 @@ class LayerTreeClient:
         snapshot_id: SnapshotId,
         min_repeat_count: int | None = None,
         min_duration: float | None = None,
-        clip_rect: DOM.Rect | None = None,
+        clip_rect: dom.Rect | None = None,
         session_id: str | None = None,
     ) -> ProfileSnapshotResult:
         params = ProfileSnapshotParams(

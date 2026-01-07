@@ -9,6 +9,8 @@ from typing import TYPE_CHECKING, Any, Literal
 if TYPE_CHECKING:
     from cdpify.client import CDPClient
 
+from cdpify.shared.decorators import deprecated
+
 from .commands import (
     PerformanceCommand,
     EnableParams,
@@ -53,6 +55,7 @@ class PerformanceClient:
         )
         return result
 
+    @deprecated()
     async def set_time_domain(
         self,
         *,

@@ -29,6 +29,9 @@ class TypesGenerator(BaseGenerator):
         return "\n\n".join(sections)
 
     def _imports(self) -> str:
+        if self._cross_domain_refs:
+            self._build_cross_domain_imports(use_type_checking=True)
+
         lines = []
 
         typing_imports = self._build_typing_imports()

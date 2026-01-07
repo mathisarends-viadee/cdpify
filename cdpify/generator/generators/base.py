@@ -8,6 +8,7 @@ class BaseGenerator:
         self._cross_domain_refs: set[str] = set()
         self._uses_any: bool = False
         self._uses_literal: bool = False
+        self._uses_type_checking: bool = False
 
     def _header(self) -> str:
         return (
@@ -20,6 +21,7 @@ class BaseGenerator:
         self._cross_domain_refs.clear()
         self._uses_any = False
         self._uses_literal = False
+        self._uses_type_checking = False
 
     def _track_type_usage(self, type_str: str) -> None:
         if "Any" in type_str:
@@ -41,7 +43,7 @@ class BaseGenerator:
             imports.append("Any")
         if self._uses_literal:
             imports.append("Literal")
-        if self._cross_domain_refs:
+        if self._uses_type_checking:
             imports.append("TYPE_CHECKING")
 
         if not imports:
@@ -57,8 +59,11 @@ class BaseGenerator:
         domains_list = ", ".join(sorted(unique_domains))
 
         if use_type_checking:
+            # When using TYPE_CHECKING, mark it for inclusion in typing imports
+            self._uses_type_checking = True
             return f"if TYPE_CHECKING:\n    from cdpify.domains import {domains_list}"
 
+        # Direct imports (no TYPE_CHECKING)
         lines = [
             f"from cdpify.domains import {domain}" for domain in sorted(unique_domains)
         ]

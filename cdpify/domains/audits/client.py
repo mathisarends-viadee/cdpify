@@ -17,7 +17,8 @@ from .commands import (
     GetEncodedResponseResult,
 )
 
-from cdpify.domains import network
+if TYPE_CHECKING:
+    from cdpify.domains import network
 
 
 class AuditsClient:
@@ -27,7 +28,7 @@ class AuditsClient:
     async def get_encoded_response(
         self,
         *,
-        request_id: Network.RequestId,
+        request_id: network.RequestId,
         encoding: Literal["webp", "jpeg", "png"],
         quality: float | None = None,
         size_only: bool | None = None,

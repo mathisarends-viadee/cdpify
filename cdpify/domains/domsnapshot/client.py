@@ -4,10 +4,12 @@
 
 from __future__ import annotations
 
-from typing import TYPE_CHECKING, Any, Literal
+from typing import TYPE_CHECKING, Any
 
 if TYPE_CHECKING:
     from cdpify.client import CDPClient
+
+from cdpify.shared.decorators import deprecated
 
 from .commands import (
     DOMSnapshotCommand,
@@ -50,6 +52,7 @@ class DOMSnapshotClient:
         )
         return result
 
+    @deprecated()
     async def get_snapshot(
         self,
         *,

@@ -16,10 +16,10 @@ class EventsGenerator(TypeAwareGenerator):
         event_enum = self._generate_event_enum(domain)
         event_models = self._generate_event_models(domain)
 
-        sections = [
-            self._header(),
-            self._imports(bool(event_models)),
-        ]
+        sections = [self._header()]
+
+        if event_models:
+            sections.append(self._imports())
 
         if self._cross_domain_refs:
             sections.append(self._cross_domain_imports())
@@ -42,7 +42,11 @@ class EventsGenerator(TypeAwareGenerator):
         for param in event.parameters:
             self._scan_parameter(param)
 
-    def _imports(self, has_models: bool) -> str:
+    def _imports(self) -> str:
+        # Pre-build cross-domain imports to set TYPE_CHECKING flag
+        if self._cross_domain_refs:
+            self._build_cross_domain_imports(use_type_checking=True)
+
         lines = []
 
         typing_imports = self._build_typing_imports()
@@ -108,6 +112,8 @@ class EventsGenerator(TypeAwareGenerator):
     def _create_field(self, param: Parameter) -> str:
         field_name = to_snake_case(param.name)
         py_type = self._resolve_type(param)
+
+        self._track_type_usage(py_type)
 
         if param.optional:
             return f"{field_name}: {py_type} | None = None"

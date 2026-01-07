@@ -4,10 +4,12 @@
 
 from __future__ import annotations
 
-from typing import TYPE_CHECKING, Any, Literal
+from typing import TYPE_CHECKING, Any
 
 if TYPE_CHECKING:
     from cdpify.client import CDPClient
+
+from cdpify.shared.decorators import deprecated
 
 from .commands import (
     OverlayCommand,
@@ -56,9 +58,8 @@ from .types import (
     WindowControlsOverlayConfig,
 )
 
-from cdpify.domains import dom
-from cdpify.domains import page
-from cdpify.domains import runtime
+if TYPE_CHECKING:
+    from cdpify.domains import dom, page, runtime
 
 
 class OverlayClient:
@@ -96,7 +97,7 @@ class OverlayClient:
     async def get_highlight_object_for_test(
         self,
         *,
-        node_id: DOM.NodeId,
+        node_id: dom.NodeId,
         include_distance: bool | None = None,
         include_style: bool | None = None,
         color_format: ColorFormat | None = None,
@@ -142,7 +143,7 @@ class OverlayClient:
     async def get_source_order_highlight_object_for_test(
         self,
         *,
-        node_id: DOM.NodeId,
+        node_id: dom.NodeId,
         session_id: str | None = None,
     ) -> GetSourceOrderHighlightObjectForTestResult:
         """
@@ -171,12 +172,13 @@ class OverlayClient:
         )
         return result
 
+    @deprecated()
     async def highlight_frame(
         self,
         *,
-        frame_id: Page.FrameId,
-        content_color: DOM.RGBA | None = None,
-        content_outline_color: DOM.RGBA | None = None,
+        frame_id: page.FrameId,
+        content_color: dom.RGBA | None = None,
+        content_outline_color: dom.RGBA | None = None,
         session_id: str | None = None,
     ) -> dict[str, Any]:
         """
@@ -202,9 +204,9 @@ class OverlayClient:
         self,
         *,
         highlight_config: HighlightConfig,
-        node_id: DOM.NodeId | None = None,
-        backend_node_id: DOM.BackendNodeId | None = None,
-        object_id: Runtime.RemoteObjectId | None = None,
+        node_id: dom.NodeId | None = None,
+        backend_node_id: dom.BackendNodeId | None = None,
+        object_id: runtime.RemoteObjectId | None = None,
         selector: str | None = None,
         session_id: str | None = None,
     ) -> dict[str, Any]:
@@ -230,9 +232,9 @@ class OverlayClient:
     async def highlight_quad(
         self,
         *,
-        quad: DOM.Quad,
-        color: DOM.RGBA | None = None,
-        outline_color: DOM.RGBA | None = None,
+        quad: dom.Quad,
+        color: dom.RGBA | None = None,
+        outline_color: dom.RGBA | None = None,
         session_id: str | None = None,
     ) -> dict[str, Any]:
         """
@@ -257,8 +259,8 @@ class OverlayClient:
         y: int,
         width: int,
         height: int,
-        color: DOM.RGBA | None = None,
-        outline_color: DOM.RGBA | None = None,
+        color: dom.RGBA | None = None,
+        outline_color: dom.RGBA | None = None,
         session_id: str | None = None,
     ) -> dict[str, Any]:
         """
@@ -287,9 +289,9 @@ class OverlayClient:
         self,
         *,
         source_order_config: SourceOrderConfig,
-        node_id: DOM.NodeId | None = None,
-        backend_node_id: DOM.BackendNodeId | None = None,
-        object_id: Runtime.RemoteObjectId | None = None,
+        node_id: dom.NodeId | None = None,
+        backend_node_id: dom.BackendNodeId | None = None,
+        object_id: runtime.RemoteObjectId | None = None,
         session_id: str | None = None,
     ) -> dict[str, Any]:
         """
@@ -526,6 +528,7 @@ class OverlayClient:
         )
         return result
 
+    @deprecated()
     async def set_show_hit_test_borders(
         self,
         *,
@@ -544,6 +547,7 @@ class OverlayClient:
         )
         return result
 
+    @deprecated()
     async def set_show_web_vitals(
         self,
         *,

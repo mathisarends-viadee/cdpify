@@ -4,7 +4,7 @@
 
 from __future__ import annotations
 
-from typing import TYPE_CHECKING, Any, Literal
+from typing import TYPE_CHECKING, Any
 
 if TYPE_CHECKING:
     from cdpify.client import CDPClient
@@ -30,7 +30,8 @@ from .types import (
     RequestPattern,
 )
 
-from cdpify.domains import network
+if TYPE_CHECKING:
+    from cdpify.domains import network
 
 
 class FetchClient:
@@ -77,7 +78,7 @@ class FetchClient:
         self,
         *,
         request_id: RequestId,
-        error_reason: Network.ErrorReason,
+        error_reason: network.ErrorReason,
         session_id: str | None = None,
     ) -> dict[str, Any]:
         """

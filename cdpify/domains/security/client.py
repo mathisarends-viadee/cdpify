@@ -4,10 +4,12 @@
 
 from __future__ import annotations
 
-from typing import TYPE_CHECKING, Any, Literal
+from typing import TYPE_CHECKING, Any
 
 if TYPE_CHECKING:
     from cdpify.client import CDPClient
+
+from cdpify.shared.decorators import deprecated
 
 from .commands import (
     SecurityCommand,
@@ -71,6 +73,7 @@ class SecurityClient:
         )
         return result
 
+    @deprecated()
     async def handle_certificate_error(
         self,
         *,
@@ -90,6 +93,7 @@ class SecurityClient:
         )
         return result
 
+    @deprecated()
     async def set_override_certificate_errors(
         self,
         *,

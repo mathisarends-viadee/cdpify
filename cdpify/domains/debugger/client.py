@@ -9,6 +9,8 @@ from typing import TYPE_CHECKING, Any, Literal
 if TYPE_CHECKING:
     from cdpify.client import CDPClient
 
+from cdpify.shared.decorators import deprecated
+
 from .commands import (
     DebuggerCommand,
     ContinueToLocationParams,
@@ -66,7 +68,8 @@ from .types import (
     ScriptPosition,
 )
 
-from cdpify.domains import runtime
+if TYPE_CHECKING:
+    from cdpify.domains import runtime
 
 
 class DebuggerClient:
@@ -138,7 +141,7 @@ class DebuggerClient:
         return_by_value: bool | None = None,
         generate_preview: bool | None = None,
         throw_on_side_effect: bool | None = None,
-        timeout: Runtime.TimeDelta | None = None,
+        timeout: runtime.TimeDelta | None = None,
         session_id: str | None = None,
     ) -> EvaluateOnCallFrameResult:
         """
@@ -189,7 +192,7 @@ class DebuggerClient:
     async def get_script_source(
         self,
         *,
-        script_id: Runtime.ScriptId,
+        script_id: runtime.ScriptId,
         session_id: str | None = None,
     ) -> GetScriptSourceResult:
         """
@@ -207,7 +210,7 @@ class DebuggerClient:
     async def disassemble_wasm_module(
         self,
         *,
-        script_id: Runtime.ScriptId,
+        script_id: runtime.ScriptId,
         session_id: str | None = None,
     ) -> DisassembleWasmModuleResult:
         params = DisassembleWasmModuleParams(script_id=script_id)
@@ -239,10 +242,11 @@ class DebuggerClient:
         )
         return NextWasmDisassemblyChunkResult.from_cdp(result)
 
+    @deprecated()
     async def get_wasm_bytecode(
         self,
         *,
-        script_id: Runtime.ScriptId,
+        script_id: runtime.ScriptId,
         session_id: str | None = None,
     ) -> GetWasmBytecodeResult:
         """
@@ -260,7 +264,7 @@ class DebuggerClient:
     async def get_stack_trace(
         self,
         *,
-        stack_trace_id: Runtime.StackTraceId,
+        stack_trace_id: runtime.StackTraceId,
         session_id: str | None = None,
     ) -> GetStackTraceResult:
         """
@@ -289,10 +293,11 @@ class DebuggerClient:
         )
         return result
 
+    @deprecated()
     async def pause_on_async_call(
         self,
         *,
-        parent_stack_trace_id: Runtime.StackTraceId,
+        parent_stack_trace_id: runtime.StackTraceId,
         session_id: str | None = None,
     ) -> dict[str, Any]:
         params = PauseOnAsyncCallParams(parent_stack_trace_id=parent_stack_trace_id)
@@ -371,7 +376,7 @@ class DebuggerClient:
     async def search_in_content(
         self,
         *,
-        script_id: Runtime.ScriptId,
+        script_id: runtime.ScriptId,
         query: str,
         case_sensitive: bool | None = None,
         is_regex: bool | None = None,
@@ -460,7 +465,7 @@ class DebuggerClient:
     async def set_blackboxed_ranges(
         self,
         *,
-        script_id: Runtime.ScriptId,
+        script_id: runtime.ScriptId,
         positions: list[ScriptPosition],
         session_id: str | None = None,
     ) -> dict[str, Any]:
@@ -555,7 +560,7 @@ class DebuggerClient:
     async def set_breakpoint_on_function_call(
         self,
         *,
-        object_id: Runtime.RemoteObjectId,
+        object_id: runtime.RemoteObjectId,
         condition: str | None = None,
         session_id: str | None = None,
     ) -> SetBreakpointOnFunctionCallResult:
@@ -616,7 +621,7 @@ class DebuggerClient:
     async def set_return_value(
         self,
         *,
-        new_value: Runtime.CallArgument,
+        new_value: runtime.CallArgument,
         session_id: str | None = None,
     ) -> dict[str, Any]:
         """
@@ -634,7 +639,7 @@ class DebuggerClient:
     async def set_script_source(
         self,
         *,
-        script_id: Runtime.ScriptId,
+        script_id: runtime.ScriptId,
         script_source: str,
         dry_run: bool | None = None,
         allow_top_frame_editing: bool | None = None,
@@ -685,7 +690,7 @@ class DebuggerClient:
         *,
         scope_number: int,
         variable_name: str,
-        new_value: Runtime.CallArgument,
+        new_value: runtime.CallArgument,
         call_frame_id: CallFrameId,
         session_id: str | None = None,
     ) -> dict[str, Any]:

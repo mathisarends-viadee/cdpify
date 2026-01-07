@@ -4,7 +4,7 @@
 
 from __future__ import annotations
 
-from typing import TYPE_CHECKING, Any, Literal
+from typing import TYPE_CHECKING, Any
 
 if TYPE_CHECKING:
     from cdpify.client import CDPClient
@@ -28,7 +28,8 @@ from .types import (
     KeyRange,
 )
 
-from cdpify.domains import storage
+if TYPE_CHECKING:
+    from cdpify.domains import storage
 
 
 class IndexedDBClient:
@@ -40,7 +41,7 @@ class IndexedDBClient:
         *,
         security_origin: str | None = None,
         storage_key: str | None = None,
-        storage_bucket: Storage.StorageBucket | None = None,
+        storage_bucket: storage.StorageBucket | None = None,
         database_name: str,
         object_store_name: str,
         session_id: str | None = None,
@@ -68,7 +69,7 @@ class IndexedDBClient:
         *,
         security_origin: str | None = None,
         storage_key: str | None = None,
-        storage_bucket: Storage.StorageBucket | None = None,
+        storage_bucket: storage.StorageBucket | None = None,
         database_name: str,
         session_id: str | None = None,
     ) -> dict[str, Any]:
@@ -94,7 +95,7 @@ class IndexedDBClient:
         *,
         security_origin: str | None = None,
         storage_key: str | None = None,
-        storage_bucket: Storage.StorageBucket | None = None,
+        storage_bucket: storage.StorageBucket | None = None,
         database_name: str,
         object_store_name: str,
         key_range: KeyRange,
@@ -152,7 +153,7 @@ class IndexedDBClient:
         *,
         security_origin: str | None = None,
         storage_key: str | None = None,
-        storage_bucket: Storage.StorageBucket | None = None,
+        storage_bucket: storage.StorageBucket | None = None,
         database_name: str,
         object_store_name: str,
         index_name: str | None = None,
@@ -188,7 +189,7 @@ class IndexedDBClient:
         *,
         security_origin: str | None = None,
         storage_key: str | None = None,
-        storage_bucket: Storage.StorageBucket | None = None,
+        storage_bucket: storage.StorageBucket | None = None,
         database_name: str,
         object_store_name: str,
         session_id: str | None = None,
@@ -216,7 +217,7 @@ class IndexedDBClient:
         *,
         security_origin: str | None = None,
         storage_key: str | None = None,
-        storage_bucket: Storage.StorageBucket | None = None,
+        storage_bucket: storage.StorageBucket | None = None,
         database_name: str,
         session_id: str | None = None,
     ) -> RequestDatabaseResult:
@@ -242,7 +243,7 @@ class IndexedDBClient:
         *,
         security_origin: str | None = None,
         storage_key: str | None = None,
-        storage_bucket: Storage.StorageBucket | None = None,
+        storage_bucket: storage.StorageBucket | None = None,
         session_id: str | None = None,
     ) -> RequestDatabaseNamesResult:
         """

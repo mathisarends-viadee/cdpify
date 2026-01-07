@@ -9,6 +9,8 @@ from typing import TYPE_CHECKING, Any, Literal
 if TYPE_CHECKING:
     from cdpify.client import CDPClient
 
+from cdpify.shared.decorators import deprecated
+
 from .commands import (
     DOMCommand,
     CollectClassNamesFromSubtreeParams,
@@ -98,9 +100,8 @@ from .types import (
     Rect,
 )
 
-from cdpify.domains import dom
-from cdpify.domains import page
-from cdpify.domains import runtime
+if TYPE_CHECKING:
+    from cdpify.domains import dom, page, runtime
 
 
 class DOMClient:
@@ -155,7 +156,7 @@ class DOMClient:
         *,
         node_id: NodeId | None = None,
         backend_node_id: BackendNodeId | None = None,
-        object_id: Runtime.RemoteObjectId | None = None,
+        object_id: runtime.RemoteObjectId | None = None,
         depth: int | None = None,
         pierce: bool | None = None,
         session_id: str | None = None,
@@ -184,7 +185,7 @@ class DOMClient:
         *,
         node_id: NodeId | None = None,
         backend_node_id: BackendNodeId | None = None,
-        object_id: Runtime.RemoteObjectId | None = None,
+        object_id: runtime.RemoteObjectId | None = None,
         rect: Rect | None = None,
         session_id: str | None = None,
     ) -> dict[str, Any]:
@@ -263,7 +264,7 @@ class DOMClient:
         *,
         node_id: NodeId | None = None,
         backend_node_id: BackendNodeId | None = None,
-        object_id: Runtime.RemoteObjectId | None = None,
+        object_id: runtime.RemoteObjectId | None = None,
         session_id: str | None = None,
     ) -> dict[str, Any]:
         """
@@ -303,7 +304,7 @@ class DOMClient:
         *,
         node_id: NodeId | None = None,
         backend_node_id: BackendNodeId | None = None,
-        object_id: Runtime.RemoteObjectId | None = None,
+        object_id: runtime.RemoteObjectId | None = None,
         session_id: str | None = None,
     ) -> GetBoxModelResult:
         """
@@ -325,7 +326,7 @@ class DOMClient:
         *,
         node_id: NodeId | None = None,
         backend_node_id: BackendNodeId | None = None,
-        object_id: Runtime.RemoteObjectId | None = None,
+        object_id: runtime.RemoteObjectId | None = None,
         session_id: str | None = None,
     ) -> GetContentQuadsResult:
         """
@@ -363,6 +364,7 @@ class DOMClient:
         )
         return GetDocumentResult.from_cdp(result)
 
+    @deprecated()
     async def get_flattened_document(
         self,
         *,
@@ -438,7 +440,7 @@ class DOMClient:
         *,
         node_id: NodeId | None = None,
         backend_node_id: BackendNodeId | None = None,
-        object_id: Runtime.RemoteObjectId | None = None,
+        object_id: runtime.RemoteObjectId | None = None,
         include_shadow_d_o_m: bool | None = None,
         session_id: str | None = None,
     ) -> GetOuterHTMLResult:
@@ -791,7 +793,7 @@ class DOMClient:
     async def request_node(
         self,
         *,
-        object_id: Runtime.RemoteObjectId,
+        object_id: runtime.RemoteObjectId,
         session_id: str | None = None,
     ) -> RequestNodeResult:
         """
@@ -812,9 +814,9 @@ class DOMClient:
         self,
         *,
         node_id: NodeId | None = None,
-        backend_node_id: DOM.BackendNodeId | None = None,
+        backend_node_id: dom.BackendNodeId | None = None,
         object_group: str | None = None,
-        execution_context_id: Runtime.ExecutionContextId | None = None,
+        execution_context_id: runtime.ExecutionContextId | None = None,
         session_id: str | None = None,
     ) -> ResolveNodeResult:
         """
@@ -881,7 +883,7 @@ class DOMClient:
         files: list[str],
         node_id: NodeId | None = None,
         backend_node_id: BackendNodeId | None = None,
-        object_id: Runtime.RemoteObjectId | None = None,
+        object_id: runtime.RemoteObjectId | None = None,
         session_id: str | None = None,
     ) -> dict[str, Any]:
         """
@@ -942,7 +944,7 @@ class DOMClient:
     async def get_file_info(
         self,
         *,
-        object_id: Runtime.RemoteObjectId,
+        object_id: runtime.RemoteObjectId,
         session_id: str | None = None,
     ) -> GetFileInfoResult:
         """
@@ -1064,7 +1066,7 @@ class DOMClient:
     async def get_frame_owner(
         self,
         *,
-        frame_id: Page.FrameId,
+        frame_id: page.FrameId,
         session_id: str | None = None,
     ) -> GetFrameOwnerResult:
         """

@@ -4,7 +4,7 @@
 
 from __future__ import annotations
 
-from typing import TYPE_CHECKING, Any, Literal
+from typing import TYPE_CHECKING, Any
 
 if TYPE_CHECKING:
     from cdpify.client import CDPClient
@@ -26,7 +26,8 @@ from .types import (
     Header,
 )
 
-from cdpify.domains import storage
+if TYPE_CHECKING:
+    from cdpify.domains import storage
 
 
 class CacheStorageClient:
@@ -75,7 +76,7 @@ class CacheStorageClient:
         *,
         security_origin: str | None = None,
         storage_key: str | None = None,
-        storage_bucket: Storage.StorageBucket | None = None,
+        storage_bucket: storage.StorageBucket | None = None,
         session_id: str | None = None,
     ) -> RequestCacheNamesResult:
         """

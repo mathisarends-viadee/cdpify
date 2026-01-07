@@ -4,10 +4,12 @@
 
 from __future__ import annotations
 
-from typing import TYPE_CHECKING, Any, Literal
+from typing import TYPE_CHECKING, Any
 
 if TYPE_CHECKING:
     from cdpify.client import CDPClient
+
+from cdpify.shared.decorators import deprecated
 
 from .commands import (
     TargetCommand,
@@ -48,7 +50,8 @@ from .types import (
     WindowState,
 )
 
-from cdpify.domains import browser
+if TYPE_CHECKING:
+    from cdpify.domains import browser
 
 
 class TargetClient:
@@ -203,7 +206,7 @@ class TargetClient:
         width: int | None = None,
         height: int | None = None,
         window_state: WindowState | None = None,
-        browser_context_id: Browser.BrowserContextID | None = None,
+        browser_context_id: browser.BrowserContextID | None = None,
         enable_begin_frame_control: bool | None = None,
         new_window: bool | None = None,
         background: bool | None = None,
@@ -260,7 +263,7 @@ class TargetClient:
     async def dispose_browser_context(
         self,
         *,
-        browser_context_id: Browser.BrowserContextID,
+        browser_context_id: browser.BrowserContextID,
         session_id: str | None = None,
     ) -> dict[str, Any]:
         """
@@ -312,6 +315,7 @@ class TargetClient:
         )
         return GetTargetsResult.from_cdp(result)
 
+    @deprecated()
     async def send_message_to_target(
         self,
         *,

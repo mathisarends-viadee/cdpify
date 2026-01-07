@@ -4,10 +4,12 @@
 
 from __future__ import annotations
 
-from typing import TYPE_CHECKING, Any, Literal
+from typing import TYPE_CHECKING, Any
 
 if TYPE_CHECKING:
     from cdpify.client import CDPClient
+
+from cdpify.shared.decorators import deprecated
 
 from .commands import (
     DOMDebuggerCommand,
@@ -29,8 +31,8 @@ from .types import (
     DOMBreakpointType,
 )
 
-from cdpify.domains import dom
-from cdpify.domains import runtime
+if TYPE_CHECKING:
+    from cdpify.domains import dom, runtime
 
 
 class DOMDebuggerClient:
@@ -40,7 +42,7 @@ class DOMDebuggerClient:
     async def get_event_listeners(
         self,
         *,
-        object_id: Runtime.RemoteObjectId,
+        object_id: runtime.RemoteObjectId,
         depth: int | None = None,
         pierce: bool | None = None,
         session_id: str | None = None,
@@ -62,7 +64,7 @@ class DOMDebuggerClient:
     async def remove_d_o_m_breakpoint(
         self,
         *,
-        node_id: DOM.NodeId,
+        node_id: dom.NodeId,
         type: DOMBreakpointType,
         session_id: str | None = None,
     ) -> dict[str, Any]:
@@ -99,6 +101,7 @@ class DOMDebuggerClient:
         )
         return result
 
+    @deprecated()
     async def remove_instrumentation_breakpoint(
         self,
         *,
@@ -156,7 +159,7 @@ class DOMDebuggerClient:
     async def set_d_o_m_breakpoint(
         self,
         *,
-        node_id: DOM.NodeId,
+        node_id: dom.NodeId,
         type: DOMBreakpointType,
         session_id: str | None = None,
     ) -> dict[str, Any]:
@@ -193,6 +196,7 @@ class DOMDebuggerClient:
         )
         return result
 
+    @deprecated()
     async def set_instrumentation_breakpoint(
         self,
         *,

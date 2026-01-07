@@ -4,7 +4,7 @@
 
 from __future__ import annotations
 
-from typing import TYPE_CHECKING, Any, Literal
+from typing import TYPE_CHECKING, Any
 
 if TYPE_CHECKING:
     from cdpify.client import CDPClient
@@ -28,7 +28,8 @@ from .types import (
     HeapSnapshotObjectId,
 )
 
-from cdpify.domains import runtime
+if TYPE_CHECKING:
+    from cdpify.domains import runtime
 
 
 class HeapProfilerClient:
@@ -90,7 +91,7 @@ class HeapProfilerClient:
     async def get_heap_object_id(
         self,
         *,
-        object_id: Runtime.RemoteObjectId,
+        object_id: runtime.RemoteObjectId,
         session_id: str | None = None,
     ) -> GetHeapObjectIdResult:
         params = GetHeapObjectIdParams(object_id=object_id)

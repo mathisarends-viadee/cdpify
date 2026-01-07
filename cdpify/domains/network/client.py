@@ -4,10 +4,12 @@
 
 from __future__ import annotations
 
-from typing import TYPE_CHECKING, Any, Literal
+from typing import TYPE_CHECKING, Any
 
 if TYPE_CHECKING:
     from cdpify.client import CDPClient
+
+from cdpify.shared.decorators import deprecated
 
 from .commands import (
     NetworkCommand,
@@ -82,8 +84,8 @@ from .types import (
     TimeSinceEpoch,
 )
 
-from cdpify.domains import emulation
-from cdpify.domains import page
+if TYPE_CHECKING:
+    from cdpify.domains import emulation, page
 
 
 class NetworkClient:
@@ -123,6 +125,7 @@ class NetworkClient:
         )
         return result
 
+    @deprecated()
     async def can_clear_browser_cache(
         self,
         session_id: str | None = None,
@@ -137,6 +140,7 @@ class NetworkClient:
         )
         return CanClearBrowserCacheResult.from_cdp(result)
 
+    @deprecated()
     async def can_clear_browser_cookies(
         self,
         session_id: str | None = None,
@@ -151,6 +155,7 @@ class NetworkClient:
         )
         return CanClearBrowserCookiesResult.from_cdp(result)
 
+    @deprecated()
     async def can_emulate_network_conditions(
         self,
         session_id: str | None = None,
@@ -193,6 +198,7 @@ class NetworkClient:
         )
         return result
 
+    @deprecated()
     async def continue_intercepted_request(
         self,
         *,
@@ -272,6 +278,7 @@ class NetworkClient:
         )
         return result
 
+    @deprecated()
     async def emulate_network_conditions(
         self,
         *,
@@ -412,6 +419,7 @@ class NetworkClient:
         )
         return result
 
+    @deprecated()
     async def get_all_cookies(
         self,
         session_id: str | None = None,
@@ -746,6 +754,7 @@ class NetworkClient:
         )
         return result
 
+    @deprecated()
     async def set_request_interception(
         self,
         *,
@@ -771,7 +780,7 @@ class NetworkClient:
         user_agent: str,
         accept_language: str | None = None,
         platform: str | None = None,
-        user_agent_metadata: Emulation.UserAgentMetadata | None = None,
+        user_agent_metadata: emulation.UserAgentMetadata | None = None,
         session_id: str | None = None,
     ) -> dict[str, Any]:
         """
@@ -813,7 +822,7 @@ class NetworkClient:
     async def get_security_isolation_status(
         self,
         *,
-        frame_id: Page.FrameId | None = None,
+        frame_id: page.FrameId | None = None,
         session_id: str | None = None,
     ) -> GetSecurityIsolationStatusResult:
         """
@@ -887,7 +896,7 @@ class NetworkClient:
     async def load_network_resource(
         self,
         *,
-        frame_id: Page.FrameId | None = None,
+        frame_id: page.FrameId | None = None,
         url: str,
         options: LoadNetworkResourceOptions,
         session_id: str | None = None,

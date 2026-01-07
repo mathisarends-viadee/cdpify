@@ -4,10 +4,12 @@
 
 from __future__ import annotations
 
-from typing import TYPE_CHECKING, Any, Literal
+from typing import TYPE_CHECKING, Any
 
 if TYPE_CHECKING:
     from cdpify.client import CDPClient
+
+from cdpify.shared.decorators import deprecated
 
 from .commands import (
     StorageCommand,
@@ -64,19 +66,19 @@ from .types import (
     StorageBucket,
 )
 
-from cdpify.domains import browser
-from cdpify.domains import network
-from cdpify.domains import page
+if TYPE_CHECKING:
+    from cdpify.domains import browser, network, page
 
 
 class StorageClient:
     def __init__(self, client: CDPClient) -> None:
         self._client = client
 
+    @deprecated()
     async def get_storage_key_for_frame(
         self,
         *,
-        frame_id: Page.FrameId,
+        frame_id: page.FrameId,
         session_id: str | None = None,
     ) -> GetStorageKeyForFrameResult:
         """
@@ -95,7 +97,7 @@ class StorageClient:
     async def get_storage_key(
         self,
         *,
-        frame_id: Page.FrameId | None = None,
+        frame_id: page.FrameId | None = None,
         session_id: str | None = None,
     ) -> GetStorageKeyResult:
         """
@@ -154,7 +156,7 @@ class StorageClient:
     async def get_cookies(
         self,
         *,
-        browser_context_id: Browser.BrowserContextID | None = None,
+        browser_context_id: browser.BrowserContextID | None = None,
         session_id: str | None = None,
     ) -> GetCookiesResult:
         """
@@ -173,7 +175,7 @@ class StorageClient:
         self,
         *,
         cookies: list[network.CookieParam],
-        browser_context_id: Browser.BrowserContextID | None = None,
+        browser_context_id: browser.BrowserContextID | None = None,
         session_id: str | None = None,
     ) -> dict[str, Any]:
         """
@@ -193,7 +195,7 @@ class StorageClient:
     async def clear_cookies(
         self,
         *,
-        browser_context_id: Browser.BrowserContextID | None = None,
+        browser_context_id: browser.BrowserContextID | None = None,
         session_id: str | None = None,
     ) -> dict[str, Any]:
         """

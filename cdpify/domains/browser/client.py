@@ -9,6 +9,8 @@ from typing import TYPE_CHECKING, Any, Literal
 if TYPE_CHECKING:
     from cdpify.client import CDPClient
 
+from cdpify.shared.decorators import deprecated
+
 from .commands import (
     BrowserCommand,
     AddPrivacySandboxCoordinatorKeyConfigParams,
@@ -45,7 +47,8 @@ from .types import (
     WindowID,
 )
 
-from cdpify.domains import target
+if TYPE_CHECKING:
+    from cdpify.domains import target
 
 
 class BrowserClient:
@@ -80,6 +83,7 @@ class BrowserClient:
         )
         return result
 
+    @deprecated()
     async def grant_permissions(
         self,
         *,
@@ -298,7 +302,7 @@ class BrowserClient:
     async def get_window_for_target(
         self,
         *,
-        target_id: Target.TargetID | None = None,
+        target_id: target.TargetID | None = None,
         session_id: str | None = None,
     ) -> GetWindowForTargetResult:
         """

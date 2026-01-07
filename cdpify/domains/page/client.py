@@ -9,6 +9,8 @@ from typing import TYPE_CHECKING, Any, Literal
 if TYPE_CHECKING:
     from cdpify.client import CDPClient
 
+from cdpify.shared.decorators import deprecated
+
 from .commands import (
     PageCommand,
     AddCompilationCacheParams,
@@ -88,14 +90,15 @@ from .types import (
     Viewport,
 )
 
-from cdpify.domains import emulation
-from cdpify.domains import network
+if TYPE_CHECKING:
+    from cdpify.domains import emulation, network
 
 
 class PageClient:
     def __init__(self, client: CDPClient) -> None:
         self._client = client
 
+    @deprecated()
     async def add_script_to_evaluate_on_load(
         self,
         *,
@@ -204,6 +207,7 @@ class PageClient:
         )
         return CaptureSnapshotResult.from_cdp(result)
 
+    @deprecated()
     async def clear_device_metrics_override(
         self,
         session_id: str | None = None,
@@ -218,6 +222,7 @@ class PageClient:
         )
         return result
 
+    @deprecated()
     async def clear_device_orientation_override(
         self,
         session_id: str | None = None,
@@ -232,6 +237,7 @@ class PageClient:
         )
         return result
 
+    @deprecated()
     async def clear_geolocation_override(
         self,
         session_id: str | None = None,
@@ -270,6 +276,7 @@ class PageClient:
         )
         return CreateIsolatedWorldResult.from_cdp(result)
 
+    @deprecated()
     async def delete_cookie(
         self,
         *,
@@ -355,6 +362,7 @@ class PageClient:
         )
         return GetInstallabilityErrorsResult.from_cdp(result)
 
+    @deprecated()
     async def get_manifest_icons(
         self,
         session_id: str | None = None,
@@ -613,7 +621,7 @@ class PageClient:
         *,
         ignore_cache: bool | None = None,
         script_to_evaluate_on_load: str | None = None,
-        loader_id: Network.LoaderId | None = None,
+        loader_id: network.LoaderId | None = None,
         session_id: str | None = None,
     ) -> dict[str, Any]:
         """
@@ -632,6 +640,7 @@ class PageClient:
         )
         return result
 
+    @deprecated()
     async def remove_script_to_evaluate_on_load(
         self,
         *,
@@ -786,6 +795,7 @@ class PageClient:
         )
         return GetOriginTrialsResult.from_cdp(result)
 
+    @deprecated()
     async def set_device_metrics_override(
         self,
         *,
@@ -799,7 +809,7 @@ class PageClient:
         position_x: int | None = None,
         position_y: int | None = None,
         dont_set_visible_size: bool | None = None,
-        screen_orientation: Emulation.ScreenOrientation | None = None,
+        screen_orientation: emulation.ScreenOrientation | None = None,
         viewport: Viewport | None = None,
         session_id: str | None = None,
     ) -> dict[str, Any]:
@@ -830,6 +840,7 @@ class PageClient:
         )
         return result
 
+    @deprecated()
     async def set_device_orientation_override(
         self,
         *,
@@ -908,6 +919,7 @@ class PageClient:
         )
         return result
 
+    @deprecated()
     async def set_download_behavior(
         self,
         *,
@@ -929,6 +941,7 @@ class PageClient:
         )
         return result
 
+    @deprecated()
     async def set_geolocation_override(
         self,
         *,
@@ -970,6 +983,7 @@ class PageClient:
         )
         return result
 
+    @deprecated()
     async def set_touch_emulation_enabled(
         self,
         *,

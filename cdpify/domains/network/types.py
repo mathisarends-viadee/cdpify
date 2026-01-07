@@ -969,6 +969,146 @@ class DeviceBoundSession(CDPModel):
     allowed_refresh_initiators: list[str]
 
 
+"""
+A unique identifier for a device bound session event.
+"""
+DeviceBoundSessionEventId = str
+
+"""
+A fetch result for a device bound session creation or refresh.
+"""
+DeviceBoundSessionFetchResult = Literal[
+    "Success",
+    "KeyError",
+    "SigningError",
+    "ServerRequestedTermination",
+    "InvalidSessionId",
+    "InvalidChallenge",
+    "TooManyChallenges",
+    "InvalidFetcherUrl",
+    "InvalidRefreshUrl",
+    "TransientHttpError",
+    "ScopeOriginSameSiteMismatch",
+    "RefreshUrlSameSiteMismatch",
+    "MismatchedSessionId",
+    "MissingScope",
+    "NoCredentials",
+    "SubdomainRegistrationWellKnownUnavailable",
+    "SubdomainRegistrationUnauthorized",
+    "SubdomainRegistrationWellKnownMalformed",
+    "SessionProviderWellKnownUnavailable",
+    "RelyingPartyWellKnownUnavailable",
+    "FederatedKeyThumbprintMismatch",
+    "InvalidFederatedSessionUrl",
+    "InvalidFederatedKey",
+    "TooManyRelyingOriginLabels",
+    "BoundCookieSetForbidden",
+    "NetError",
+    "ProxyError",
+    "EmptySessionConfig",
+    "InvalidCredentialsConfig",
+    "InvalidCredentialsType",
+    "InvalidCredentialsEmptyName",
+    "InvalidCredentialsCookie",
+    "PersistentHttpError",
+    "RegistrationAttemptedChallenge",
+    "InvalidScopeOrigin",
+    "ScopeOriginContainsPath",
+    "RefreshInitiatorNotString",
+    "RefreshInitiatorInvalidHostPattern",
+    "InvalidScopeSpecification",
+    "MissingScopeSpecificationType",
+    "EmptyScopeSpecificationDomain",
+    "EmptyScopeSpecificationPath",
+    "InvalidScopeSpecificationType",
+    "InvalidScopeIncludeSite",
+    "MissingScopeIncludeSite",
+    "FederatedNotAuthorizedByProvider",
+    "FederatedNotAuthorizedByRelyingParty",
+    "SessionProviderWellKnownMalformed",
+    "SessionProviderWellKnownHasProviderOrigin",
+    "RelyingPartyWellKnownMalformed",
+    "RelyingPartyWellKnownHasRelyingOrigins",
+    "InvalidFederatedSessionProviderSessionMissing",
+    "InvalidFederatedSessionWrongProviderOrigin",
+    "InvalidCredentialsCookieCreationTime",
+    "InvalidCredentialsCookieName",
+    "InvalidCredentialsCookieParsing",
+    "InvalidCredentialsCookieUnpermittedAttribute",
+    "InvalidCredentialsCookieInvalidDomain",
+    "InvalidCredentialsCookiePrefix",
+    "InvalidScopeRulePath",
+    "InvalidScopeRuleHostPattern",
+    "ScopeRuleOriginScopedHostPatternMismatch",
+    "ScopeRuleSiteScopedHostPatternMismatch",
+    "SigningQuotaExceeded",
+    "InvalidConfigJson",
+    "InvalidFederatedSessionProviderFailedToRestoreKey",
+    "FailedToUnwrapKey",
+    "SessionDeletedDuringRefresh",
+]
+
+
+@dataclass(kw_only=True)
+class CreationEventDetails(CDPModel):
+    """
+    Session event details specific to creation.
+    """
+
+    fetch_result: DeviceBoundSessionFetchResult
+    new_session: DeviceBoundSession | None | None = None
+
+
+@dataclass(kw_only=True)
+class RefreshEventDetails(CDPModel):
+    """
+    Session event details specific to refresh.
+    """
+
+    refresh_result: Literal[
+        "Refreshed",
+        "InitializedService",
+        "Unreachable",
+        "ServerError",
+        "RefreshQuotaExceeded",
+        "FatalError",
+        "SigningQuotaExceeded",
+    ]
+    fetch_result: DeviceBoundSessionFetchResult | None | None = None
+    new_session: DeviceBoundSession | None | None = None
+    was_fully_proactive_refresh: bool
+
+
+@dataclass(kw_only=True)
+class TerminationEventDetails(CDPModel):
+    """
+    Session event details specific to termination.
+    """
+
+    deletion_reason: Literal[
+        "Expired",
+        "FailedToRestoreKey",
+        "FailedToUnwrapKey",
+        "StoragePartitionCleared",
+        "ClearBrowsingData",
+        "ServerRequested",
+        "InvalidSessionParams",
+        "RefreshFatalError",
+    ]
+
+
+@dataclass(kw_only=True)
+class ChallengeEventDetails(CDPModel):
+    """
+    Session event details specific to challenges.
+    """
+
+    challenge_result: Literal[
+        "Success", "NoSessionId", "NoSessionMatch", "CantSetBoundCookie"
+    ]
+    challenge: str
+
+
 @dataclass(kw_only=True)
 class LoadNetworkResourcePageResult(CDPModel):
     """

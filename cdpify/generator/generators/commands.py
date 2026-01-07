@@ -11,6 +11,8 @@ from cdpify.generator.models import Command, Domain, Parameter
 class CommandsGenerator(TypeAwareGenerator):
     def generate(self, domain: Domain) -> str:
         self._reset_tracking()
+        self._uses_type_checking = False
+
         self._scan_commands(domain)
 
         command_enum = self._generate_command_enum(domain)
@@ -131,6 +133,8 @@ class CommandsGenerator(TypeAwareGenerator):
     def _create_field(self, param: Parameter) -> str:
         field_name = to_snake_case(param.name)
         py_type = self._resolve_type(param)
+
+        self._track_type_usage(py_type)
 
         if param.optional:
             return f"{field_name}: {py_type} | None = None"

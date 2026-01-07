@@ -4,7 +4,7 @@
 
 from __future__ import annotations
 
-from typing import TYPE_CHECKING, Any, Literal
+from typing import TYPE_CHECKING, Any
 
 if TYPE_CHECKING:
     from cdpify.client import CDPClient
@@ -76,8 +76,8 @@ from .types import (
     StyleDeclarationEdit,
 )
 
-from cdpify.domains import dom
-from cdpify.domains import page
+if TYPE_CHECKING:
+    from cdpify.domains import dom, page
 
 
 class CSSClient:
@@ -87,10 +87,10 @@ class CSSClient:
     async def add_rule(
         self,
         *,
-        style_sheet_id: DOM.StyleSheetId,
+        style_sheet_id: dom.StyleSheetId,
         rule_text: str,
         location: SourceRange,
-        node_for_property_syntax_validation: DOM.NodeId | None = None,
+        node_for_property_syntax_validation: dom.NodeId | None = None,
         session_id: str | None = None,
     ) -> AddRuleResult:
         """
@@ -114,7 +114,7 @@ class CSSClient:
     async def collect_class_names(
         self,
         *,
-        style_sheet_id: DOM.StyleSheetId,
+        style_sheet_id: dom.StyleSheetId,
         session_id: str | None = None,
     ) -> CollectClassNamesResult:
         """
@@ -132,7 +132,7 @@ class CSSClient:
     async def create_style_sheet(
         self,
         *,
-        frame_id: Page.FrameId,
+        frame_id: page.FrameId,
         force: bool | None = None,
         session_id: str | None = None,
     ) -> CreateStyleSheetResult:
@@ -181,7 +181,7 @@ class CSSClient:
     async def force_pseudo_state(
         self,
         *,
-        node_id: DOM.NodeId,
+        node_id: dom.NodeId,
         forced_pseudo_classes: list[str],
         session_id: str | None = None,
     ) -> dict[str, Any]:
@@ -203,7 +203,7 @@ class CSSClient:
     async def force_starting_style(
         self,
         *,
-        node_id: DOM.NodeId,
+        node_id: dom.NodeId,
         forced: bool,
         session_id: str | None = None,
     ) -> dict[str, Any]:
@@ -222,7 +222,7 @@ class CSSClient:
     async def get_background_colors(
         self,
         *,
-        node_id: DOM.NodeId,
+        node_id: dom.NodeId,
         session_id: str | None = None,
     ) -> GetBackgroundColorsResult:
         params = GetBackgroundColorsParams(node_id=node_id)
@@ -237,7 +237,7 @@ class CSSClient:
     async def get_computed_style_for_node(
         self,
         *,
-        node_id: DOM.NodeId,
+        node_id: dom.NodeId,
         session_id: str | None = None,
     ) -> GetComputedStyleForNodeResult:
         """
@@ -256,9 +256,9 @@ class CSSClient:
         self,
         *,
         values: list[str],
-        node_id: DOM.NodeId,
+        node_id: dom.NodeId,
         property_name: str | None = None,
-        pseudo_type: DOM.PseudoType | None = None,
+        pseudo_type: dom.PseudoType | None = None,
         pseudo_identifier: str | None = None,
         session_id: str | None = None,
     ) -> ResolveValuesResult:
@@ -306,7 +306,7 @@ class CSSClient:
     async def get_inline_styles_for_node(
         self,
         *,
-        node_id: DOM.NodeId,
+        node_id: dom.NodeId,
         session_id: str | None = None,
     ) -> GetInlineStylesForNodeResult:
         """
@@ -325,7 +325,7 @@ class CSSClient:
     async def get_animated_styles_for_node(
         self,
         *,
-        node_id: DOM.NodeId,
+        node_id: dom.NodeId,
         session_id: str | None = None,
     ) -> GetAnimatedStylesForNodeResult:
         """
@@ -344,7 +344,7 @@ class CSSClient:
     async def get_matched_styles_for_node(
         self,
         *,
-        node_id: DOM.NodeId,
+        node_id: dom.NodeId,
         session_id: str | None = None,
     ) -> GetMatchedStylesForNodeResult:
         """
@@ -391,7 +391,7 @@ class CSSClient:
     async def get_platform_fonts_for_node(
         self,
         *,
-        node_id: DOM.NodeId,
+        node_id: dom.NodeId,
         session_id: str | None = None,
     ) -> GetPlatformFontsForNodeResult:
         """
@@ -410,7 +410,7 @@ class CSSClient:
     async def get_style_sheet_text(
         self,
         *,
-        style_sheet_id: DOM.StyleSheetId,
+        style_sheet_id: dom.StyleSheetId,
         session_id: str | None = None,
     ) -> GetStyleSheetTextResult:
         """
@@ -428,7 +428,7 @@ class CSSClient:
     async def get_layers_for_node(
         self,
         *,
-        node_id: DOM.NodeId,
+        node_id: dom.NodeId,
         session_id: str | None = None,
     ) -> GetLayersForNodeResult:
         """
@@ -449,7 +449,7 @@ class CSSClient:
     async def get_location_for_selector(
         self,
         *,
-        style_sheet_id: DOM.StyleSheetId,
+        style_sheet_id: dom.StyleSheetId,
         selector_text: str,
         session_id: str | None = None,
     ) -> GetLocationForSelectorResult:
@@ -471,7 +471,7 @@ class CSSClient:
     async def track_computed_style_updates_for_node(
         self,
         *,
-        node_id: DOM.NodeId | None = None,
+        node_id: dom.NodeId | None = None,
         session_id: str | None = None,
     ) -> dict[str, Any]:
         """
@@ -533,7 +533,7 @@ class CSSClient:
     async def set_effective_property_value_for_node(
         self,
         *,
-        node_id: DOM.NodeId,
+        node_id: dom.NodeId,
         property_name: str,
         value: str,
         session_id: str | None = None,
@@ -556,7 +556,7 @@ class CSSClient:
     async def set_property_rule_property_name(
         self,
         *,
-        style_sheet_id: DOM.StyleSheetId,
+        style_sheet_id: dom.StyleSheetId,
         range: SourceRange,
         property_name: str,
         session_id: str | None = None,
@@ -578,7 +578,7 @@ class CSSClient:
     async def set_keyframe_key(
         self,
         *,
-        style_sheet_id: DOM.StyleSheetId,
+        style_sheet_id: dom.StyleSheetId,
         range: SourceRange,
         key_text: str,
         session_id: str | None = None,
@@ -600,7 +600,7 @@ class CSSClient:
     async def set_media_text(
         self,
         *,
-        style_sheet_id: DOM.StyleSheetId,
+        style_sheet_id: dom.StyleSheetId,
         range: SourceRange,
         text: str,
         session_id: str | None = None,
@@ -622,7 +622,7 @@ class CSSClient:
     async def set_container_query_text(
         self,
         *,
-        style_sheet_id: DOM.StyleSheetId,
+        style_sheet_id: dom.StyleSheetId,
         range: SourceRange,
         text: str,
         session_id: str | None = None,
@@ -644,7 +644,7 @@ class CSSClient:
     async def set_supports_text(
         self,
         *,
-        style_sheet_id: DOM.StyleSheetId,
+        style_sheet_id: dom.StyleSheetId,
         range: SourceRange,
         text: str,
         session_id: str | None = None,
@@ -666,7 +666,7 @@ class CSSClient:
     async def set_scope_text(
         self,
         *,
-        style_sheet_id: DOM.StyleSheetId,
+        style_sheet_id: dom.StyleSheetId,
         range: SourceRange,
         text: str,
         session_id: str | None = None,
@@ -688,7 +688,7 @@ class CSSClient:
     async def set_rule_selector(
         self,
         *,
-        style_sheet_id: DOM.StyleSheetId,
+        style_sheet_id: dom.StyleSheetId,
         range: SourceRange,
         selector: str,
         session_id: str | None = None,
@@ -710,7 +710,7 @@ class CSSClient:
     async def set_style_sheet_text(
         self,
         *,
-        style_sheet_id: DOM.StyleSheetId,
+        style_sheet_id: dom.StyleSheetId,
         text: str,
         session_id: str | None = None,
     ) -> SetStyleSheetTextResult:
@@ -730,7 +730,7 @@ class CSSClient:
         self,
         *,
         edits: list[StyleDeclarationEdit],
-        node_for_property_syntax_validation: DOM.NodeId | None = None,
+        node_for_property_syntax_validation: dom.NodeId | None = None,
         session_id: str | None = None,
     ) -> SetStyleTextsResult:
         """

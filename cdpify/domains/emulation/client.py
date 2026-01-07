@@ -9,6 +9,8 @@ from typing import TYPE_CHECKING, Any, Literal
 if TYPE_CHECKING:
     from cdpify.client import CDPClient
 
+from cdpify.shared.decorators import deprecated
+
 from .commands import (
     EmulationCommand,
     AddScreenParams,
@@ -75,15 +77,15 @@ from .types import (
     WorkAreaInsets,
 )
 
-from cdpify.domains import dom
-from cdpify.domains import network
-from cdpify.domains import page
+if TYPE_CHECKING:
+    from cdpify.domains import dom, network, page
 
 
 class EmulationClient:
     def __init__(self, client: CDPClient) -> None:
         self._client = client
 
+    @deprecated()
     async def can_emulate(
         self,
         session_id: str | None = None,
@@ -197,7 +199,7 @@ class EmulationClient:
     async def set_default_background_color_override(
         self,
         *,
-        color: DOM.RGBA | None = None,
+        color: dom.RGBA | None = None,
         session_id: str | None = None,
     ) -> dict[str, Any]:
         """
@@ -247,7 +249,7 @@ class EmulationClient:
         position_y: int | None = None,
         dont_set_visible_size: bool | None = None,
         screen_orientation: ScreenOrientation | None = None,
-        viewport: Page.Viewport | None = None,
+        viewport: page.Viewport | None = None,
         display_feature: DisplayFeature | None = None,
         device_posture: DevicePosture | None = None,
         session_id: str | None = None,
@@ -664,6 +666,7 @@ class EmulationClient:
         )
         return result
 
+    @deprecated()
     async def set_navigator_overrides(
         self,
         *,
@@ -745,7 +748,7 @@ class EmulationClient:
         policy: VirtualTimePolicy,
         budget: float | None = None,
         max_virtual_time_task_starvation_count: int | None = None,
-        initial_virtual_time: Network.TimeSinceEpoch | None = None,
+        initial_virtual_time: network.TimeSinceEpoch | None = None,
         session_id: str | None = None,
     ) -> SetVirtualTimePolicyResult:
         """
@@ -803,6 +806,7 @@ class EmulationClient:
         )
         return result
 
+    @deprecated()
     async def set_visible_size(
         self,
         *,

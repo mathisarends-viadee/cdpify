@@ -1,4 +1,3 @@
-# cdpify/generator/generators/client.py
 from cdpify.generator.generators.base import TypeAwareGenerator
 from cdpify.generator.generators.utils import (
     format_docstring,
@@ -24,24 +23,42 @@ class ClientGenerator(TypeAwareGenerator):
 
     def _scan_commands(self, domain: Domain) -> None:
         for command in domain.commands:
+            if not command.returns:
+                self._uses_any = True
+
             if not command.parameters:
                 continue
 
             for param in command.parameters:
-                param_type = map_cdp_type(param)
-                self._track_type_usage(param_type)
                 self._scan_parameter(param)
+                self._track_type_usage(map_cdp_type(param))
 
     def _imports(self, domain: Domain) -> str:
+        if self._cross_domain_refs:
+            self._build_cross_domain_imports(use_type_checking=True)
+
         lines = [
             "from __future__ import annotations",
             "",
-            "from typing import TYPE_CHECKING, Any, Literal",
-            "",
-            "if TYPE_CHECKING:",
-            "    from cdpify.client import CDPClient",
-            "",
         ]
+
+        # Build typing imports dynamically
+        typing_imports = ["TYPE_CHECKING"]
+        if self._uses_any:
+            typing_imports.append("Any")
+        if self._uses_literal:
+            typing_imports.append("Literal")
+
+        lines.append(f"from typing import {', '.join(typing_imports)}")
+        lines.append("")
+        lines.append("if TYPE_CHECKING:")
+        lines.append("    from cdpify.client import CDPClient")
+        lines.append("")
+
+        # Add deprecated decorator import if needed
+        if self._has_deprecated_commands(domain):
+            lines.append("from cdpify.shared.decorators import deprecated")
+            lines.append("")
 
         if domain.commands:
             lines.extend(self._build_command_imports(domain))
@@ -55,6 +72,10 @@ class ClientGenerator(TypeAwareGenerator):
                 lines.append(self._cross_domain_imports())
 
         return "\n".join(lines)
+
+    def _has_deprecated_commands(self, domain: Domain) -> bool:
+        """Check if domain has any deprecated commands."""
+        return any(getattr(cmd, "deprecated", False) for cmd in domain.commands)
 
     def _build_command_imports(self, domain: Domain) -> list[str]:
         param_classes = {
@@ -82,7 +103,7 @@ class ClientGenerator(TypeAwareGenerator):
         return lines
 
     def _cross_domain_imports(self) -> str:
-        return self._build_cross_domain_imports(use_type_checking=False)
+        return self._build_cross_domain_imports(use_type_checking=True)
 
     def _client_class(self, domain: Domain) -> str:
         class_name = f"{domain.domain}Client"
@@ -104,7 +125,13 @@ class ClientGenerator(TypeAwareGenerator):
         return_type = self._get_return_type(command)
         method_body = self._build_method_body(command, domain_name)
 
-        lines = [f"    async def {method_name}("]
+        lines = []
+
+        # Add deprecated decorator if command is deprecated
+        if getattr(command, "deprecated", False):
+            lines.append(self._build_deprecated_decorator(command))
+
+        lines.append(f"    async def {method_name}(")
 
         for param in params:
             lines.append(f"        {param},")
@@ -118,6 +145,9 @@ class ClientGenerator(TypeAwareGenerator):
         lines.extend(f"        {line}" for line in method_body)
 
         return "\n".join(lines)
+
+    def _build_deprecated_decorator(self, command: Command) -> str:
+        return "    @deprecated()"
 
     def _build_params(self, command: Command) -> list[str]:
         params = ["self"]
@@ -152,7 +182,15 @@ class ClientGenerator(TypeAwareGenerator):
         return param_name
 
     def _resolve_base_param_type(self, param: Parameter) -> str:
-        param_type = map_cdp_type(param)
+        # Resolve type with proper cross-domain formatting (lowercase domain)
+        if param.ref and "." in param.ref:
+            parts = param.ref.split(".")
+            domain_lower = parts[0].lower()
+            type_name = parts[1]
+            param_type = f"{domain_lower}.{type_name}"
+        else:
+            param_type = map_cdp_type(param)
+
         self._track_type_usage(param_type)
         return param_type.removesuffix(" | None")
 
@@ -214,4 +252,6 @@ class ClientGenerator(TypeAwareGenerator):
     def _get_return_type(self, command: Command) -> str:
         if command.returns:
             return f"{to_pascal_case(command.name)}Result"
+
+        self._uses_any = True
         return "dict[str, Any]"

@@ -4,7 +4,7 @@
 
 from __future__ import annotations
 
-from typing import TYPE_CHECKING, Any, Literal
+from typing import TYPE_CHECKING, Any
 
 if TYPE_CHECKING:
     from cdpify.client import CDPClient
@@ -22,7 +22,8 @@ from .types import (
     StreamHandle,
 )
 
-from cdpify.domains import runtime
+if TYPE_CHECKING:
+    from cdpify.domains import runtime
 
 
 class IOClient:
@@ -70,7 +71,7 @@ class IOClient:
     async def resolve_blob(
         self,
         *,
-        object_id: Runtime.RemoteObjectId,
+        object_id: runtime.RemoteObjectId,
         session_id: str | None = None,
     ) -> ResolveBlobResult:
         """

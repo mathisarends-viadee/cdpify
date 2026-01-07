@@ -4,7 +4,7 @@
 
 from __future__ import annotations
 
-from typing import TYPE_CHECKING, Any, Literal
+from typing import TYPE_CHECKING, Any
 
 if TYPE_CHECKING:
     from cdpify.client import CDPClient
@@ -29,9 +29,8 @@ from .types import (
     AXNodeId,
 )
 
-from cdpify.domains import dom
-from cdpify.domains import page
-from cdpify.domains import runtime
+if TYPE_CHECKING:
+    from cdpify.domains import dom, page, runtime
 
 
 class AccessibilityClient:
@@ -71,9 +70,9 @@ class AccessibilityClient:
     async def get_partial_a_x_tree(
         self,
         *,
-        node_id: DOM.NodeId | None = None,
-        backend_node_id: DOM.BackendNodeId | None = None,
-        object_id: Runtime.RemoteObjectId | None = None,
+        node_id: dom.NodeId | None = None,
+        backend_node_id: dom.BackendNodeId | None = None,
+        object_id: runtime.RemoteObjectId | None = None,
         fetch_relatives: bool | None = None,
         session_id: str | None = None,
     ) -> GetPartialAXTreeResult:
@@ -99,7 +98,7 @@ class AccessibilityClient:
         self,
         *,
         depth: int | None = None,
-        frame_id: Page.FrameId | None = None,
+        frame_id: page.FrameId | None = None,
         session_id: str | None = None,
     ) -> GetFullAXTreeResult:
         """
@@ -117,7 +116,7 @@ class AccessibilityClient:
     async def get_root_a_x_node(
         self,
         *,
-        frame_id: Page.FrameId | None = None,
+        frame_id: page.FrameId | None = None,
         session_id: str | None = None,
     ) -> GetRootAXNodeResult:
         """
@@ -135,9 +134,9 @@ class AccessibilityClient:
     async def get_a_x_node_and_ancestors(
         self,
         *,
-        node_id: DOM.NodeId | None = None,
-        backend_node_id: DOM.BackendNodeId | None = None,
-        object_id: Runtime.RemoteObjectId | None = None,
+        node_id: dom.NodeId | None = None,
+        backend_node_id: dom.BackendNodeId | None = None,
+        object_id: runtime.RemoteObjectId | None = None,
         session_id: str | None = None,
     ) -> GetAXNodeAndAncestorsResult:
         """
@@ -159,7 +158,7 @@ class AccessibilityClient:
         self,
         *,
         id: AXNodeId,
-        frame_id: Page.FrameId | None = None,
+        frame_id: page.FrameId | None = None,
         session_id: str | None = None,
     ) -> GetChildAXNodesResult:
         """
@@ -178,9 +177,9 @@ class AccessibilityClient:
     async def query_a_x_tree(
         self,
         *,
-        node_id: DOM.NodeId | None = None,
-        backend_node_id: DOM.BackendNodeId | None = None,
-        object_id: Runtime.RemoteObjectId | None = None,
+        node_id: dom.NodeId | None = None,
+        backend_node_id: dom.BackendNodeId | None = None,
+        object_id: runtime.RemoteObjectId | None = None,
         accessible_name: str | None = None,
         role: str | None = None,
         session_id: str | None = None,
