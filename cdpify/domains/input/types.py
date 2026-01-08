@@ -37,7 +37,7 @@ class DragDataItem(CDPModel):
     mime_type: str
     data: str
     title: str | None | None = None
-    base_u_r_l: str | None | None = None
+    base_url: str | None | None = None
 
 
 @dataclass(kw_only=True)

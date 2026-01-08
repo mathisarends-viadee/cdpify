@@ -99,7 +99,7 @@ class CompileScriptParams(CDPModel):
     """
 
     expression: str
-    source_u_r_l: str
+    source_url: str
     persist_script: bool
     execution_context_id: ExecutionContextId | None | None = None
 
@@ -118,7 +118,7 @@ class EvaluateParams(CDPModel):
 
     expression: str
     object_group: str | None | None = None
-    include_command_line_a_p_i: bool | None | None = None
+    include_command_line_api: bool | None | None = None
     silent: bool | None | None = None
     context_id: ExecutionContextId | None | None = None
     return_by_value: bool | None | None = None
@@ -129,7 +129,7 @@ class EvaluateParams(CDPModel):
     timeout: TimeDelta | None | None = None
     disable_breaks: bool | None | None = None
     repl_mode: bool | None | None = None
-    allow_unsafe_eval_blocked_by_c_s_p: bool | None | None = None
+    allow_unsafe_eval_blocked_by_csp: bool | None | None = None
     unique_context_id: str | None | None = None
     serialization_options: SerializationOptions | None | None = None
 
@@ -228,7 +228,7 @@ class RunScriptParams(CDPModel):
     execution_context_id: ExecutionContextId | None | None = None
     object_group: str | None | None = None
     silent: bool | None | None = None
-    include_command_line_a_p_i: bool | None | None = None
+    include_command_line_api: bool | None | None = None
     return_by_value: bool | None | None = None
     generate_preview: bool | None | None = None
     await_promise: bool | None | None = None

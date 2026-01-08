@@ -126,8 +126,8 @@ class Node(CDPModel):
     child_node_count: int | None | None = None
     children: list[Node] | None | None = None
     attributes: list[str] | None | None = None
-    document_u_r_l: str | None | None = None
-    base_u_r_l: str | None | None = None
+    document_url: str | None | None = None
+    base_url: str | None | None = None
     public_id: str | None | None = None
     system_id: str | None | None = None
     internal_subset: str | None | None = None
@@ -144,7 +144,7 @@ class Node(CDPModel):
     pseudo_elements: list[Node] | None | None = None
     imported_document: Node | None | None = None
     distributed_nodes: list[BackendNode] | None | None = None
-    is_s_v_g: bool | None | None = None
+    is_svg: bool | None | None = None
     compatibility_mode: CompatibilityMode | None | None = None
     assigned_slot: BackendNode | None | None = None
     is_scrollable: bool | None | None = None

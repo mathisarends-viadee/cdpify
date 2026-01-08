@@ -49,7 +49,7 @@ class CheckContrastParams(CDPModel):
     Audits.issueAdded event.
     """
 
-    report_a_a_a: bool | None | None = None
+    report_aaa: bool | None | None = None
 
 
 @dataclass(kw_only=True)

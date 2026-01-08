@@ -92,7 +92,7 @@ class EvaluateOnCallFrameParams(CDPModel):
     call_frame_id: CallFrameId
     expression: str
     object_group: str | None | None = None
-    include_command_line_a_p_i: bool | None | None = None
+    include_command_line_api: bool | None | None = None
     silent: bool | None | None = None
     return_by_value: bool | None | None = None
     generate_preview: bool | None | None = None

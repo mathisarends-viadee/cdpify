@@ -99,7 +99,7 @@ class CacheStorageClient:
         self,
         *,
         cache_id: CacheId,
-        request_u_r_l: str,
+        request_url: str,
         request_headers: list[Header],
         session_id: str | None = None,
     ) -> RequestCachedResponseResult:
@@ -107,9 +107,7 @@ class CacheStorageClient:
         Fetches cache entry.
         """
         params = RequestCachedResponseParams(
-            cache_id=cache_id,
-            request_u_r_l=request_u_r_l,
-            request_headers=request_headers,
+            cache_id=cache_id, request_url=request_url, request_headers=request_headers
         )
 
         result = await self._client.send_raw(

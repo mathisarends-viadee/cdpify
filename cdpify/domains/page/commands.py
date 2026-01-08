@@ -66,7 +66,7 @@ class PageCommand(StrEnum):
     HANDLE_JAVA_SCRIPT_DIALOG = "Page.handleJavaScriptDialog"
     NAVIGATE = "Page.navigate"
     NAVIGATE_TO_HISTORY_ENTRY = "Page.navigateToHistoryEntry"
-    PRINT_TO_P_D_F = "Page.printToPDF"
+    PRINT_TO_PDF = "Page.printToPDF"
     RELOAD = "Page.reload"
     REMOVE_SCRIPT_TO_EVALUATE_ON_LOAD = "Page.removeScriptToEvaluateOnLoad"
     REMOVE_SCRIPT_TO_EVALUATE_ON_NEW_DOCUMENT = (
@@ -75,7 +75,7 @@ class PageCommand(StrEnum):
     SCREENCAST_FRAME_ACK = "Page.screencastFrameAck"
     SEARCH_IN_RESOURCE = "Page.searchInResource"
     SET_AD_BLOCKING_ENABLED = "Page.setAdBlockingEnabled"
-    SET_BYPASS_C_S_P = "Page.setBypassCSP"
+    SET_BYPASS_CSP = "Page.setBypassCSP"
     GET_PERMISSIONS_POLICY_STATE = "Page.getPermissionsPolicyState"
     GET_ORIGIN_TRIALS = "Page.getOriginTrials"
     SET_DEVICE_METRICS_OVERRIDE = "Page.setDeviceMetricsOverride"
@@ -96,8 +96,8 @@ class PageCommand(StrEnum):
     PRODUCE_COMPILATION_CACHE = "Page.produceCompilationCache"
     ADD_COMPILATION_CACHE = "Page.addCompilationCache"
     CLEAR_COMPILATION_CACHE = "Page.clearCompilationCache"
-    SET_S_P_C_TRANSACTION_MODE = "Page.setSPCTransactionMode"
-    SET_R_P_H_REGISTRATION_MODE = "Page.setRPHRegistrationMode"
+    SET_SPC_TRANSACTION_MODE = "Page.setSPCTransactionMode"
+    SET_RPH_REGISTRATION_MODE = "Page.setRPHRegistrationMode"
     GENERATE_TEST_REPORT = "Page.generateTestReport"
     WAIT_FOR_DEBUGGER = "Page.waitForDebugger"
     SET_INTERCEPT_FILE_CHOOSER_DIALOG = "Page.setInterceptFileChooserDialog"
@@ -128,7 +128,7 @@ class AddScriptToEvaluateOnNewDocumentParams(CDPModel):
 
     source: str
     world_name: str | None | None = None
-    include_command_line_a_p_i: bool | None | None = None
+    include_command_line_api: bool | None | None = None
     run_immediately: bool | None | None = None
 
 
@@ -355,9 +355,9 @@ class PrintToPDFParams(CDPModel):
     page_ranges: str | None | None = None
     header_template: str | None | None = None
     footer_template: str | None | None = None
-    prefer_c_s_s_page_size: bool | None | None = None
+    prefer_css_page_size: bool | None | None = None
     transfer_mode: Literal["ReturnAsBase64", "ReturnAsStream"] | None | None = None
-    generate_tagged_p_d_f: bool | None | None = None
+    generate_tagged_pdf: bool | None | None = None
     generate_document_outline: bool | None | None = None
 
 

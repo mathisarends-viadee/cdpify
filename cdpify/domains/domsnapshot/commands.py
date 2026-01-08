@@ -54,7 +54,7 @@ class CaptureSnapshotParams(CDPModel):
 
     computed_styles: list[str]
     include_paint_order: bool | None | None = None
-    include_d_o_m_rects: bool | None | None = None
+    include_dom_rects: bool | None | None = None
     include_blended_background_colors: bool | None | None = None
     include_text_color_opacities: bool | None | None = None
 

@@ -134,10 +134,10 @@ class ServiceWorkerClient:
     async def skip_waiting(
         self,
         *,
-        scope_u_r_l: str,
+        scope_url: str,
         session_id: str | None = None,
     ) -> dict[str, Any]:
-        params = SkipWaitingParams(scope_u_r_l=scope_u_r_l)
+        params = SkipWaitingParams(scope_url=scope_url)
 
         result = await self._client.send_raw(
             method=ServiceWorkerCommand.SKIP_WAITING,
@@ -149,10 +149,10 @@ class ServiceWorkerClient:
     async def start_worker(
         self,
         *,
-        scope_u_r_l: str,
+        scope_url: str,
         session_id: str | None = None,
     ) -> dict[str, Any]:
-        params = StartWorkerParams(scope_u_r_l=scope_u_r_l)
+        params = StartWorkerParams(scope_url=scope_url)
 
         result = await self._client.send_raw(
             method=ServiceWorkerCommand.START_WORKER,
@@ -190,10 +190,10 @@ class ServiceWorkerClient:
     async def unregister(
         self,
         *,
-        scope_u_r_l: str,
+        scope_url: str,
         session_id: str | None = None,
     ) -> dict[str, Any]:
-        params = UnregisterParams(scope_u_r_l=scope_u_r_l)
+        params = UnregisterParams(scope_url=scope_url)
 
         result = await self._client.send_raw(
             method=ServiceWorkerCommand.UNREGISTER,
@@ -205,10 +205,10 @@ class ServiceWorkerClient:
     async def update_registration(
         self,
         *,
-        scope_u_r_l: str,
+        scope_url: str,
         session_id: str | None = None,
     ) -> dict[str, Any]:
-        params = UpdateRegistrationParams(scope_u_r_l=scope_u_r_l)
+        params = UpdateRegistrationParams(scope_url=scope_url)
 
         result = await self._client.send_raw(
             method=ServiceWorkerCommand.UPDATE_REGISTRATION,

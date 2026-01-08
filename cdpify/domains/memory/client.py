@@ -30,7 +30,7 @@ class MemoryClient:
     def __init__(self, client: CDPClient) -> None:
         self._client = client
 
-    async def get_d_o_m_counters(
+    async def get_dom_counters(
         self,
         session_id: str | None = None,
     ) -> GetDOMCountersResult:
@@ -38,13 +38,13 @@ class MemoryClient:
         Retruns current DOM object counters.
         """
         result = await self._client.send_raw(
-            method=MemoryCommand.GET_D_O_M_COUNTERS,
+            method=MemoryCommand.GET_DOM_COUNTERS,
             params=None,
             session_id=session_id,
         )
         return GetDOMCountersResult.from_cdp(result)
 
-    async def get_d_o_m_counters_for_leak_detection(
+    async def get_dom_counters_for_leak_detection(
         self,
         session_id: str | None = None,
     ) -> GetDOMCountersForLeakDetectionResult:
@@ -52,7 +52,7 @@ class MemoryClient:
         Retruns DOM object counters after preparing renderer for leak detection.
         """
         result = await self._client.send_raw(
-            method=MemoryCommand.GET_D_O_M_COUNTERS_FOR_LEAK_DETECTION,
+            method=MemoryCommand.GET_DOM_COUNTERS_FOR_LEAK_DETECTION,
             params=None,
             session_id=session_id,
         )

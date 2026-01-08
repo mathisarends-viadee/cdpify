@@ -67,7 +67,7 @@ class RequestCachedResponseParams(CDPModel):
     """
 
     cache_id: CacheId
-    request_u_r_l: str
+    request_url: str
     request_headers: list[Header]
 
 

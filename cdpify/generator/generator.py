@@ -74,12 +74,30 @@ class DomainGenerator:
     def _build_shared_content(self) -> str:
         return """import re
 from dataclasses import asdict, dataclass, fields
+from cdpify.generator.generators.utils import to_snake_case
 from typing import Any, Self
+
+
+_ACRONYMS = frozenset({
+    "api", "css", "dom", "html", "id", "json", "pdf", "spc",
+    "ssl", "url", "uuid", "xml", "xhr", "ax", "cpu", "gpu",
+    "io", "js", "os", "ui", "uri", "usb", "wasm", "http", "https",
+})
 
 
 def _to_camel(s: str) -> str:
     parts = s.split("_")
-    return parts[0] + "".join(p.title() for p in parts[1:])
+
+    if not parts:
+        return s
+
+    result = [parts[0].lower()]
+
+    for part in parts[1:]:
+        lower = part.lower()
+        result.append(part.upper() if lower in _ACRONYMS else part.capitalize())
+
+    return "".join(result)
 
 
 def _to_snake(s: str) -> str:

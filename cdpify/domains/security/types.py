@@ -47,7 +47,7 @@ class CertificateSecurityState(CDPModel):
     certificate_network_error: str | None | None = None
     certificate_has_weak_signature: bool
     certificate_has_sha1_signature: bool
-    modern_s_s_l: bool
+    modern_ssl: bool
     obsolete_ssl_protocol: bool
     obsolete_ssl_key_exchange: bool
     obsolete_ssl_cipher: bool

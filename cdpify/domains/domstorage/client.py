@@ -71,7 +71,7 @@ class DOMStorageClient:
         )
         return result
 
-    async def get_d_o_m_storage_items(
+    async def get_dom_storage_items(
         self,
         *,
         storage_id: StorageId,
@@ -80,13 +80,13 @@ class DOMStorageClient:
         params = GetDOMStorageItemsParams(storage_id=storage_id)
 
         result = await self._client.send_raw(
-            method=DOMStorageCommand.GET_D_O_M_STORAGE_ITEMS,
+            method=DOMStorageCommand.GET_DOM_STORAGE_ITEMS,
             params=params.to_cdp_params(),
             session_id=session_id,
         )
         return GetDOMStorageItemsResult.from_cdp(result)
 
-    async def remove_d_o_m_storage_item(
+    async def remove_dom_storage_item(
         self,
         *,
         storage_id: StorageId,
@@ -96,13 +96,13 @@ class DOMStorageClient:
         params = RemoveDOMStorageItemParams(storage_id=storage_id, key=key)
 
         result = await self._client.send_raw(
-            method=DOMStorageCommand.REMOVE_D_O_M_STORAGE_ITEM,
+            method=DOMStorageCommand.REMOVE_DOM_STORAGE_ITEM,
             params=params.to_cdp_params(),
             session_id=session_id,
         )
         return result
 
-    async def set_d_o_m_storage_item(
+    async def set_dom_storage_item(
         self,
         *,
         storage_id: StorageId,
@@ -113,7 +113,7 @@ class DOMStorageClient:
         params = SetDOMStorageItemParams(storage_id=storage_id, key=key, value=value)
 
         result = await self._client.send_raw(
-            method=DOMStorageCommand.SET_D_O_M_STORAGE_ITEM,
+            method=DOMStorageCommand.SET_DOM_STORAGE_ITEM,
             params=params.to_cdp_params(),
             session_id=session_id,
         )

@@ -55,12 +55,12 @@ class SetForceUpdateOnPageLoadParams(CDPModel):
 
 @dataclass(kw_only=True)
 class SkipWaitingParams(CDPModel):
-    scope_u_r_l: str
+    scope_url: str
 
 
 @dataclass(kw_only=True)
 class StartWorkerParams(CDPModel):
-    scope_u_r_l: str
+    scope_url: str
 
 
 @dataclass(kw_only=True)
@@ -70,9 +70,9 @@ class StopWorkerParams(CDPModel):
 
 @dataclass(kw_only=True)
 class UnregisterParams(CDPModel):
-    scope_u_r_l: str
+    scope_url: str
 
 
 @dataclass(kw_only=True)
 class UpdateRegistrationParams(CDPModel):
-    scope_u_r_l: str
+    scope_url: str

@@ -31,8 +31,8 @@ if TYPE_CHECKING:
 class StorageEvent(StrEnum):
     CACHE_STORAGE_CONTENT_UPDATED = "Storage.cacheStorageContentUpdated"
     CACHE_STORAGE_LIST_UPDATED = "Storage.cacheStorageListUpdated"
-    INDEXED_D_B_CONTENT_UPDATED = "Storage.indexedDBContentUpdated"
-    INDEXED_D_B_LIST_UPDATED = "Storage.indexedDBListUpdated"
+    INDEXED_DB_CONTENT_UPDATED = "Storage.indexedDBContentUpdated"
+    INDEXED_DB_LIST_UPDATED = "Storage.indexedDBListUpdated"
     INTEREST_GROUP_ACCESSED = "Storage.interestGroupAccessed"
     INTEREST_GROUP_AUCTION_EVENT_OCCURRED = "Storage.interestGroupAuctionEventOccurred"
     INTEREST_GROUP_AUCTION_NETWORK_REQUEST_CREATED = (

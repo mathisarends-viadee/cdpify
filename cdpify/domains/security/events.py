@@ -31,7 +31,7 @@ class CertificateErrorEvent(CDPModel):
 
     event_id: int
     error_type: str
-    request_u_r_l: str
+    request_url: str
 
 
 @dataclass(kw_only=True)

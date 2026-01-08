@@ -295,7 +295,7 @@ class Frame(CDPModel):
     ad_frame_status: AdFrameStatus | None | None = None
     secure_context_type: SecureContextType
     cross_origin_isolated_context_type: CrossOriginIsolatedContextType
-    gated_a_p_i_features: list[GatedAPIFeatures]
+    gated_api_features: list[GatedAPIFeatures]
 
 
 @dataclass(kw_only=True)
@@ -367,7 +367,7 @@ class NavigationEntry(CDPModel):
 
     id: int
     url: str
-    user_typed_u_r_l: str
+    user_typed_url: str
     title: str
     transition_type: TransitionType
 

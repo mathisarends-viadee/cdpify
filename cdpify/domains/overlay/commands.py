@@ -44,7 +44,7 @@ class OverlayCommand(StrEnum):
     SET_SHOW_AD_HIGHLIGHTS = "Overlay.setShowAdHighlights"
     SET_PAUSED_IN_DEBUGGER_MESSAGE = "Overlay.setPausedInDebuggerMessage"
     SET_SHOW_DEBUG_BORDERS = "Overlay.setShowDebugBorders"
-    SET_SHOW_F_P_S_COUNTER = "Overlay.setShowFPSCounter"
+    SET_SHOW_FPS_COUNTER = "Overlay.setShowFPSCounter"
     SET_SHOW_GRID_OVERLAYS = "Overlay.setShowGridOverlays"
     SET_SHOW_FLEX_OVERLAYS = "Overlay.setShowFlexOverlays"
     SET_SHOW_SCROLL_SNAP_OVERLAYS = "Overlay.setShowScrollSnapOverlays"

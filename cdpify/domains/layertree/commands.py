@@ -108,7 +108,7 @@ class ReplaySnapshotParams(CDPModel):
 
 @dataclass(kw_only=True)
 class ReplaySnapshotResult(CDPModel):
-    data_u_r_l: str
+    data_url: str
 
 
 @dataclass(kw_only=True)

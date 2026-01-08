@@ -122,7 +122,7 @@ class PageClient:
         *,
         source: str,
         world_name: str | None = None,
-        include_command_line_a_p_i: bool | None = None,
+        include_command_line_api: bool | None = None,
         run_immediately: bool | None = None,
         session_id: str | None = None,
     ) -> AddScriptToEvaluateOnNewDocumentResult:
@@ -133,7 +133,7 @@ class PageClient:
         params = AddScriptToEvaluateOnNewDocumentParams(
             source=source,
             world_name=world_name,
-            include_command_line_a_p_i=include_command_line_a_p_i,
+            include_command_line_api=include_command_line_api,
             run_immediately=run_immediately,
         )
 
@@ -564,7 +564,7 @@ class PageClient:
         )
         return result
 
-    async def print_to_p_d_f(
+    async def print_to_pdf(
         self,
         *,
         landscape: bool | None = None,
@@ -580,9 +580,9 @@ class PageClient:
         page_ranges: str | None = None,
         header_template: str | None = None,
         footer_template: str | None = None,
-        prefer_c_s_s_page_size: bool | None = None,
+        prefer_css_page_size: bool | None = None,
         transfer_mode: Literal["ReturnAsBase64", "ReturnAsStream"] | None = None,
-        generate_tagged_p_d_f: bool | None = None,
+        generate_tagged_pdf: bool | None = None,
         generate_document_outline: bool | None = None,
         session_id: str | None = None,
     ) -> PrintToPDFResult:
@@ -603,14 +603,14 @@ class PageClient:
             page_ranges=page_ranges,
             header_template=header_template,
             footer_template=footer_template,
-            prefer_c_s_s_page_size=prefer_c_s_s_page_size,
+            prefer_css_page_size=prefer_css_page_size,
             transfer_mode=transfer_mode,
-            generate_tagged_p_d_f=generate_tagged_p_d_f,
+            generate_tagged_pdf=generate_tagged_pdf,
             generate_document_outline=generate_document_outline,
         )
 
         result = await self._client.send_raw(
-            method=PageCommand.PRINT_TO_P_D_F,
+            method=PageCommand.PRINT_TO_PDF,
             params=params.to_cdp_params(),
             session_id=session_id,
         )
@@ -741,7 +741,7 @@ class PageClient:
         )
         return result
 
-    async def set_bypass_c_s_p(
+    async def set_bypass_csp(
         self,
         *,
         enabled: bool,
@@ -753,7 +753,7 @@ class PageClient:
         params = SetBypassCSPParams(enabled=enabled)
 
         result = await self._client.send_raw(
-            method=PageCommand.SET_BYPASS_C_S_P,
+            method=PageCommand.SET_BYPASS_CSP,
             params=params.to_cdp_params(),
             session_id=session_id,
         )
@@ -1165,7 +1165,7 @@ class PageClient:
         )
         return result
 
-    async def set_s_p_c_transaction_mode(
+    async def set_spc_transaction_mode(
         self,
         *,
         mode: Literal[
@@ -1184,13 +1184,13 @@ class PageClient:
         params = SetSPCTransactionModeParams(mode=mode)
 
         result = await self._client.send_raw(
-            method=PageCommand.SET_S_P_C_TRANSACTION_MODE,
+            method=PageCommand.SET_SPC_TRANSACTION_MODE,
             params=params.to_cdp_params(),
             session_id=session_id,
         )
         return result
 
-    async def set_r_p_h_registration_mode(
+    async def set_rph_registration_mode(
         self,
         *,
         mode: Literal["none", "autoAccept", "autoReject"],
@@ -1203,7 +1203,7 @@ class PageClient:
         params = SetRPHRegistrationModeParams(mode=mode)
 
         result = await self._client.send_raw(
-            method=PageCommand.SET_R_P_H_REGISTRATION_MODE,
+            method=PageCommand.SET_RPH_REGISTRATION_MODE,
             params=params.to_cdp_params(),
             session_id=session_id,
         )

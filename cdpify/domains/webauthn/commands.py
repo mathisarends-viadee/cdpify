@@ -36,7 +36,7 @@ class EnableParams(CDPModel):
     with a virtual authenticator.
     """
 
-    enable_u_i: bool | None | None = None
+    enable_ui: bool | None | None = None
 
 
 @dataclass(kw_only=True)
@@ -62,8 +62,8 @@ class SetResponseOverrideBitsParams(CDPModel):
 
     authenticator_id: AuthenticatorId
     is_bogus_signature: bool | None | None = None
-    is_bad_u_v: bool | None | None = None
-    is_bad_u_p: bool | None | None = None
+    is_bad_uv: bool | None | None = None
+    is_bad_up: bool | None | None = None
 
 
 @dataclass(kw_only=True)

@@ -39,7 +39,7 @@ class EmulationCommand(StrEnum):
     RESET_PAGE_SCALE_FACTOR = "Emulation.resetPageScaleFactor"
     SET_FOCUS_EMULATION_ENABLED = "Emulation.setFocusEmulationEnabled"
     SET_AUTO_DARK_MODE_OVERRIDE = "Emulation.setAutoDarkModeOverride"
-    SET_C_P_U_THROTTLING_RATE = "Emulation.setCPUThrottlingRate"
+    SET_CPU_THROTTLING_RATE = "Emulation.setCPUThrottlingRate"
     SET_DEFAULT_BACKGROUND_COLOR_OVERRIDE = (
         "Emulation.setDefaultBackgroundColorOverride"
     )
@@ -54,7 +54,7 @@ class EmulationCommand(StrEnum):
     SET_EMIT_TOUCH_EVENTS_FOR_MOUSE = "Emulation.setEmitTouchEventsForMouse"
     SET_EMULATED_MEDIA = "Emulation.setEmulatedMedia"
     SET_EMULATED_VISION_DEFICIENCY = "Emulation.setEmulatedVisionDeficiency"
-    SET_EMULATED_O_S_TEXT_SCALE = "Emulation.setEmulatedOSTextScale"
+    SET_EMULATED_OS_TEXT_SCALE = "Emulation.setEmulatedOSTextScale"
     SET_GEOLOCATION_OVERRIDE = "Emulation.setGeolocationOverride"
     GET_OVERRIDDEN_SENSOR_INFORMATION = "Emulation.getOverriddenSensorInformation"
     SET_SENSOR_OVERRIDE_ENABLED = "Emulation.setSensorOverrideEnabled"

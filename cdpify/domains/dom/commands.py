@@ -41,7 +41,7 @@ class DOMCommand(StrEnum):
     GET_FLATTENED_DOCUMENT = "DOM.getFlattenedDocument"
     GET_NODES_FOR_SUBTREE_BY_STYLE = "DOM.getNodesForSubtreeByStyle"
     GET_NODE_FOR_LOCATION = "DOM.getNodeForLocation"
-    GET_OUTER_H_T_M_L = "DOM.getOuterHTML"
+    GET_OUTER_HTML = "DOM.getOuterHTML"
     GET_RELAYOUT_BOUNDARY = "DOM.getRelayoutBoundary"
     GET_SEARCH_RESULTS = "DOM.getSearchResults"
     HIDE_HIGHLIGHT = "DOM.hideHighlight"
@@ -72,7 +72,7 @@ class DOMCommand(StrEnum):
     SET_INSPECTED_NODE = "DOM.setInspectedNode"
     SET_NODE_NAME = "DOM.setNodeName"
     SET_NODE_VALUE = "DOM.setNodeValue"
-    SET_OUTER_H_T_M_L = "DOM.setOuterHTML"
+    SET_OUTER_HTML = "DOM.setOuterHTML"
     UNDO = "DOM.undo"
     GET_FRAME_OWNER = "DOM.getFrameOwner"
     GET_CONTAINER_FOR_NODE = "DOM.getContainerForNode"
@@ -280,7 +280,7 @@ class GetNodeForLocationParams(CDPModel):
 
     x: int
     y: int
-    include_user_agent_shadow_d_o_m: bool | None | None = None
+    include_user_agent_shadow_dom: bool | None | None = None
     ignore_pointer_events_none: bool | None | None = None
 
 
@@ -300,12 +300,12 @@ class GetOuterHTMLParams(CDPModel):
     node_id: NodeId | None | None = None
     backend_node_id: BackendNodeId | None | None = None
     object_id: runtime.RemoteObjectId | None = None
-    include_shadow_d_o_m: bool | None | None = None
+    include_shadow_dom: bool | None | None = None
 
 
 @dataclass(kw_only=True)
 class GetOuterHTMLResult(CDPModel):
-    outer_h_t_m_l: str
+    outer_html: str
 
 
 @dataclass(kw_only=True)
@@ -363,7 +363,7 @@ class PerformSearchParams(CDPModel):
     """
 
     query: str
-    include_user_agent_shadow_d_o_m: bool | None | None = None
+    include_user_agent_shadow_dom: bool | None | None = None
 
 
 @dataclass(kw_only=True)
@@ -636,7 +636,7 @@ class SetOuterHTMLParams(CDPModel):
     """
 
     node_id: NodeId
-    outer_h_t_m_l: str
+    outer_html: str
 
 
 @dataclass(kw_only=True)

@@ -285,7 +285,7 @@ class StorageClient:
         )
         return result
 
-    async def track_indexed_d_b_for_origin(
+    async def track_indexed_db_for_origin(
         self,
         *,
         origin: str,
@@ -297,13 +297,13 @@ class StorageClient:
         params = TrackIndexedDBForOriginParams(origin=origin)
 
         result = await self._client.send_raw(
-            method=StorageCommand.TRACK_INDEXED_D_B_FOR_ORIGIN,
+            method=StorageCommand.TRACK_INDEXED_DB_FOR_ORIGIN,
             params=params.to_cdp_params(),
             session_id=session_id,
         )
         return result
 
-    async def track_indexed_d_b_for_storage_key(
+    async def track_indexed_db_for_storage_key(
         self,
         *,
         storage_key: str,
@@ -315,7 +315,7 @@ class StorageClient:
         params = TrackIndexedDBForStorageKeyParams(storage_key=storage_key)
 
         result = await self._client.send_raw(
-            method=StorageCommand.TRACK_INDEXED_D_B_FOR_STORAGE_KEY,
+            method=StorageCommand.TRACK_INDEXED_DB_FOR_STORAGE_KEY,
             params=params.to_cdp_params(),
             session_id=session_id,
         )
@@ -357,7 +357,7 @@ class StorageClient:
         )
         return result
 
-    async def untrack_indexed_d_b_for_origin(
+    async def untrack_indexed_db_for_origin(
         self,
         *,
         origin: str,
@@ -369,13 +369,13 @@ class StorageClient:
         params = UntrackIndexedDBForOriginParams(origin=origin)
 
         result = await self._client.send_raw(
-            method=StorageCommand.UNTRACK_INDEXED_D_B_FOR_ORIGIN,
+            method=StorageCommand.UNTRACK_INDEXED_DB_FOR_ORIGIN,
             params=params.to_cdp_params(),
             session_id=session_id,
         )
         return result
 
-    async def untrack_indexed_d_b_for_storage_key(
+    async def untrack_indexed_db_for_storage_key(
         self,
         *,
         storage_key: str,
@@ -387,7 +387,7 @@ class StorageClient:
         params = UntrackIndexedDBForStorageKeyParams(storage_key=storage_key)
 
         result = await self._client.send_raw(
-            method=StorageCommand.UNTRACK_INDEXED_D_B_FOR_STORAGE_KEY,
+            method=StorageCommand.UNTRACK_INDEXED_DB_FOR_STORAGE_KEY,
             params=params.to_cdp_params(),
             session_id=session_id,
         )

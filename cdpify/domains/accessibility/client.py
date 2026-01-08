@@ -67,7 +67,7 @@ class AccessibilityClient:
         )
         return result
 
-    async def get_partial_a_x_tree(
+    async def get_partial_ax_tree(
         self,
         *,
         node_id: dom.NodeId | None = None,
@@ -88,13 +88,13 @@ class AccessibilityClient:
         )
 
         result = await self._client.send_raw(
-            method=AccessibilityCommand.GET_PARTIAL_A_X_TREE,
+            method=AccessibilityCommand.GET_PARTIAL_AX_TREE,
             params=params.to_cdp_params(),
             session_id=session_id,
         )
         return GetPartialAXTreeResult.from_cdp(result)
 
-    async def get_full_a_x_tree(
+    async def get_full_ax_tree(
         self,
         *,
         depth: int | None = None,
@@ -107,13 +107,13 @@ class AccessibilityClient:
         params = GetFullAXTreeParams(depth=depth, frame_id=frame_id)
 
         result = await self._client.send_raw(
-            method=AccessibilityCommand.GET_FULL_A_X_TREE,
+            method=AccessibilityCommand.GET_FULL_AX_TREE,
             params=params.to_cdp_params(),
             session_id=session_id,
         )
         return GetFullAXTreeResult.from_cdp(result)
 
-    async def get_root_a_x_node(
+    async def get_root_ax_node(
         self,
         *,
         frame_id: page.FrameId | None = None,
@@ -125,13 +125,13 @@ class AccessibilityClient:
         params = GetRootAXNodeParams(frame_id=frame_id)
 
         result = await self._client.send_raw(
-            method=AccessibilityCommand.GET_ROOT_A_X_NODE,
+            method=AccessibilityCommand.GET_ROOT_AX_NODE,
             params=params.to_cdp_params(),
             session_id=session_id,
         )
         return GetRootAXNodeResult.from_cdp(result)
 
-    async def get_a_x_node_and_ancestors(
+    async def get_ax_node_and_ancestors(
         self,
         *,
         node_id: dom.NodeId | None = None,
@@ -148,13 +148,13 @@ class AccessibilityClient:
         )
 
         result = await self._client.send_raw(
-            method=AccessibilityCommand.GET_A_X_NODE_AND_ANCESTORS,
+            method=AccessibilityCommand.GET_AX_NODE_AND_ANCESTORS,
             params=params.to_cdp_params(),
             session_id=session_id,
         )
         return GetAXNodeAndAncestorsResult.from_cdp(result)
 
-    async def get_child_a_x_nodes(
+    async def get_child_ax_nodes(
         self,
         *,
         id: AXNodeId,
@@ -168,13 +168,13 @@ class AccessibilityClient:
         params = GetChildAXNodesParams(id=id, frame_id=frame_id)
 
         result = await self._client.send_raw(
-            method=AccessibilityCommand.GET_CHILD_A_X_NODES,
+            method=AccessibilityCommand.GET_CHILD_AX_NODES,
             params=params.to_cdp_params(),
             session_id=session_id,
         )
         return GetChildAXNodesResult.from_cdp(result)
 
-    async def query_a_x_tree(
+    async def query_ax_tree(
         self,
         *,
         node_id: dom.NodeId | None = None,
@@ -201,7 +201,7 @@ class AccessibilityClient:
         )
 
         result = await self._client.send_raw(
-            method=AccessibilityCommand.QUERY_A_X_TREE,
+            method=AccessibilityCommand.QUERY_AX_TREE,
             params=params.to_cdp_params(),
             session_id=session_id,
         )

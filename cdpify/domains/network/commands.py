@@ -60,14 +60,14 @@ class NetworkCommand(StrEnum):
     TAKE_RESPONSE_BODY_FOR_INTERCEPTION_AS_STREAM = (
         "Network.takeResponseBodyForInterceptionAsStream"
     )
-    REPLAY_X_H_R = "Network.replayXHR"
+    REPLAY_XHR = "Network.replayXHR"
     SEARCH_IN_RESPONSE_BODY = "Network.searchInResponseBody"
-    SET_BLOCKED_U_R_LS = "Network.setBlockedURLs"
+    SET_BLOCKED_UR_LS = "Network.setBlockedURLs"
     SET_BYPASS_SERVICE_WORKER = "Network.setBypassServiceWorker"
     SET_CACHE_DISABLED = "Network.setCacheDisabled"
     SET_COOKIE = "Network.setCookie"
     SET_COOKIES = "Network.setCookies"
-    SET_EXTRA_H_T_T_P_HEADERS = "Network.setExtraHTTPHeaders"
+    SET_EXTRA_HTTP_HEADERS = "Network.setExtraHTTPHeaders"
     SET_ATTACH_DEBUG_STACK = "Network.setAttachDebugStack"
     SET_REQUEST_INTERCEPTION = "Network.setRequestInterception"
     SET_USER_AGENT_OVERRIDE = "Network.setUserAgentOverride"

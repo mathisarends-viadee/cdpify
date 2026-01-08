@@ -393,7 +393,7 @@ class Response(CDPModel):
     request_headers_text: str | None | None = None
     connection_reused: bool
     connection_id: float
-    remote_i_p_address: str | None | None = None
+    remote_ip_address: str | None | None = None
     remote_port: int | None | None = None
     from_disk_cache: bool | None | None = None
     from_service_worker: bool | None | None = None
@@ -826,7 +826,7 @@ class ConnectTiming(CDPModel):
 @dataclass(kw_only=True)
 class ClientSecurityState(CDPModel):
     initiator_is_secure_context: bool
-    initiator_i_p_address_space: IPAddressSpace
+    initiator_ip_address_space: IPAddressSpace
     private_network_request_policy: PrivateNetworkRequestPolicy
 
 

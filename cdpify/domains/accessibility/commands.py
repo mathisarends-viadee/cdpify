@@ -19,12 +19,12 @@ from cdpify.domains import runtime
 class AccessibilityCommand(StrEnum):
     DISABLE = "Accessibility.disable"
     ENABLE = "Accessibility.enable"
-    GET_PARTIAL_A_X_TREE = "Accessibility.getPartialAXTree"
-    GET_FULL_A_X_TREE = "Accessibility.getFullAXTree"
-    GET_ROOT_A_X_NODE = "Accessibility.getRootAXNode"
-    GET_A_X_NODE_AND_ANCESTORS = "Accessibility.getAXNodeAndAncestors"
-    GET_CHILD_A_X_NODES = "Accessibility.getChildAXNodes"
-    QUERY_A_X_TREE = "Accessibility.queryAXTree"
+    GET_PARTIAL_AX_TREE = "Accessibility.getPartialAXTree"
+    GET_FULL_AX_TREE = "Accessibility.getFullAXTree"
+    GET_ROOT_AX_NODE = "Accessibility.getRootAXNode"
+    GET_AX_NODE_AND_ANCESTORS = "Accessibility.getAXNodeAndAncestors"
+    GET_CHILD_AX_NODES = "Accessibility.getChildAXNodes"
+    QUERY_AX_TREE = "Accessibility.queryAXTree"
 
 
 @dataclass(kw_only=True)

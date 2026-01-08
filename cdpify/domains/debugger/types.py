@@ -130,7 +130,7 @@ class DebugSymbols(CDPModel):
     """
 
     type: Literal["SourceMap", "EmbeddedDWARF", "ExternalDWARF"]
-    external_u_r_l: str | None | None = None
+    external_url: str | None | None = None
 
 
 @dataclass(kw_only=True)

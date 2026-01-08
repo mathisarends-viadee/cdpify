@@ -178,7 +178,7 @@ class EmulationClient:
         )
         return result
 
-    async def set_c_p_u_throttling_rate(
+    async def set_cpu_throttling_rate(
         self,
         *,
         rate: float,
@@ -190,7 +190,7 @@ class EmulationClient:
         params = SetCPUThrottlingRateParams(rate=rate)
 
         result = await self._client.send_raw(
-            method=EmulationCommand.SET_C_P_U_THROTTLING_RATE,
+            method=EmulationCommand.SET_CPU_THROTTLING_RATE,
             params=params.to_cdp_params(),
             session_id=session_id,
         )
@@ -446,7 +446,7 @@ class EmulationClient:
         )
         return result
 
-    async def set_emulated_o_s_text_scale(
+    async def set_emulated_os_text_scale(
         self,
         *,
         scale: float | None = None,
@@ -458,7 +458,7 @@ class EmulationClient:
         params = SetEmulatedOSTextScaleParams(scale=scale)
 
         result = await self._client.send_raw(
-            method=EmulationCommand.SET_EMULATED_O_S_TEXT_SCALE,
+            method=EmulationCommand.SET_EMULATED_OS_TEXT_SCALE,
             params=params.to_cdp_params(),
             session_id=session_id,
         )

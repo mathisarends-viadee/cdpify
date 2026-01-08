@@ -19,7 +19,7 @@ class ServiceWorkerRegistration(CDPModel):
     """
 
     registration_id: RegistrationID
-    scope_u_r_l: str
+    scope_url: str
     is_deleted: bool
 
 
@@ -40,7 +40,7 @@ class ServiceWorkerVersion(CDPModel):
 
     version_id: str
     registration_id: RegistrationID
-    script_u_r_l: str
+    script_url: str
     running_status: ServiceWorkerVersionRunningStatus
     status: ServiceWorkerVersionStatus
     script_last_modified: float | None | None = None
@@ -59,6 +59,6 @@ class ServiceWorkerErrorMessage(CDPModel):
     error_message: str
     registration_id: RegistrationID
     version_id: str
-    source_u_r_l: str
+    source_url: str
     line_number: int
     column_number: int

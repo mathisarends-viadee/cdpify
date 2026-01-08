@@ -87,7 +87,7 @@ class DOMSnapshotClient:
         *,
         computed_styles: list[str],
         include_paint_order: bool | None = None,
-        include_d_o_m_rects: bool | None = None,
+        include_dom_rects: bool | None = None,
         include_blended_background_colors: bool | None = None,
         include_text_color_opacities: bool | None = None,
         session_id: str | None = None,
@@ -101,7 +101,7 @@ class DOMSnapshotClient:
         params = CaptureSnapshotParams(
             computed_styles=computed_styles,
             include_paint_order=include_paint_order,
-            include_d_o_m_rects=include_d_o_m_rects,
+            include_dom_rects=include_dom_rects,
             include_blended_background_colors=include_blended_background_colors,
             include_text_color_opacities=include_text_color_opacities,
         )

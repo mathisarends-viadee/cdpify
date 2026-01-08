@@ -137,15 +137,15 @@ class HeapProfilerClient:
         *,
         sampling_interval: float | None = None,
         stack_depth: float | None = None,
-        include_objects_collected_by_major_g_c: bool | None = None,
-        include_objects_collected_by_minor_g_c: bool | None = None,
+        include_objects_collected_by_major_gc: bool | None = None,
+        include_objects_collected_by_minor_gc: bool | None = None,
         session_id: str | None = None,
     ) -> dict[str, Any]:
         params = StartSamplingParams(
             sampling_interval=sampling_interval,
             stack_depth=stack_depth,
-            include_objects_collected_by_major_g_c=include_objects_collected_by_major_g_c,
-            include_objects_collected_by_minor_g_c=include_objects_collected_by_minor_g_c,
+            include_objects_collected_by_major_gc=include_objects_collected_by_major_gc,
+            include_objects_collected_by_minor_gc=include_objects_collected_by_minor_gc,
         )
 
         result = await self._client.send_raw(

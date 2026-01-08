@@ -76,24 +76,22 @@ class NetworkEvent(StrEnum):
     WEB_TRANSPORT_CREATED = "Network.webTransportCreated"
     WEB_TRANSPORT_CONNECTION_ESTABLISHED = "Network.webTransportConnectionEstablished"
     WEB_TRANSPORT_CLOSED = "Network.webTransportClosed"
-    DIRECT_T_C_P_SOCKET_CREATED = "Network.directTCPSocketCreated"
-    DIRECT_T_C_P_SOCKET_OPENED = "Network.directTCPSocketOpened"
-    DIRECT_T_C_P_SOCKET_ABORTED = "Network.directTCPSocketAborted"
-    DIRECT_T_C_P_SOCKET_CLOSED = "Network.directTCPSocketClosed"
-    DIRECT_T_C_P_SOCKET_CHUNK_SENT = "Network.directTCPSocketChunkSent"
-    DIRECT_T_C_P_SOCKET_CHUNK_RECEIVED = "Network.directTCPSocketChunkReceived"
-    DIRECT_U_D_P_SOCKET_JOINED_MULTICAST_GROUP = (
+    DIRECT_TCP_SOCKET_CREATED = "Network.directTCPSocketCreated"
+    DIRECT_TCP_SOCKET_OPENED = "Network.directTCPSocketOpened"
+    DIRECT_TCP_SOCKET_ABORTED = "Network.directTCPSocketAborted"
+    DIRECT_TCP_SOCKET_CLOSED = "Network.directTCPSocketClosed"
+    DIRECT_TCP_SOCKET_CHUNK_SENT = "Network.directTCPSocketChunkSent"
+    DIRECT_TCP_SOCKET_CHUNK_RECEIVED = "Network.directTCPSocketChunkReceived"
+    DIRECT_UDP_SOCKET_JOINED_MULTICAST_GROUP = (
         "Network.directUDPSocketJoinedMulticastGroup"
     )
-    DIRECT_U_D_P_SOCKET_LEFT_MULTICAST_GROUP = (
-        "Network.directUDPSocketLeftMulticastGroup"
-    )
-    DIRECT_U_D_P_SOCKET_CREATED = "Network.directUDPSocketCreated"
-    DIRECT_U_D_P_SOCKET_OPENED = "Network.directUDPSocketOpened"
-    DIRECT_U_D_P_SOCKET_ABORTED = "Network.directUDPSocketAborted"
-    DIRECT_U_D_P_SOCKET_CLOSED = "Network.directUDPSocketClosed"
-    DIRECT_U_D_P_SOCKET_CHUNK_SENT = "Network.directUDPSocketChunkSent"
-    DIRECT_U_D_P_SOCKET_CHUNK_RECEIVED = "Network.directUDPSocketChunkReceived"
+    DIRECT_UDP_SOCKET_LEFT_MULTICAST_GROUP = "Network.directUDPSocketLeftMulticastGroup"
+    DIRECT_UDP_SOCKET_CREATED = "Network.directUDPSocketCreated"
+    DIRECT_UDP_SOCKET_OPENED = "Network.directUDPSocketOpened"
+    DIRECT_UDP_SOCKET_ABORTED = "Network.directUDPSocketAborted"
+    DIRECT_UDP_SOCKET_CLOSED = "Network.directUDPSocketClosed"
+    DIRECT_UDP_SOCKET_CHUNK_SENT = "Network.directUDPSocketChunkSent"
+    DIRECT_UDP_SOCKET_CHUNK_RECEIVED = "Network.directUDPSocketChunkReceived"
     REQUEST_WILL_BE_SENT_EXTRA_INFO = "Network.requestWillBeSentExtraInfo"
     RESPONSE_RECEIVED_EXTRA_INFO = "Network.responseReceivedExtraInfo"
     RESPONSE_RECEIVED_EARLY_HINTS = "Network.responseReceivedEarlyHints"
@@ -198,7 +196,7 @@ class RequestWillBeSentEvent(CDPModel):
 
     request_id: RequestId
     loader_id: LoaderId
-    document_u_r_l: str
+    document_url: str
     request: Request
     timestamp: MonotonicTime
     wall_time: TimeSinceEpoch
@@ -430,13 +428,13 @@ class DirectTCPSocketChunkReceivedEvent(CDPModel):
 @dataclass(kw_only=True)
 class DirectUDPSocketJoinedMulticastGroupEvent(CDPModel):
     identifier: RequestId
-    i_p_address: str
+    ip_address: str
 
 
 @dataclass(kw_only=True)
 class DirectUDPSocketLeftMulticastGroupEvent(CDPModel):
     identifier: RequestId
-    i_p_address: str
+    ip_address: str
 
 
 @dataclass(kw_only=True)
@@ -539,7 +537,7 @@ class ResponseReceivedExtraInfoEvent(CDPModel):
     request_id: RequestId
     blocked_cookies: list[BlockedSetCookieWithReason]
     headers: Headers
-    resource_i_p_address_space: IPAddressSpace
+    resource_ip_address_space: IPAddressSpace
     status_code: int
     headers_text: str | None | None = None
     cookie_partition_key: CookiePartitionKey | None | None = None

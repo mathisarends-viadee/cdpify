@@ -551,7 +551,7 @@ class NetworkClient:
         )
         return TakeResponseBodyForInterceptionAsStreamResult.from_cdp(result)
 
-    async def replay_x_h_r(
+    async def replay_xhr(
         self,
         *,
         request_id: RequestId,
@@ -565,7 +565,7 @@ class NetworkClient:
         params = ReplayXHRParams(request_id=request_id)
 
         result = await self._client.send_raw(
-            method=NetworkCommand.REPLAY_X_H_R,
+            method=NetworkCommand.REPLAY_XHR,
             params=params.to_cdp_params(),
             session_id=session_id,
         )
@@ -597,7 +597,7 @@ class NetworkClient:
         )
         return SearchInResponseBodyResult.from_cdp(result)
 
-    async def set_blocked_u_r_ls(
+    async def set_blocked_ur_ls(
         self,
         *,
         url_patterns: list[BlockPattern] | None = None,
@@ -610,7 +610,7 @@ class NetworkClient:
         params = SetBlockedURLsParams(url_patterns=url_patterns, urls=urls)
 
         result = await self._client.send_raw(
-            method=NetworkCommand.SET_BLOCKED_U_R_LS,
+            method=NetworkCommand.SET_BLOCKED_UR_LS,
             params=params.to_cdp_params(),
             session_id=session_id,
         )
@@ -717,7 +717,7 @@ class NetworkClient:
         )
         return result
 
-    async def set_extra_h_t_t_p_headers(
+    async def set_extra_http_headers(
         self,
         *,
         headers: Headers,
@@ -730,7 +730,7 @@ class NetworkClient:
         params = SetExtraHTTPHeadersParams(headers=headers)
 
         result = await self._client.send_raw(
-            method=NetworkCommand.SET_EXTRA_H_T_T_P_HEADERS,
+            method=NetworkCommand.SET_EXTRA_HTTP_HEADERS,
             params=params.to_cdp_params(),
             session_id=session_id,
         )

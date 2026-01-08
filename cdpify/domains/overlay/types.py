@@ -177,7 +177,7 @@ class WindowControlsOverlayConfig(CDPModel):
     Configuration for Window Controls Overlay
     """
 
-    show_c_s_s: bool
+    show_css: bool
     selected_platform: str
     theme_color: str
 

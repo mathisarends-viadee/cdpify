@@ -28,7 +28,7 @@ class DataEntry(CDPModel):
     Data entry.
     """
 
-    request_u_r_l: str
+    request_url: str
     request_method: str
     request_headers: list[Header]
     response_time: float

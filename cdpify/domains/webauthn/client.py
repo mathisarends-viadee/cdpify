@@ -42,14 +42,14 @@ class WebAuthnClient:
     async def enable(
         self,
         *,
-        enable_u_i: bool | None = None,
+        enable_ui: bool | None = None,
         session_id: str | None = None,
     ) -> dict[str, Any]:
         """
         Enable the WebAuthn domain and start intercepting credential storage and
         retrieval with a virtual authenticator.
         """
-        params = EnableParams(enable_u_i=enable_u_i)
+        params = EnableParams(enable_ui=enable_ui)
 
         result = await self._client.send_raw(
             method=WebAuthnCommand.ENABLE,
@@ -95,8 +95,8 @@ class WebAuthnClient:
         *,
         authenticator_id: AuthenticatorId,
         is_bogus_signature: bool | None = None,
-        is_bad_u_v: bool | None = None,
-        is_bad_u_p: bool | None = None,
+        is_bad_uv: bool | None = None,
+        is_bad_up: bool | None = None,
         session_id: str | None = None,
     ) -> dict[str, Any]:
         """
@@ -106,8 +106,8 @@ class WebAuthnClient:
         params = SetResponseOverrideBitsParams(
             authenticator_id=authenticator_id,
             is_bogus_signature=is_bogus_signature,
-            is_bad_u_v=is_bad_u_v,
-            is_bad_u_p=is_bad_u_p,
+            is_bad_uv=is_bad_uv,
+            is_bad_up=is_bad_up,
         )
 
         result = await self._client.send_raw(

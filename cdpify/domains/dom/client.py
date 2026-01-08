@@ -413,7 +413,7 @@ class DOMClient:
         *,
         x: int,
         y: int,
-        include_user_agent_shadow_d_o_m: bool | None = None,
+        include_user_agent_shadow_dom: bool | None = None,
         ignore_pointer_events_none: bool | None = None,
         session_id: str | None = None,
     ) -> GetNodeForLocationResult:
@@ -424,7 +424,7 @@ class DOMClient:
         params = GetNodeForLocationParams(
             x=x,
             y=y,
-            include_user_agent_shadow_d_o_m=include_user_agent_shadow_d_o_m,
+            include_user_agent_shadow_dom=include_user_agent_shadow_dom,
             ignore_pointer_events_none=ignore_pointer_events_none,
         )
 
@@ -435,13 +435,13 @@ class DOMClient:
         )
         return GetNodeForLocationResult.from_cdp(result)
 
-    async def get_outer_h_t_m_l(
+    async def get_outer_html(
         self,
         *,
         node_id: NodeId | None = None,
         backend_node_id: BackendNodeId | None = None,
         object_id: runtime.RemoteObjectId | None = None,
-        include_shadow_d_o_m: bool | None = None,
+        include_shadow_dom: bool | None = None,
         session_id: str | None = None,
     ) -> GetOuterHTMLResult:
         """
@@ -451,11 +451,11 @@ class DOMClient:
             node_id=node_id,
             backend_node_id=backend_node_id,
             object_id=object_id,
-            include_shadow_d_o_m=include_shadow_d_o_m,
+            include_shadow_dom=include_shadow_dom,
         )
 
         result = await self._client.send_raw(
-            method=DOMCommand.GET_OUTER_H_T_M_L,
+            method=DOMCommand.GET_OUTER_HTML,
             params=params.to_cdp_params(),
             session_id=session_id,
         )
@@ -586,7 +586,7 @@ class DOMClient:
         self,
         *,
         query: str,
-        include_user_agent_shadow_d_o_m: bool | None = None,
+        include_user_agent_shadow_dom: bool | None = None,
         session_id: str | None = None,
     ) -> PerformSearchResult:
         """
@@ -594,7 +594,7 @@ class DOMClient:
         search results or `cancelSearch` to end this search session.
         """
         params = PerformSearchParams(
-            query=query, include_user_agent_shadow_d_o_m=include_user_agent_shadow_d_o_m
+            query=query, include_user_agent_shadow_dom=include_user_agent_shadow_dom
         )
 
         result = await self._client.send_raw(
@@ -1030,20 +1030,20 @@ class DOMClient:
         )
         return result
 
-    async def set_outer_h_t_m_l(
+    async def set_outer_html(
         self,
         *,
         node_id: NodeId,
-        outer_h_t_m_l: str,
+        outer_html: str,
         session_id: str | None = None,
     ) -> dict[str, Any]:
         """
         Sets node HTML markup, returns new node id.
         """
-        params = SetOuterHTMLParams(node_id=node_id, outer_h_t_m_l=outer_h_t_m_l)
+        params = SetOuterHTMLParams(node_id=node_id, outer_html=outer_html)
 
         result = await self._client.send_raw(
-            method=DOMCommand.SET_OUTER_H_T_M_L,
+            method=DOMCommand.SET_OUTER_HTML,
             params=params.to_cdp_params(),
             session_id=session_id,
         )

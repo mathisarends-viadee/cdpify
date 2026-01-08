@@ -385,7 +385,7 @@ class OverlayClient:
         )
         return result
 
-    async def set_show_f_p_s_counter(
+    async def set_show_fps_counter(
         self,
         *,
         show: bool,
@@ -397,7 +397,7 @@ class OverlayClient:
         params = SetShowFPSCounterParams(show=show)
 
         result = await self._client.send_raw(
-            method=OverlayCommand.SET_SHOW_F_P_S_COUNTER,
+            method=OverlayCommand.SET_SHOW_FPS_COUNTER,
             params=params.to_cdp_params(),
             session_id=session_id,
         )

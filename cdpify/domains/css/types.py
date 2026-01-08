@@ -45,7 +45,7 @@ class InheritedStyleEntry(CDPModel):
     """
 
     inline_style: CSSStyle | None | None = None
-    matched_c_s_s_rules: list[RuleMatch]
+    matched_css_rules: list[RuleMatch]
 
 
 @dataclass(kw_only=True)
@@ -117,13 +117,13 @@ class CSSStyleSheetHeader(CDPModel):
 
     style_sheet_id: dom.StyleSheetId
     frame_id: page.FrameId
-    source_u_r_l: str
-    source_map_u_r_l: str | None | None = None
+    source_url: str
+    source_map_url: str | None | None = None
     origin: StyleSheetOrigin
     title: str
     owner_node: dom.BackendNodeId | None = None
     disabled: bool
-    has_source_u_r_l: bool | None | None = None
+    has_source_url: bool | None | None = None
     is_inline: bool
     is_mutable: bool
     is_constructed: bool
@@ -252,7 +252,7 @@ class CSSMedia(CDPModel):
 
     text: str
     source: Literal["mediaRule", "importRule", "linkedSheet", "inlineSheet"]
-    source_u_r_l: str | None | None = None
+    source_url: str | None | None = None
     range: SourceRange | None | None = None
     style_sheet_id: dom.StyleSheetId | None = None
     media_list: list[MediaQuery] | None | None = None

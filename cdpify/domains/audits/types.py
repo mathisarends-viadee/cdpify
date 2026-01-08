@@ -149,8 +149,8 @@ MixedContentResourceType = Literal[
 class MixedContentIssueDetails(CDPModel):
     resource_type: MixedContentResourceType | None | None = None
     resolution_status: MixedContentResolutionStatus
-    insecure_u_r_l: str
-    main_resource_u_r_l: str
+    insecure_url: str
+    main_resource_url: str
     request: AffectedRequest | None | None = None
     frame: AffectedFrame | None | None = None
 
@@ -218,7 +218,7 @@ class SourceCodeLocation(CDPModel):
 
 @dataclass(kw_only=True)
 class ContentSecurityPolicyIssueDetails(CDPModel):
-    blocked_u_r_l: str | None | None = None
+    blocked_url: str | None | None = None
     violated_directive: str
     is_report_only: bool
     content_security_policy_violation_type: ContentSecurityPolicyViolationType
@@ -247,8 +247,8 @@ class LowTextContrastIssueDetails(CDPModel):
     violating_node_id: dom.BackendNodeId
     violating_node_selector: str
     contrast_ratio: float
-    threshold_a_a: float
-    threshold_a_a_a: float
+    threshold_aa: float
+    threshold_aaa: float
     font_size: str
     font_weight: str
 
@@ -265,7 +265,7 @@ class CorsIssueDetails(CDPModel):
     request: AffectedRequest
     location: SourceCodeLocation | None | None = None
     initiator_origin: str | None | None = None
-    resource_i_p_address_space: network.IPAddressSpace | None = None
+    resource_ip_address_space: network.IPAddressSpace | None = None
     client_security_state: network.ClientSecurityState | None = None
 
 
@@ -596,7 +596,7 @@ PartitioningBlobURLInfo = Literal[
 @dataclass(kw_only=True)
 class PartitioningBlobURLIssueDetails(CDPModel):
     url: str
-    partitioning_blob_u_r_l_info: PartitioningBlobURLInfo
+    partitioning_blob_url_info: PartitioningBlobURLInfo
 
 
 ElementAccessibilityIssueReason = Literal[
@@ -770,7 +770,7 @@ class InspectorIssueDetails(CDPModel):
         AttributionReportingIssueDetails | None | None
     ) = None
     quirks_mode_issue_details: QuirksModeIssueDetails | None | None = None
-    partitioning_blob_u_r_l_issue_details: (
+    partitioning_blob_url_issue_details: (
         PartitioningBlobURLIssueDetails | None | None
     ) = None
     navigator_user_agent_issue_details: NavigatorUserAgentIssueDetails | None | None = (

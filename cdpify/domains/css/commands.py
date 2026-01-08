@@ -258,7 +258,7 @@ class GetMatchedStylesForNodeParams(CDPModel):
 class GetMatchedStylesForNodeResult(CDPModel):
     inline_style: CSSStyle | None | None = None
     attributes_style: CSSStyle | None | None = None
-    matched_c_s_s_rules: list[RuleMatch] | None | None = None
+    matched_css_rules: list[RuleMatch] | None | None = None
     pseudo_elements: list[PseudoElementMatches] | None | None = None
     inherited: list[InheritedStyleEntry] | None | None = None
     inherited_pseudo_elements: list[InheritedPseudoElementMatches] | None | None = None
@@ -513,7 +513,7 @@ class SetStyleSheetTextParams(CDPModel):
 
 @dataclass(kw_only=True)
 class SetStyleSheetTextResult(CDPModel):
-    source_map_u_r_l: str | None | None = None
+    source_map_url: str | None | None = None
 
 
 @dataclass(kw_only=True)

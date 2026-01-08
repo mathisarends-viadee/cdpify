@@ -19,7 +19,7 @@ from .types import (
 
 class RuntimeEvent(StrEnum):
     BINDING_CALLED = "Runtime.bindingCalled"
-    CONSOLE_A_P_I_CALLED = "Runtime.consoleAPICalled"
+    CONSOLE_API_CALLED = "Runtime.consoleAPICalled"
     EXCEPTION_REVOKED = "Runtime.exceptionRevoked"
     EXCEPTION_THROWN = "Runtime.exceptionThrown"
     EXECUTION_CONTEXT_CREATED = "Runtime.executionContextCreated"

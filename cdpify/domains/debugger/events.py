@@ -92,8 +92,8 @@ class ScriptFailedToParseEvent(CDPModel):
     hash: str
     build_id: str
     execution_context_aux_data: dict[str, Any] | None | None = None
-    source_map_u_r_l: str | None | None = None
-    has_source_u_r_l: bool | None | None = None
+    source_map_url: str | None | None = None
+    has_source_url: bool | None | None = None
     is_module: bool | None | None = None
     length: int | None | None = None
     stack_trace: runtime.StackTrace | None = None
@@ -120,8 +120,8 @@ class ScriptParsedEvent(CDPModel):
     build_id: str
     execution_context_aux_data: dict[str, Any] | None | None = None
     is_live_edit: bool | None | None = None
-    source_map_u_r_l: str | None | None = None
-    has_source_u_r_l: bool | None | None = None
+    source_map_url: str | None | None = None
+    has_source_url: bool | None | None = None
     is_module: bool | None | None = None
     length: int | None | None = None
     stack_trace: runtime.StackTrace | None = None

@@ -14,8 +14,8 @@ from .types import (
 
 
 class MemoryCommand(StrEnum):
-    GET_D_O_M_COUNTERS = "Memory.getDOMCounters"
-    GET_D_O_M_COUNTERS_FOR_LEAK_DETECTION = "Memory.getDOMCountersForLeakDetection"
+    GET_DOM_COUNTERS = "Memory.getDOMCounters"
+    GET_DOM_COUNTERS_FOR_LEAK_DETECTION = "Memory.getDOMCountersForLeakDetection"
     PREPARE_FOR_LEAK_DETECTION = "Memory.prepareForLeakDetection"
     FORCIBLY_PURGE_JAVA_SCRIPT_MEMORY = "Memory.forciblyPurgeJavaScriptMemory"
     SET_PRESSURE_NOTIFICATIONS_SUPPRESSED = "Memory.setPressureNotificationsSuppressed"

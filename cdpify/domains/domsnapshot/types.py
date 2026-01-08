@@ -28,8 +28,8 @@ class DOMNode(CDPModel):
     attributes: list[NameValue] | None | None = None
     pseudo_element_indexes: list[int] | None | None = None
     layout_node_index: int | None | None = None
-    document_u_r_l: str | None | None = None
-    base_u_r_l: str | None | None = None
+    document_url: str | None | None = None
+    base_url: str | None | None = None
     content_language: str | None | None = None
     document_encoding: str | None | None = None
     public_id: str | None | None = None
@@ -40,8 +40,8 @@ class DOMNode(CDPModel):
     shadow_root_type: dom.ShadowRootType | None = None
     is_clickable: bool | None | None = None
     event_listeners: list[domdebugger.EventListener] | None | None = None
-    current_source_u_r_l: str | None | None = None
-    origin_u_r_l: str | None | None = None
+    current_source_url: str | None | None = None
+    origin_url: str | None | None = None
     scroll_offset_x: float | None | None = None
     scroll_offset_y: float | None | None = None
 
@@ -133,9 +133,9 @@ class DocumentSnapshot(CDPModel):
     Document snapshot.
     """
 
-    document_u_r_l: StringIndex
+    document_url: StringIndex
     title: StringIndex
-    base_u_r_l: StringIndex
+    base_url: StringIndex
     content_language: StringIndex
     encoding_name: StringIndex
     public_id: StringIndex
@@ -171,8 +171,8 @@ class NodeTreeSnapshot(CDPModel):
     pseudo_type: RareStringData | None | None = None
     pseudo_identifier: RareStringData | None | None = None
     is_clickable: RareBooleanData | None | None = None
-    current_source_u_r_l: RareStringData | None | None = None
-    origin_u_r_l: RareStringData | None | None = None
+    current_source_url: RareStringData | None | None = None
+    origin_url: RareStringData | None | None = None
 
 
 @dataclass(kw_only=True)

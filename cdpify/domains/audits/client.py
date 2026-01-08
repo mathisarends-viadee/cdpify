@@ -85,14 +85,14 @@ class AuditsClient:
     async def check_contrast(
         self,
         *,
-        report_a_a_a: bool | None = None,
+        report_aaa: bool | None = None,
         session_id: str | None = None,
     ) -> dict[str, Any]:
         """
         Runs the contrast check for the target page. Found issues are reported using
         Audits.issueAdded event.
         """
-        params = CheckContrastParams(report_a_a_a=report_a_a_a)
+        params = CheckContrastParams(report_aaa=report_aaa)
 
         result = await self._client.send_raw(
             method=AuditsCommand.CHECK_CONTRAST,

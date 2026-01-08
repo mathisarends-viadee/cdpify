@@ -1,3 +1,5 @@
+import re
+
 from cdpify.generator.models import Parameter
 
 
@@ -13,13 +15,24 @@ def map_cdp_type(param: Parameter) -> str:
     return base_type
 
 
+_CAMEL_PATTERN_1 = re.compile(r"(.)([A-Z][a-z]+)")
+_CAMEL_PATTERN_2 = re.compile(r"([a-z0-9])([A-Z])")
+
+
 def to_snake_case(name: str) -> str:
-    chars = []
-    for i, char in enumerate(name):
-        if char.isupper() and i > 0:
-            chars.append("_")
-        chars.append(char.lower())
-    return "".join(chars)
+    """
+    Convert camelCase/PascalCase to snake_case with proper acronym handling.
+
+    Examples:
+        setSPCTransactionMode → set_spc_transaction_mode
+        getDOMNode → get_dom_node
+        parseHTML → parse_html
+        AXTree → ax_tree
+        getSSLCertificate → get_ssl_certificate
+    """
+    s1 = _CAMEL_PATTERN_1.sub(r"\1_\2", name)
+    s2 = _CAMEL_PATTERN_2.sub(r"\1_\2", s1)
+    return s2.lower()
 
 
 def to_pascal_case(name: str) -> str:

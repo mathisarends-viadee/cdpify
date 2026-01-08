@@ -81,7 +81,7 @@ class AXValueSource(CDPModel):
 
 @dataclass(kw_only=True)
 class AXRelatedNode(CDPModel):
-    backend_d_o_m_node_id: dom.BackendNodeId
+    backend_dom_node_id: dom.BackendNodeId
     idref: str | None | None = None
     text: str | None | None = None
 
@@ -191,5 +191,5 @@ class AXNode(CDPModel):
     properties: list[AXProperty] | None | None = None
     parent_id: AXNodeId | None | None = None
     child_ids: list[AXNodeId] | None | None = None
-    backend_d_o_m_node_id: dom.BackendNodeId | None = None
+    backend_dom_node_id: dom.BackendNodeId | None = None
     frame_id: page.FrameId | None = None

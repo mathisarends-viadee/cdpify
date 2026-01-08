@@ -16,9 +16,9 @@ class DOMStorageCommand(StrEnum):
     CLEAR = "DOMStorage.clear"
     DISABLE = "DOMStorage.disable"
     ENABLE = "DOMStorage.enable"
-    GET_D_O_M_STORAGE_ITEMS = "DOMStorage.getDOMStorageItems"
-    REMOVE_D_O_M_STORAGE_ITEM = "DOMStorage.removeDOMStorageItem"
-    SET_D_O_M_STORAGE_ITEM = "DOMStorage.setDOMStorageItem"
+    GET_DOM_STORAGE_ITEMS = "DOMStorage.getDOMStorageItems"
+    REMOVE_DOM_STORAGE_ITEM = "DOMStorage.removeDOMStorageItem"
+    SET_DOM_STORAGE_ITEM = "DOMStorage.setDOMStorageItem"
 
 
 @dataclass(kw_only=True)

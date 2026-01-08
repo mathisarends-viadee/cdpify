@@ -18,15 +18,15 @@ from cdpify.domains import runtime
 
 class DOMDebuggerCommand(StrEnum):
     GET_EVENT_LISTENERS = "DOMDebugger.getEventListeners"
-    REMOVE_D_O_M_BREAKPOINT = "DOMDebugger.removeDOMBreakpoint"
+    REMOVE_DOM_BREAKPOINT = "DOMDebugger.removeDOMBreakpoint"
     REMOVE_EVENT_LISTENER_BREAKPOINT = "DOMDebugger.removeEventListenerBreakpoint"
     REMOVE_INSTRUMENTATION_BREAKPOINT = "DOMDebugger.removeInstrumentationBreakpoint"
-    REMOVE_X_H_R_BREAKPOINT = "DOMDebugger.removeXHRBreakpoint"
-    SET_BREAK_ON_C_S_P_VIOLATION = "DOMDebugger.setBreakOnCSPViolation"
-    SET_D_O_M_BREAKPOINT = "DOMDebugger.setDOMBreakpoint"
+    REMOVE_XHR_BREAKPOINT = "DOMDebugger.removeXHRBreakpoint"
+    SET_BREAK_ON_CSP_VIOLATION = "DOMDebugger.setBreakOnCSPViolation"
+    SET_DOM_BREAKPOINT = "DOMDebugger.setDOMBreakpoint"
     SET_EVENT_LISTENER_BREAKPOINT = "DOMDebugger.setEventListenerBreakpoint"
     SET_INSTRUMENTATION_BREAKPOINT = "DOMDebugger.setInstrumentationBreakpoint"
-    SET_X_H_R_BREAKPOINT = "DOMDebugger.setXHRBreakpoint"
+    SET_XHR_BREAKPOINT = "DOMDebugger.setXHRBreakpoint"
 
 
 @dataclass(kw_only=True)

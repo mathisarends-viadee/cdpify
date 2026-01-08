@@ -61,7 +61,7 @@ class DOMDebuggerClient:
         )
         return GetEventListenersResult.from_cdp(result)
 
-    async def remove_d_o_m_breakpoint(
+    async def remove_dom_breakpoint(
         self,
         *,
         node_id: dom.NodeId,
@@ -74,7 +74,7 @@ class DOMDebuggerClient:
         params = RemoveDOMBreakpointParams(node_id=node_id, type=type)
 
         result = await self._client.send_raw(
-            method=DOMDebuggerCommand.REMOVE_D_O_M_BREAKPOINT,
+            method=DOMDebuggerCommand.REMOVE_DOM_BREAKPOINT,
             params=params.to_cdp_params(),
             session_id=session_id,
         )
@@ -120,7 +120,7 @@ class DOMDebuggerClient:
         )
         return result
 
-    async def remove_x_h_r_breakpoint(
+    async def remove_xhr_breakpoint(
         self,
         *,
         url: str,
@@ -132,13 +132,13 @@ class DOMDebuggerClient:
         params = RemoveXHRBreakpointParams(url=url)
 
         result = await self._client.send_raw(
-            method=DOMDebuggerCommand.REMOVE_X_H_R_BREAKPOINT,
+            method=DOMDebuggerCommand.REMOVE_XHR_BREAKPOINT,
             params=params.to_cdp_params(),
             session_id=session_id,
         )
         return result
 
-    async def set_break_on_c_s_p_violation(
+    async def set_break_on_csp_violation(
         self,
         *,
         violation_types: list[CSPViolationType],
@@ -150,13 +150,13 @@ class DOMDebuggerClient:
         params = SetBreakOnCSPViolationParams(violation_types=violation_types)
 
         result = await self._client.send_raw(
-            method=DOMDebuggerCommand.SET_BREAK_ON_C_S_P_VIOLATION,
+            method=DOMDebuggerCommand.SET_BREAK_ON_CSP_VIOLATION,
             params=params.to_cdp_params(),
             session_id=session_id,
         )
         return result
 
-    async def set_d_o_m_breakpoint(
+    async def set_dom_breakpoint(
         self,
         *,
         node_id: dom.NodeId,
@@ -169,7 +169,7 @@ class DOMDebuggerClient:
         params = SetDOMBreakpointParams(node_id=node_id, type=type)
 
         result = await self._client.send_raw(
-            method=DOMDebuggerCommand.SET_D_O_M_BREAKPOINT,
+            method=DOMDebuggerCommand.SET_DOM_BREAKPOINT,
             params=params.to_cdp_params(),
             session_id=session_id,
         )
@@ -215,7 +215,7 @@ class DOMDebuggerClient:
         )
         return result
 
-    async def set_x_h_r_breakpoint(
+    async def set_xhr_breakpoint(
         self,
         *,
         url: str,
@@ -227,7 +227,7 @@ class DOMDebuggerClient:
         params = SetXHRBreakpointParams(url=url)
 
         result = await self._client.send_raw(
-            method=DOMDebuggerCommand.SET_X_H_R_BREAKPOINT,
+            method=DOMDebuggerCommand.SET_XHR_BREAKPOINT,
             params=params.to_cdp_params(),
             session_id=session_id,
         )
