@@ -9,8 +9,6 @@ def _to_camel(s: str) -> str:
 
 
 def _to_snake(s: str) -> str:
-    import re
-
     return re.sub(r"(?<!^)(?=[A-Z])", "_", s).lower()
 
 

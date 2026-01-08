@@ -7,6 +7,7 @@ from cdpify.generator.generators import (
     ClientGenerator,
     CommandsGenerator,
     EventsGenerator,
+    InitGenerator,
     TypesGenerator,
 )
 from cdpify.generator.models import Domain
@@ -20,7 +21,8 @@ class DomainGenerator:
         self._types_gen = TypesGenerator()
         self._commands_gen = CommandsGenerator()
         self._events_gen = EventsGenerator()
-        self._client_generator = ClientGenerator()
+        self._client_gen = ClientGenerator()
+        self._init_gen = InitGenerator()
 
     def generate_all(self, domains: list[Domain]) -> None:
         self._prepare_output_dir()
@@ -62,19 +64,8 @@ class DomainGenerator:
         (domain_dir / "types.py").write_text(self._types_gen.generate(domain))
         (domain_dir / "commands.py").write_text(self._commands_gen.generate(domain))
         (domain_dir / "events.py").write_text(self._events_gen.generate(domain))
-        (domain_dir / "client.py").write_text(self._client_generator.generate(domain))
-        (domain_dir / "__init__.py").write_text(self._build_domain_init(domain))
-
-    def _build_domain_init(self, domain: Domain) -> str:
-        return f'''"""CDP {domain.domain} Domain"""
-
-from .types import *
-from .commands import *
-from .events import *
-from .client import {domain.domain}Client
-
-__all__ = ["{domain.domain}Client"]
-'''
+        (domain_dir / "client.py").write_text(self._client_gen.generate(domain))
+        (domain_dir / "__init__.py").write_text(self._init_gen.generate(domain))
 
     def _generate_base_file(self) -> None:
         (CDP_DIR / "shared.py").write_text(self._build_shared_content())
@@ -85,13 +76,15 @@ __all__ = ["{domain.domain}Client"]
 from dataclasses import asdict, dataclass, fields
 from typing import Any, Self
 
+
 def _to_camel(s: str) -> str:
     parts = s.split("_")
     return parts[0] + "".join(p.title() for p in parts[1:])
 
+
 def _to_snake(s: str) -> str:
-    import re
     return re.sub(r"(?<!^)(?=[A-Z])", "_", s).lower()
+
 
 @dataclass
 class CDPModel:
@@ -114,7 +107,7 @@ class CDPModel:
         imports = self._build_domain_imports(domains)
         exports = self._build_domain_exports(domains)
 
-        return f'''"""Generated CDP domains"""
+        return f'''"""Generated CDP domains."""
 
 {imports}
 
