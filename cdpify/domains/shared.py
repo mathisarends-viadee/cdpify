@@ -9,7 +9,6 @@ _ACRONYMS = frozenset(
         "css",
         "dom",
         "html",
-        "id",
         "json",
         "pdf",
         "spc",

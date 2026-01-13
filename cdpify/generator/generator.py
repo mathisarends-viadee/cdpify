@@ -78,7 +78,7 @@ from typing import Any, Self, get_args, get_origin
 
 
 _ACRONYMS = frozenset({
-    "api", "css", "dom", "html", "id", "json", "pdf", "spc",
+    "api", "css", "dom", "html", "json", "pdf", "spc",
     "ssl", "url", "uuid", "xml", "xhr", "ax", "cpu", "gpu",
     "io", "js", "os", "ui", "uri", "usb", "wasm", "http", "https",
 })
