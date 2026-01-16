@@ -1,12 +1,14 @@
 import asyncio
 import json
 import logging
-from typing import Any
+from collections.abc import AsyncIterator
+from typing import Any, Self, TypeVar
 
 import websockets
 from websockets.asyncio.client import ClientConnection, connect
 
-from cdpify.events import EventDispatcher, EventHandler
+from cdpify.domains.shared import CDPModel
+from cdpify.events import EventDispatcher
 from cdpify.exceptions import (
     CDPCommandException,
     CDPConnectionException,
@@ -14,6 +16,8 @@ from cdpify.exceptions import (
 )
 
 logger = logging.getLogger(__name__)
+
+T = TypeVar("T", bound=CDPModel)
 
 
 class CDPClient:
@@ -26,9 +30,9 @@ class CDPClient:
         default_timeout: float = 30.0,
     ) -> None:
         self.url: str = url
-        self.additional_headers: dict[str, str] | None = additional_headers
-        self.max_frame_size: int = max_frame_size
-        self.default_timeout: float = default_timeout
+        self._additional_headers: dict[str, str] | None = additional_headers
+        self._max_frame_size: int = max_frame_size
+        self._default_timeout: float = default_timeout
 
         self._ws: ClientConnection | None = None
         self._next_message_id: int = 0
@@ -37,7 +41,7 @@ class CDPClient:
         self._events: EventDispatcher = EventDispatcher()
         self._is_shutting_down: bool = False
 
-    async def __aenter__(self) -> CDPClient:
+    async def __aenter__(self) -> Self:
         await self.connect()
         return self
 
@@ -48,33 +52,32 @@ class CDPClient:
     def is_connected(self) -> bool:
         return self._ws is not None
 
-    def on(self, event_name: str | None = None):
+    async def listen(
+        self, event_name: str, event_type: type[T], timeout: float | None = None
+    ) -> AsyncIterator[T]:
         """
-        Register event handler.
+        Listen to typed CDP events.
 
         Usage:
-            @client.on("Page.loadEventFired")
-            async def on_load(params, session_id):
-                print("Page loaded!")
-
-            @client.on()  # Wildcard - all events
-            async def on_any(params, session_id):
-                print(f"Event: {params}")
+            async for frame in client.listen(
+                "Page.screencastFrame", ScreencastFrameEvent
+            ):
+                print(frame.data, frame.session_id)
         """
+        queue: asyncio.Queue[T] = asyncio.Queue()
 
-        def decorator(func: EventHandler) -> EventHandler:
-            self._events.add_handler(event_name, func)
-            return func
+        async def handler(params: dict[str, Any]) -> None:
+            typed_event = event_type.from_cdp(params)
+            await queue.put(typed_event)
 
-        return decorator
-
-    def add_event_listener(self, event_name: str | None, handler: EventHandler) -> None:
         self._events.add_handler(event_name, handler)
 
-    def remove_event_listener(
-        self, event_name: str | None, handler: EventHandler
-    ) -> None:
-        self._events.remove_handler(event_name, handler)
+        try:
+            while True:
+                event = await asyncio.wait_for(queue.get(), timeout=timeout)
+                yield event
+        finally:
+            self._events.remove_handler(event_name, handler)
 
     async def connect(self) -> None:
         if self._ws is not None:
@@ -85,8 +88,8 @@ class CDPClient:
         try:
             self._ws = await connect(
                 self.url,
-                max_size=self.max_frame_size,
-                additional_headers=self.additional_headers,
+                max_size=self._max_frame_size,
+                additional_headers=self._additional_headers,
             )
             self._is_shutting_down = False
             self._message_loop_task = asyncio.create_task(self._run_message_loop())
@@ -117,7 +120,7 @@ class CDPClient:
         if not self.is_connected:
             raise CDPConnectionException("Not connected")
 
-        timeout = timeout or self.default_timeout
+        timeout = timeout or self._default_timeout
         msg_id = self._next_message_id
         self._next_message_id += 1
 
@@ -160,10 +163,6 @@ class CDPClient:
             return result
         except asyncio.TimeoutError:
             raise CDPTimeoutException(f"{method} timed out after {timeout}s") from None
-        except (CDPCommandException, CDPConnectionException):
-            raise
-        except Exception as e:
-            raise CDPConnectionException(f"Command failed: {e}") from e
 
     async def _run_message_loop(self) -> None:
         try:
@@ -176,24 +175,29 @@ class CDPClient:
         except asyncio.CancelledError:
             logger.debug("Message loop cancelled")
             raise
-        except Exception as e:
-            logger.exception(f"Message loop error: {e}")
+        except Exception:
+            logger.exception("Message loop error")
         finally:
             if not self._is_shutting_down:
                 await self.disconnect()
 
     async def _process_message(self, raw: str) -> None:
-        try:
-            msg = json.loads(raw)
+        msg = json.loads(raw)
 
-            if "id" in msg:
-                await self._handle_response(msg)
-            elif "method" in msg:
-                await self._handle_event(msg)
-            else:
-                logger.warning(f"Unknown message format: {msg}")
-        except json.JSONDecodeError as e:
-            logger.error(f"Invalid JSON: {e}")
+        if self._is_cdp_response(msg):
+            await self._handle_response(msg)
+        elif self._is_cdp_event(msg):
+            await self._handle_event(msg)
+        else:
+            logger.warning(f"Unknown CDP message format: {msg}")
+
+    def _is_cdp_response(self, msg: dict[str, Any]) -> bool:
+        """CDP responses contain an 'id' field"""
+        return "id" in msg
+
+    def _is_cdp_event(self, msg: dict[str, Any]) -> bool:
+        """CDP events contain a 'method' field"""
+        return "method" in msg
 
     async def _handle_response(self, msg: dict[str, Any]) -> None:
         msg_id = msg["id"]
@@ -210,10 +214,9 @@ class CDPClient:
     async def _handle_event(self, msg: dict[str, Any]) -> None:
         method = msg["method"]
         params = msg.get("params", {})
-        session_id = msg.get("sessionId")
 
         logger.debug(f"Event: {method}")
-        handled = await self._events.dispatch(method, params, session_id)
+        handled = await self._events.dispatch(method, params)
 
         if not handled:
             logger.debug(f"Unhandled event: {method}")
