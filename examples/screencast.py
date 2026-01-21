@@ -58,21 +58,19 @@ async def main():
 
         frame_count = 0
         try:
-            async for event in client.listen_multiple(
-                {
-                    PageEvent.SCREENCAST_FRAME: ScreencastFrameEvent,
-                }
+            async for event in client.listen(
+                event_name=PageEvent.SCREENCAST_FRAME,
+                event_type=ScreencastFrameEvent,
             ):
                 frame_count += 1
-                print(f"🎬 Frame {frame_count} received! (Event: {event.name})")
+                print(f"🎬 Frame {frame_count} received!")
 
                 await client.page.screencast_frame_ack(
-                    screencast_frame_ack_session_id=event.data.session_id
+                    screencast_frame_ack_session_id=event.session_id
                 )
 
                 # Save frame
-                await save_frame(event.data.data, frame_count, output_dir)
-
+                await save_frame(event.data, frame_count, output_dir)
         except KeyboardInterrupt:
             print("\n⏹️  Stopping...")
         except asyncio.TimeoutError:

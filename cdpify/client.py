@@ -52,7 +52,7 @@ from cdpify.domains import (
     WebAudioClient,
     WebAuthnClient,
 )
-from cdpify.events import CDPEvent, EventDispatcher
+from cdpify.events import EventDispatcher
 from cdpify.exceptions import (
     CDPCommandException,
     CDPConnectionException,
@@ -212,47 +212,20 @@ class CDPClient:
     async def listen(
         self, event_name: str, event_type: type[T], timeout: float | None = None
     ) -> AsyncIterator[T]:
-        async for event in self.listen_multiple({event_name: event_type}, timeout):
-            yield event.data
+        queue: asyncio.Queue[T] = asyncio.Queue()
 
-    async def listen_multiple(
-        self, event_map: dict[str, type[T]], timeout: float | None = None
-    ) -> AsyncIterator[CDPEvent[T]]:
-        """
-        Listen to multiple typed CDP events.
-
-        Usage:
-            async for event in client.listen_multiple({
-                "Target.targetCreated": TargetCreatedEvent,
-                "Target.targetInfoChanged": TargetInfoChangedEvent
-            }):
-                if event.name == "Target.targetCreated":
-                    print(event.data.target_id)
-        """
-        queue: asyncio.Queue[CDPEvent[T]] = asyncio.Queue()
-
-        def create_handler(event_name: str, event_type: type[T]):
-            async def handler(params: dict[str, Any]) -> None:
-                typed_event = event_type.from_cdp(params)
-                await queue.put(CDPEvent(name=event_name, data=typed_event))
-
-            return handler
-
-        handlers = [
-            (event_name, create_handler(event_name, event_type))
-            for event_name, event_type in event_map.items()
-        ]
+        async def handler(params: dict[str, Any]) -> None:
+            typed_event = event_type.from_cdp(params)
+            await queue.put(typed_event)
 
         try:
-            for event_name, handler in handlers:
-                self._events.add_handler(event_name, handler)
+            self._events.add_handler(event_name, handler)
 
             while True:
                 yield await asyncio.wait_for(queue.get(), timeout=timeout)
 
         finally:
-            for event_name, handler in handlers:
-                self._events.remove_handler(event_name, handler)
+            self._events.remove_handler(event_name, handler)
 
     async def send_raw(
         self,
