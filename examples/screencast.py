@@ -9,7 +9,7 @@ from cdpify import CDPClient
 from cdpify.domains.page.events import PageEvent, ScreencastFrameEvent
 
 logging.basicConfig(
-    level=logging.DEBUG, format="%(asctime)s - %(name)s - %(levelname)s - %(message)s"
+    level=logging.INFO, format="%(asctime)s - %(name)s - %(levelname)s - %(message)s"
 )
 
 
@@ -41,8 +41,6 @@ async def main():
     print(f"Connecting to: {ws_url}\n")
 
     async with CDPClient(ws_url) as client:
-        # Enable page domain
-        print("📄 Enabling Page domain...")
         await client.page.enable()
 
         print("🎬 Starting screencast...")
@@ -69,7 +67,6 @@ async def main():
                     screencast_frame_ack_session_id=event.session_id
                 )
 
-                # Save frame
                 await save_frame(event.data, frame_count, output_dir)
         except KeyboardInterrupt:
             print("\n⏹️  Stopping...")
