@@ -302,8 +302,8 @@ CorsError = Literal[
     "MethodDisallowedByPreflightResponse",
     "HeaderDisallowedByPreflightResponse",
     "RedirectContainsCredentials",
-    "InsecurePrivateNetwork",
-    "InvalidPrivateNetworkAccess",
+    "InsecureLocalNetwork",
+    "InvalidLocalNetworkAccess",
     "NoCorsRedirectModeNotFollow",
     "LocalNetworkAccessPermissionDenied",
 ]
@@ -797,7 +797,7 @@ class DirectUDPMessage(CDPModel):
     remote_port: int | None | None = None
 
 
-PrivateNetworkRequestPolicy = Literal[
+LocalNetworkAccessRequestPolicy = Literal[
     "Allow",
     "BlockFromInsecureToMorePrivate",
     "WarnFromInsecureToMorePrivate",
@@ -817,7 +817,7 @@ class ConnectTiming(CDPModel):
 class ClientSecurityState(CDPModel):
     initiator_is_secure_context: bool
     initiator_ip_address_space: IPAddressSpace
-    private_network_request_policy: PrivateNetworkRequestPolicy
+    local_network_access_request_policy: LocalNetworkAccessRequestPolicy
 
 
 CrossOriginOpenerPolicyValue = Literal[

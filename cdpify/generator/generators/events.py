@@ -9,6 +9,10 @@ from cdpify.generator.models import Domain, Event, Parameter
 
 
 class EventsGenerator(TypeAwareGenerator):
+    OPTIONAL_OVERRIDES: dict[str, set[str]] = {
+        "Network.requestWillBeSent": {"documentURL"},
+    }
+
     def generate(self, domain: Domain) -> str:
         self._reset_tracking()
         self._scan_events(domain)
@@ -49,7 +53,6 @@ class EventsGenerator(TypeAwareGenerator):
 
         lines = []
 
-        # Add __future__ import if TYPE_CHECKING is used
         if self._uses_type_checking:
             lines.append("from __future__ import annotations")
             lines.append("")
@@ -94,10 +97,13 @@ class EventsGenerator(TypeAwareGenerator):
         if not domain.events:
             return ""
 
-        return "\n\n".join(self._create_event_model(event) for event in domain.events)
+        return "\n\n".join(
+            self._create_event_model(event, domain.domain) for event in domain.events
+        )
 
-    def _create_event_model(self, event: Event) -> str:
+    def _create_event_model(self, event: Event, domain_name: str) -> str:
         class_name = f"{to_pascal_case(event.name)}Event"
+        event_fqn = f"{domain_name}.{event.name}"
 
         lines = ["@dataclass(kw_only=True)"]
         lines.append(f"class {class_name}(CDPModel):")
@@ -108,19 +114,24 @@ class EventsGenerator(TypeAwareGenerator):
 
         if event.parameters:
             for param in event.parameters:
-                lines.append(f"    {self._create_field(param)}")
+                lines.append(f"    {self._create_field(param, event_fqn)}")
         else:
             lines.append("    pass")
 
         return "\n".join(lines)
 
-    def _create_field(self, param: Parameter) -> str:
+    def _create_field(self, param: Parameter, event_fqn: str) -> str:
         field_name = to_snake_case(param.name)
         py_type = self._resolve_type(param)
 
         self._track_type_usage(py_type)
 
-        if param.optional:
+        should_override = (
+            event_fqn in self.OPTIONAL_OVERRIDES
+            and param.name in self.OPTIONAL_OVERRIDES[event_fqn]
+        )
+
+        if param.optional or should_override:
             return f"{field_name}: {py_type} | None = None"
         return f"{field_name}: {py_type}"
 

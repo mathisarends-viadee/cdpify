@@ -741,6 +741,7 @@ BackForwardCacheNotRestoredReason = Literal[
     "SharedWorkerMessage",
     "SharedWorkerWithNoActiveClient",
     "WebLocks",
+    "WebLocksContention",
     "WebHID",
     "WebBluetooth",
     "WebShare",

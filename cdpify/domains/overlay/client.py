@@ -34,6 +34,7 @@ from .commands import (
     SetShowGridOverlaysParams,
     SetShowHingeParams,
     SetShowHitTestBordersParams,
+    SetShowInspectedElementAnchorParams,
     SetShowIsolatedElementsParams,
     SetShowLayoutShiftRegionsParams,
     SetShowPaintRectsParams,
@@ -52,6 +53,7 @@ from .types import (
     HighlightConfig,
     HingeConfig,
     InspectMode,
+    InspectedElementAnchorConfig,
     IsolatedElementHighlightConfig,
     ScrollSnapHighlightConfig,
     SourceOrderConfig,
@@ -469,6 +471,23 @@ class OverlayClient:
 
         result = await self._client.send_raw(
             method=OverlayCommand.SET_SHOW_CONTAINER_QUERY_OVERLAYS,
+            params=params.to_cdp_params(),
+            session_id=session_id,
+        )
+        return result
+
+    async def set_show_inspected_element_anchor(
+        self,
+        *,
+        inspected_element_anchor_config: InspectedElementAnchorConfig,
+        session_id: str | None = None,
+    ) -> dict[str, Any]:
+        params = SetShowInspectedElementAnchorParams(
+            inspected_element_anchor_config=inspected_element_anchor_config
+        )
+
+        result = await self._client.send_raw(
+            method=OverlayCommand.SET_SHOW_INSPECTED_ELEMENT_ANCHOR,
             params=params.to_cdp_params(),
             session_id=session_id,
         )

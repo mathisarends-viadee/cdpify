@@ -352,6 +352,15 @@ UnencodedDigestError = Literal[
     "IncorrectDigestLength",
 ]
 
+ConnectionAllowlistError = Literal[
+    "InvalidHeader",
+    "MoreThanOneList",
+    "ItemNotInnerList",
+    "InvalidAllowlistItemType",
+    "ReportingEndpointNotToken",
+    "InvalidUrlPattern",
+]
+
 
 @dataclass(kw_only=True)
 class AttributionReportingIssueDetails(CDPModel):
@@ -403,6 +412,12 @@ class SRIMessageSignatureIssueDetails(CDPModel):
 @dataclass(kw_only=True)
 class UnencodedDigestIssueDetails(CDPModel):
     error: UnencodedDigestError
+    request: AffectedRequest
+
+
+@dataclass(kw_only=True)
+class ConnectionAllowlistIssueDetails(CDPModel):
+    error: ConnectionAllowlistError
     request: AffectedRequest
 
 
@@ -739,6 +754,7 @@ InspectorIssueCode = Literal[
     "ElementAccessibilityIssue",
     "SRIMessageSignatureIssue",
     "UnencodedDigestIssue",
+    "ConnectionAllowlistIssue",
     "UserReidentificationIssue",
     "PermissionElementIssue",
 ]
@@ -799,6 +815,9 @@ class InspectorIssueDetails(CDPModel):
         SRIMessageSignatureIssueDetails | None | None
     ) = None
     unencoded_digest_issue_details: UnencodedDigestIssueDetails | None | None = None
+    connection_allowlist_issue_details: (
+        ConnectionAllowlistIssueDetails | None | None
+    ) = None
     user_reidentification_issue_details: (
         UserReidentificationIssueDetails | None | None
     ) = None

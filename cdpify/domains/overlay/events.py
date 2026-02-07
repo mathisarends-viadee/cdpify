@@ -17,6 +17,8 @@ class OverlayEvent(StrEnum):
     INSPECT_NODE_REQUESTED = "Overlay.inspectNodeRequested"
     NODE_HIGHLIGHT_REQUESTED = "Overlay.nodeHighlightRequested"
     SCREENSHOT_REQUESTED = "Overlay.screenshotRequested"
+    INSPECT_PANEL_SHOW_REQUESTED = "Overlay.inspectPanelShowRequested"
+    INSPECTED_ELEMENT_WINDOW_RESTORED = "Overlay.inspectedElementWindowRestored"
     INSPECT_MODE_CANCELED = "Overlay.inspectModeCanceled"
 
 
@@ -47,6 +49,24 @@ class ScreenshotRequestedEvent(CDPModel):
     """
 
     viewport: page.Viewport
+
+
+@dataclass(kw_only=True)
+class InspectPanelShowRequestedEvent(CDPModel):
+    """
+    Fired when user asks to show the Inspect panel.
+    """
+
+    backend_node_id: dom.BackendNodeId
+
+
+@dataclass(kw_only=True)
+class InspectedElementWindowRestoredEvent(CDPModel):
+    """
+    Fired when user asks to restore the Inspected Element floating window.
+    """
+
+    backend_node_id: dom.BackendNodeId
 
 
 @dataclass(kw_only=True)

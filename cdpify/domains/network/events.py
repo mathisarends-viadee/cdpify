@@ -199,7 +199,7 @@ class RequestWillBeSentEvent(CDPModel):
 
     request_id: RequestId
     loader_id: LoaderId
-    document_url: str
+    document_url: str | None = None
     request: Request
     timestamp: MonotonicTime
     wall_time: TimeSinceEpoch

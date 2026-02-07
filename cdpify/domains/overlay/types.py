@@ -212,3 +212,9 @@ class IsolationModeHighlightConfig(CDPModel):
 InspectMode = Literal[
     "searchForNode", "searchForUAShadowDOM", "captureAreaScreenshot", "none"
 ]
+
+
+@dataclass(kw_only=True)
+class InspectedElementAnchorConfig(CDPModel):
+    node_id: dom.NodeId | None = None
+    backend_node_id: dom.BackendNodeId | None = None

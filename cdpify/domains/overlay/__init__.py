@@ -25,6 +25,7 @@ from .types import (
     IsolatedElementHighlightConfig,
     IsolationModeHighlightConfig,
     InspectMode,
+    InspectedElementAnchorConfig,
 )
 
 from .commands import (
@@ -50,6 +51,7 @@ from .commands import (
     SetShowGridOverlaysParams,
     SetShowHingeParams,
     SetShowHitTestBordersParams,
+    SetShowInspectedElementAnchorParams,
     SetShowIsolatedElementsParams,
     SetShowLayoutShiftRegionsParams,
     SetShowPaintRectsParams,
@@ -63,6 +65,8 @@ from .commands import (
 from .events import (
     InspectModeCanceledEvent,
     InspectNodeRequestedEvent,
+    InspectPanelShowRequestedEvent,
+    InspectedElementWindowRestoredEvent,
     NodeHighlightRequestedEvent,
     OverlayEvent,
     ScreenshotRequestedEvent,
@@ -97,6 +101,9 @@ __all__ = [
     "InspectMode",
     "InspectModeCanceledEvent",
     "InspectNodeRequestedEvent",
+    "InspectPanelShowRequestedEvent",
+    "InspectedElementAnchorConfig",
+    "InspectedElementWindowRestoredEvent",
     "IsolatedElementHighlightConfig",
     "IsolationModeHighlightConfig",
     "LineStyle",
@@ -117,6 +124,7 @@ __all__ = [
     "SetShowGridOverlaysParams",
     "SetShowHingeParams",
     "SetShowHitTestBordersParams",
+    "SetShowInspectedElementAnchorParams",
     "SetShowIsolatedElementsParams",
     "SetShowLayoutShiftRegionsParams",
     "SetShowPaintRectsParams",

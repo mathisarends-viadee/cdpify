@@ -15,6 +15,7 @@ from .types import (
     HighlightConfig,
     HingeConfig,
     InspectMode,
+    InspectedElementAnchorConfig,
     IsolatedElementHighlightConfig,
     ScrollSnapHighlightConfig,
     SourceOrderConfig,
@@ -49,6 +50,7 @@ class OverlayCommand(StrEnum):
     SET_SHOW_FLEX_OVERLAYS = "Overlay.setShowFlexOverlays"
     SET_SHOW_SCROLL_SNAP_OVERLAYS = "Overlay.setShowScrollSnapOverlays"
     SET_SHOW_CONTAINER_QUERY_OVERLAYS = "Overlay.setShowContainerQueryOverlays"
+    SET_SHOW_INSPECTED_ELEMENT_ANCHOR = "Overlay.setShowInspectedElementAnchor"
     SET_SHOW_PAINT_RECTS = "Overlay.setShowPaintRects"
     SET_SHOW_LAYOUT_SHIFT_REGIONS = "Overlay.setShowLayoutShiftRegions"
     SET_SHOW_SCROLL_BOTTLENECK_RECTS = "Overlay.setShowScrollBottleneckRects"
@@ -241,6 +243,11 @@ class SetShowScrollSnapOverlaysParams(CDPModel):
 @dataclass(kw_only=True)
 class SetShowContainerQueryOverlaysParams(CDPModel):
     container_query_highlight_configs: list[ContainerQueryHighlightConfig]
+
+
+@dataclass(kw_only=True)
+class SetShowInspectedElementAnchorParams(CDPModel):
+    inspected_element_anchor_config: InspectedElementAnchorConfig
 
 
 @dataclass(kw_only=True)
