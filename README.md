@@ -1,4 +1,4 @@
-# Pydantic CDP
+# cdpify
 
 Type-safe Python client for the Chrome DevTools Protocol (CDP) with Pydantic validation.
 
