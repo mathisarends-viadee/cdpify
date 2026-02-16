@@ -54,10 +54,10 @@ class Key(CDPModel):
     """
 
     type: Literal["number", "string", "date", "array"]
-    number: float | None | None = None
-    string: str | None | None = None
-    date: float | None | None = None
-    array: list[Key] | None | None = None
+    number: float | None = None
+    string: str | None = None
+    date: float | None = None
+    array: list[Key] | None = None
 
 
 @dataclass(kw_only=True)
@@ -66,8 +66,8 @@ class KeyRange(CDPModel):
     Key range.
     """
 
-    lower: Key | None | None = None
-    upper: Key | None | None = None
+    lower: Key | None = None
+    upper: Key | None = None
     lower_open: bool
     upper_open: bool
 
@@ -90,5 +90,5 @@ class KeyPath(CDPModel):
     """
 
     type: Literal["null", "string", "array"]
-    string: str | None | None = None
-    array: list[str] | None | None = None
+    string: str | None = None
+    array: list[str] | None = None

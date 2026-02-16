@@ -31,7 +31,7 @@ class AdFrameStatus(CDPModel):
     """
 
     ad_frame_type: AdFrameType
-    explanations: list[AdFrameExplanation] | None | None = None
+    explanations: list[AdFrameExplanation] | None = None
 
 
 @dataclass(kw_only=True)
@@ -52,7 +52,7 @@ class AdScriptAncestry(CDPModel):
     """
 
     ancestry_chain: list[AdScriptId]
-    root_script_filterlist_rule: str | None | None = None
+    root_script_filterlist_rule: str | None = None
 
 
 """
@@ -212,7 +212,7 @@ class PermissionsPolicyBlockLocator(CDPModel):
 class PermissionsPolicyFeatureState(CDPModel):
     feature: PermissionsPolicyFeature
     allowed: bool
-    locator: PermissionsPolicyBlockLocator | None | None = None
+    locator: PermissionsPolicyBlockLocator | None = None
 
 
 """
@@ -257,7 +257,7 @@ class OriginTrialToken(CDPModel):
 @dataclass(kw_only=True)
 class OriginTrialTokenWithStatus(CDPModel):
     raw_token_text: str
-    parsed_token: OriginTrialToken | None | None = None
+    parsed_token: OriginTrialToken | None = None
     status: OriginTrialTokenStatus
 
 
@@ -284,17 +284,17 @@ class Frame(CDPModel):
     """
 
     id: FrameId
-    parent_id: FrameId | None | None = None
+    parent_id: FrameId | None = None
     loader_id: network.LoaderId
-    name: str | None | None = None
+    name: str | None = None
     url: str
-    url_fragment: str | None | None = None
+    url_fragment: str | None = None
     domain_and_registry: str
     security_origin: str
-    security_origin_details: SecurityOriginDetails | None | None = None
+    security_origin_details: SecurityOriginDetails | None = None
     mime_type: str
-    unreachable_url: str | None | None = None
-    ad_frame_status: AdFrameStatus | None | None = None
+    unreachable_url: str | None = None
+    ad_frame_status: AdFrameStatus | None = None
     secure_context_type: SecureContextType
     cross_origin_isolated_context_type: CrossOriginIsolatedContextType
     gated_api_features: list[GatedAPIFeatures]
@@ -310,9 +310,9 @@ class FrameResource(CDPModel):
     type: network.ResourceType
     mime_type: str
     last_modified: network.TimeSinceEpoch | None = None
-    content_size: float | None | None = None
-    failed: bool | None | None = None
-    canceled: bool | None | None = None
+    content_size: float | None = None
+    failed: bool | None = None
+    canceled: bool | None = None
 
 
 @dataclass(kw_only=True)
@@ -322,7 +322,7 @@ class FrameResourceTree(CDPModel):
     """
 
     frame: Frame
-    child_frames: list[FrameResourceTree] | None | None = None
+    child_frames: list[FrameResourceTree] | None = None
     resources: list[FrameResource]
 
 
@@ -333,7 +333,7 @@ class FrameTree(CDPModel):
     """
 
     frame: Frame
-    child_frames: list[FrameTree] | None | None = None
+    child_frames: list[FrameTree] | None = None
 
 
 """
@@ -441,7 +441,7 @@ class VisualViewport(CDPModel):
     client_width: float
     client_height: float
     scale: float
-    zoom: float | None | None = None
+    zoom: float | None = None
 
 
 @dataclass(kw_only=True)
@@ -463,13 +463,13 @@ class FontFamilies(CDPModel):
     Generic font families collection.
     """
 
-    standard: str | None | None = None
-    fixed: str | None | None = None
-    serif: str | None | None = None
-    sans_serif: str | None | None = None
-    cursive: str | None | None = None
-    fantasy: str | None | None = None
-    math: str | None | None = None
+    standard: str | None = None
+    fixed: str | None = None
+    serif: str | None = None
+    sans_serif: str | None = None
+    cursive: str | None = None
+    fantasy: str | None = None
+    math: str | None = None
 
 
 @dataclass(kw_only=True)
@@ -488,8 +488,8 @@ class FontSizes(CDPModel):
     Default font sizes.
     """
 
-    standard: int | None | None = None
-    fixed: int | None | None = None
+    standard: int | None = None
+    fixed: int | None = None
 
 
 ClientNavigationReason = Literal[
@@ -546,21 +546,21 @@ class CompilationCacheParams(CDPModel):
     """
 
     url: str
-    eager: bool | None | None = None
+    eager: bool | None = None
 
 
 @dataclass(kw_only=True)
 class FileFilter(CDPModel):
-    name: str | None | None = None
-    accepts: list[str] | None | None = None
+    name: str | None = None
+    accepts: list[str] | None = None
 
 
 @dataclass(kw_only=True)
 class FileHandler(CDPModel):
     action: str
     name: str
-    icons: list[ImageResource] | None | None = None
-    accepts: list[FileFilter] | None | None = None
+    icons: list[ImageResource] | None = None
+    accepts: list[FileFilter] | None = None
     launch_type: str
 
 
@@ -571,8 +571,8 @@ class ImageResource(CDPModel):
     """
 
     url: str
-    sizes: str | None | None = None
-    type: str | None | None = None
+    sizes: str | None = None
+    type: str | None = None
 
 
 @dataclass(kw_only=True)
@@ -588,7 +588,7 @@ class ProtocolHandler(CDPModel):
 
 @dataclass(kw_only=True)
 class RelatedApplication(CDPModel):
-    id: str | None | None = None
+    id: str | None = None
     url: str
 
 
@@ -602,7 +602,7 @@ class ScopeExtension(CDPModel):
 class Screenshot(CDPModel):
     image: ImageResource
     form_factor: str
-    label: str | None | None = None
+    label: str | None = None
 
 
 @dataclass(kw_only=True)
@@ -610,10 +610,10 @@ class ShareTarget(CDPModel):
     action: str
     method: str
     enctype: str
-    title: str | None | None = None
-    text: str | None | None = None
-    url: str | None | None = None
-    files: list[FileFilter] | None | None = None
+    title: str | None = None
+    text: str | None = None
+    url: str | None = None
+    files: list[FileFilter] | None = None
 
 
 @dataclass(kw_only=True)
@@ -624,29 +624,29 @@ class Shortcut(CDPModel):
 
 @dataclass(kw_only=True)
 class WebAppManifest(CDPModel):
-    background_color: str | None | None = None
-    description: str | None | None = None
-    dir: str | None | None = None
-    display: str | None | None = None
-    display_overrides: list[str] | None | None = None
-    file_handlers: list[FileHandler] | None | None = None
-    icons: list[ImageResource] | None | None = None
-    id: str | None | None = None
-    lang: str | None | None = None
-    launch_handler: LaunchHandler | None | None = None
-    name: str | None | None = None
-    orientation: str | None | None = None
-    prefer_related_applications: bool | None | None = None
-    protocol_handlers: list[ProtocolHandler] | None | None = None
-    related_applications: list[RelatedApplication] | None | None = None
-    scope: str | None | None = None
-    scope_extensions: list[ScopeExtension] | None | None = None
-    screenshots: list[Screenshot] | None | None = None
-    share_target: ShareTarget | None | None = None
-    short_name: str | None | None = None
-    shortcuts: list[Shortcut] | None | None = None
-    start_url: str | None | None = None
-    theme_color: str | None | None = None
+    background_color: str | None = None
+    description: str | None = None
+    dir: str | None = None
+    display: str | None = None
+    display_overrides: list[str] | None = None
+    file_handlers: list[FileHandler] | None = None
+    icons: list[ImageResource] | None = None
+    id: str | None = None
+    lang: str | None = None
+    launch_handler: LaunchHandler | None = None
+    name: str | None = None
+    orientation: str | None = None
+    prefer_related_applications: bool | None = None
+    protocol_handlers: list[ProtocolHandler] | None = None
+    related_applications: list[RelatedApplication] | None = None
+    scope: str | None = None
+    scope_extensions: list[ScopeExtension] | None = None
+    screenshots: list[Screenshot] | None = None
+    share_target: ShareTarget | None = None
+    short_name: str | None = None
+    shortcuts: list[Shortcut] | None = None
+    start_url: str | None = None
+    theme_color: str | None = None
 
 
 """
@@ -816,8 +816,8 @@ BackForwardCacheNotRestoredReasonType = Literal[
 
 @dataclass(kw_only=True)
 class BackForwardCacheBlockingDetails(CDPModel):
-    url: str | None | None = None
-    function: str | None | None = None
+    url: str | None = None
+    function: str | None = None
     line_number: int
     column_number: int
 
@@ -826,8 +826,8 @@ class BackForwardCacheBlockingDetails(CDPModel):
 class BackForwardCacheNotRestoredExplanation(CDPModel):
     type: BackForwardCacheNotRestoredReasonType
     reason: BackForwardCacheNotRestoredReason
-    context: str | None | None = None
-    details: list[BackForwardCacheBlockingDetails] | None | None = None
+    context: str | None = None
+    details: list[BackForwardCacheBlockingDetails] | None = None
 
 
 @dataclass(kw_only=True)

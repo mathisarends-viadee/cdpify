@@ -28,20 +28,20 @@ class GridHighlightConfig(CDPModel):
     Configuration data for the highlighting of Grid elements.
     """
 
-    show_grid_extension_lines: bool | None | None = None
-    show_positive_line_numbers: bool | None | None = None
-    show_negative_line_numbers: bool | None | None = None
-    show_area_names: bool | None | None = None
-    show_line_names: bool | None | None = None
-    show_track_sizes: bool | None | None = None
+    show_grid_extension_lines: bool | None = None
+    show_positive_line_numbers: bool | None = None
+    show_negative_line_numbers: bool | None = None
+    show_area_names: bool | None = None
+    show_line_names: bool | None = None
+    show_track_sizes: bool | None = None
     grid_border_color: dom.RGBA | None = None
     cell_border_color: dom.RGBA | None = None
     row_line_color: dom.RGBA | None = None
     column_line_color: dom.RGBA | None = None
-    grid_border_dash: bool | None | None = None
-    cell_border_dash: bool | None | None = None
-    row_line_dash: bool | None | None = None
-    column_line_dash: bool | None | None = None
+    grid_border_dash: bool | None = None
+    cell_border_dash: bool | None = None
+    row_line_dash: bool | None = None
+    column_line_dash: bool | None = None
     row_gap_color: dom.RGBA | None = None
     row_hatch_color: dom.RGBA | None = None
     column_gap_color: dom.RGBA | None = None
@@ -56,14 +56,14 @@ class FlexContainerHighlightConfig(CDPModel):
     Configuration data for the highlighting of Flex container elements.
     """
 
-    container_border: LineStyle | None | None = None
-    line_separator: LineStyle | None | None = None
-    item_separator: LineStyle | None | None = None
-    main_distributed_space: BoxStyle | None | None = None
-    cross_distributed_space: BoxStyle | None | None = None
-    row_gap_space: BoxStyle | None | None = None
-    column_gap_space: BoxStyle | None | None = None
-    cross_alignment: LineStyle | None | None = None
+    container_border: LineStyle | None = None
+    line_separator: LineStyle | None = None
+    item_separator: LineStyle | None = None
+    main_distributed_space: BoxStyle | None = None
+    cross_distributed_space: BoxStyle | None = None
+    row_gap_space: BoxStyle | None = None
+    column_gap_space: BoxStyle | None = None
+    cross_alignment: LineStyle | None = None
 
 
 @dataclass(kw_only=True)
@@ -72,9 +72,9 @@ class FlexItemHighlightConfig(CDPModel):
     Configuration data for the highlighting of Flex item elements.
     """
 
-    base_size_box: BoxStyle | None | None = None
-    base_size_border: LineStyle | None | None = None
-    flexibility_arrow: LineStyle | None | None = None
+    base_size_box: BoxStyle | None = None
+    base_size_border: LineStyle | None = None
+    flexibility_arrow: LineStyle | None = None
 
 
 @dataclass(kw_only=True)
@@ -84,7 +84,7 @@ class LineStyle(CDPModel):
     """
 
     color: dom.RGBA | None = None
-    pattern: Literal["dashed", "dotted"] | None | None = None
+    pattern: Literal["dashed", "dotted"] | None = None
 
 
 @dataclass(kw_only=True)
@@ -106,11 +106,11 @@ class HighlightConfig(CDPModel):
     Configuration data for the highlighting of page elements.
     """
 
-    show_info: bool | None | None = None
-    show_styles: bool | None | None = None
-    show_rulers: bool | None | None = None
-    show_accessibility_info: bool | None | None = None
-    show_extension_lines: bool | None | None = None
+    show_info: bool | None = None
+    show_styles: bool | None = None
+    show_rulers: bool | None = None
+    show_accessibility_info: bool | None = None
+    show_extension_lines: bool | None = None
     content_color: dom.RGBA | None = None
     padding_color: dom.RGBA | None = None
     border_color: dom.RGBA | None = None
@@ -119,13 +119,13 @@ class HighlightConfig(CDPModel):
     shape_color: dom.RGBA | None = None
     shape_margin_color: dom.RGBA | None = None
     css_grid_color: dom.RGBA | None = None
-    color_format: ColorFormat | None | None = None
-    grid_highlight_config: GridHighlightConfig | None | None = None
-    flex_container_highlight_config: FlexContainerHighlightConfig | None | None = None
-    flex_item_highlight_config: FlexItemHighlightConfig | None | None = None
-    contrast_algorithm: ContrastAlgorithm | None | None = None
+    color_format: ColorFormat | None = None
+    grid_highlight_config: GridHighlightConfig | None = None
+    flex_container_highlight_config: FlexContainerHighlightConfig | None = None
+    flex_item_highlight_config: FlexItemHighlightConfig | None = None
+    contrast_algorithm: ContrastAlgorithm | None = None
     container_query_container_highlight_config: (
-        ContainerQueryContainerHighlightConfig | None | None
+        ContainerQueryContainerHighlightConfig | None
     ) = None
 
 
@@ -150,8 +150,8 @@ class FlexNodeHighlightConfig(CDPModel):
 
 @dataclass(kw_only=True)
 class ScrollSnapContainerHighlightConfig(CDPModel):
-    snapport_border: LineStyle | None | None = None
-    snap_area_border: LineStyle | None | None = None
+    snapport_border: LineStyle | None = None
+    snap_area_border: LineStyle | None = None
     scroll_margin_color: dom.RGBA | None = None
     scroll_padding_color: dom.RGBA | None = None
 
@@ -192,8 +192,8 @@ class ContainerQueryHighlightConfig(CDPModel):
 
 @dataclass(kw_only=True)
 class ContainerQueryContainerHighlightConfig(CDPModel):
-    container_border: LineStyle | None | None = None
-    descendant_border: LineStyle | None | None = None
+    container_border: LineStyle | None = None
+    descendant_border: LineStyle | None = None
 
 
 @dataclass(kw_only=True)

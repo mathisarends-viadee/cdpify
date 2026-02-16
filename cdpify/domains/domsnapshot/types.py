@@ -21,31 +21,31 @@ class DOMNode(CDPModel):
     node_type: int
     node_name: str
     node_value: str
-    text_value: str | None | None = None
-    input_value: str | None | None = None
-    input_checked: bool | None | None = None
-    option_selected: bool | None | None = None
+    text_value: str | None = None
+    input_value: str | None = None
+    input_checked: bool | None = None
+    option_selected: bool | None = None
     backend_node_id: dom.BackendNodeId
-    child_node_indexes: list[int] | None | None = None
-    attributes: list[NameValue] | None | None = None
-    pseudo_element_indexes: list[int] | None | None = None
-    layout_node_index: int | None | None = None
-    document_url: str | None | None = None
-    base_url: str | None | None = None
-    content_language: str | None | None = None
-    document_encoding: str | None | None = None
-    public_id: str | None | None = None
-    system_id: str | None | None = None
+    child_node_indexes: list[int] | None = None
+    attributes: list[NameValue] | None = None
+    pseudo_element_indexes: list[int] | None = None
+    layout_node_index: int | None = None
+    document_url: str | None = None
+    base_url: str | None = None
+    content_language: str | None = None
+    document_encoding: str | None = None
+    public_id: str | None = None
+    system_id: str | None = None
     frame_id: page.FrameId | None = None
-    content_document_index: int | None | None = None
+    content_document_index: int | None = None
     pseudo_type: dom.PseudoType | None = None
     shadow_root_type: dom.ShadowRootType | None = None
-    is_clickable: bool | None | None = None
-    event_listeners: list[domdebugger.EventListener] | None | None = None
-    current_source_url: str | None | None = None
-    origin_url: str | None | None = None
-    scroll_offset_x: float | None | None = None
-    scroll_offset_y: float | None | None = None
+    is_clickable: bool | None = None
+    event_listeners: list[domdebugger.EventListener] | None = None
+    current_source_url: str | None = None
+    origin_url: str | None = None
+    scroll_offset_x: float | None = None
+    scroll_offset_y: float | None = None
 
 
 @dataclass(kw_only=True)
@@ -68,11 +68,11 @@ class LayoutTreeNode(CDPModel):
 
     dom_node_index: int
     bounding_box: dom.Rect
-    layout_text: str | None | None = None
-    inline_text_nodes: list[InlineTextBox] | None | None = None
-    style_index: int | None | None = None
-    paint_order: int | None | None = None
-    is_stacking_context: bool | None | None = None
+    layout_text: str | None = None
+    inline_text_nodes: list[InlineTextBox] | None = None
+    style_index: int | None = None
+    paint_order: int | None = None
+    is_stacking_context: bool | None = None
 
 
 @dataclass(kw_only=True)
@@ -146,10 +146,10 @@ class DocumentSnapshot(CDPModel):
     nodes: NodeTreeSnapshot
     layout: LayoutTreeSnapshot
     text_boxes: TextBoxSnapshot
-    scroll_offset_x: float | None | None = None
-    scroll_offset_y: float | None | None = None
-    content_width: float | None | None = None
-    content_height: float | None | None = None
+    scroll_offset_x: float | None = None
+    scroll_offset_y: float | None = None
+    content_width: float | None = None
+    content_height: float | None = None
 
 
 @dataclass(kw_only=True)
@@ -158,23 +158,23 @@ class NodeTreeSnapshot(CDPModel):
     Table containing nodes.
     """
 
-    parent_index: list[int] | None | None = None
-    node_type: list[int] | None | None = None
-    shadow_root_type: RareStringData | None | None = None
-    node_name: list[StringIndex] | None | None = None
-    node_value: list[StringIndex] | None | None = None
-    backend_node_id: list[dom.BackendNodeId] | None | None = None
-    attributes: list[ArrayOfStrings] | None | None = None
-    text_value: RareStringData | None | None = None
-    input_value: RareStringData | None | None = None
-    input_checked: RareBooleanData | None | None = None
-    option_selected: RareBooleanData | None | None = None
-    content_document_index: RareIntegerData | None | None = None
-    pseudo_type: RareStringData | None | None = None
-    pseudo_identifier: RareStringData | None | None = None
-    is_clickable: RareBooleanData | None | None = None
-    current_source_url: RareStringData | None | None = None
-    origin_url: RareStringData | None | None = None
+    parent_index: list[int] | None = None
+    node_type: list[int] | None = None
+    shadow_root_type: RareStringData | None = None
+    node_name: list[StringIndex] | None = None
+    node_value: list[StringIndex] | None = None
+    backend_node_id: list[dom.BackendNodeId] | None = None
+    attributes: list[ArrayOfStrings] | None = None
+    text_value: RareStringData | None = None
+    input_value: RareStringData | None = None
+    input_checked: RareBooleanData | None = None
+    option_selected: RareBooleanData | None = None
+    content_document_index: RareIntegerData | None = None
+    pseudo_type: RareStringData | None = None
+    pseudo_identifier: RareStringData | None = None
+    is_clickable: RareBooleanData | None = None
+    current_source_url: RareStringData | None = None
+    origin_url: RareStringData | None = None
 
 
 @dataclass(kw_only=True)
@@ -188,12 +188,12 @@ class LayoutTreeSnapshot(CDPModel):
     bounds: list[Rectangle]
     text: list[StringIndex]
     stacking_contexts: RareBooleanData
-    paint_orders: list[int] | None | None = None
-    offset_rects: list[Rectangle] | None | None = None
-    scroll_rects: list[Rectangle] | None | None = None
-    client_rects: list[Rectangle] | None | None = None
-    blended_background_colors: list[StringIndex] | None | None = None
-    text_color_opacities: list[float] | None | None = None
+    paint_orders: list[int] | None = None
+    offset_rects: list[Rectangle] | None = None
+    scroll_rects: list[Rectangle] | None = None
+    client_rects: list[Rectangle] | None = None
+    blended_background_colors: list[StringIndex] | None = None
+    text_color_opacities: list[float] | None = None
 
 
 @dataclass(kw_only=True)

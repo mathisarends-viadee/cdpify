@@ -30,7 +30,7 @@ class Location(CDPModel):
 
     script_id: runtime.ScriptId
     line_number: int
-    column_number: int | None | None = None
+    column_number: int | None = None
 
 
 @dataclass(kw_only=True)
@@ -62,13 +62,13 @@ class CallFrame(CDPModel):
 
     call_frame_id: CallFrameId
     function_name: str
-    function_location: Location | None | None = None
+    function_location: Location | None = None
     location: Location
     url: str
     scope_chain: list[Scope]
     this: runtime.RemoteObject
     return_value: runtime.RemoteObject | None = None
-    can_be_restarted: bool | None | None = None
+    can_be_restarted: bool | None = None
 
 
 @dataclass(kw_only=True)
@@ -90,9 +90,9 @@ class Scope(CDPModel):
         "wasm-expression-stack",
     ]
     object: runtime.RemoteObject
-    name: str | None | None = None
-    start_location: Location | None | None = None
-    end_location: Location | None | None = None
+    name: str | None = None
+    start_location: Location | None = None
+    end_location: Location | None = None
 
 
 @dataclass(kw_only=True)
@@ -109,8 +109,8 @@ class SearchMatch(CDPModel):
 class BreakLocation(CDPModel):
     script_id: runtime.ScriptId
     line_number: int
-    column_number: int | None | None = None
-    type: Literal["debuggerStatement", "call", "return"] | None | None = None
+    column_number: int | None = None
+    type: Literal["debuggerStatement", "call", "return"] | None = None
 
 
 @dataclass(kw_only=True)
@@ -132,7 +132,7 @@ class DebugSymbols(CDPModel):
     """
 
     type: Literal["SourceMap", "EmbeddedDWARF", "ExternalDWARF"]
-    external_url: str | None | None = None
+    external_url: str | None = None
 
 
 @dataclass(kw_only=True)

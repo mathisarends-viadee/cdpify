@@ -40,8 +40,8 @@ class StickyPositionConstraint(CDPModel):
 
     sticky_box_rect: dom.Rect
     containing_block_rect: dom.Rect
-    nearest_layer_shifting_sticky_box: LayerId | None | None = None
-    nearest_layer_shifting_containing_block: LayerId | None | None = None
+    nearest_layer_shifting_sticky_box: LayerId | None = None
+    nearest_layer_shifting_containing_block: LayerId | None = None
 
 
 @dataclass(kw_only=True)
@@ -62,21 +62,21 @@ class Layer(CDPModel):
     """
 
     layer_id: LayerId
-    parent_layer_id: LayerId | None | None = None
+    parent_layer_id: LayerId | None = None
     backend_node_id: dom.BackendNodeId | None = None
     offset_x: float
     offset_y: float
     width: float
     height: float
-    transform: list[float] | None | None = None
-    anchor_x: float | None | None = None
-    anchor_y: float | None | None = None
-    anchor_z: float | None | None = None
+    transform: list[float] | None = None
+    anchor_x: float | None = None
+    anchor_y: float | None = None
+    anchor_z: float | None = None
     paint_count: int
     draws_content: bool
-    invisible: bool | None | None = None
-    scroll_rects: list[ScrollRect] | None | None = None
-    sticky_position_constraint: StickyPositionConstraint | None | None = None
+    invisible: bool | None = None
+    scroll_rects: list[ScrollRect] | None = None
+    sticky_position_constraint: StickyPositionConstraint | None = None
 
 
 """

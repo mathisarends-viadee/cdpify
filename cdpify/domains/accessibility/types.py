@@ -71,21 +71,21 @@ class AXValueSource(CDPModel):
     """
 
     type: AXValueSourceType
-    value: AXValue | None | None = None
-    attribute: str | None | None = None
-    attribute_value: AXValue | None | None = None
-    superseded: bool | None | None = None
-    native_source: AXValueNativeSourceType | None | None = None
-    native_source_value: AXValue | None | None = None
-    invalid: bool | None | None = None
-    invalid_reason: str | None | None = None
+    value: AXValue | None = None
+    attribute: str | None = None
+    attribute_value: AXValue | None = None
+    superseded: bool | None = None
+    native_source: AXValueNativeSourceType | None = None
+    native_source_value: AXValue | None = None
+    invalid: bool | None = None
+    invalid_reason: str | None = None
 
 
 @dataclass(kw_only=True)
 class AXRelatedNode(CDPModel):
     backend_dom_node_id: dom.BackendNodeId
-    idref: str | None | None = None
-    text: str | None | None = None
+    idref: str | None = None
+    text: str | None = None
 
 
 @dataclass(kw_only=True)
@@ -101,9 +101,9 @@ class AXValue(CDPModel):
     """
 
     type: AXValueType
-    value: Any | None | None = None
-    related_nodes: list[AXRelatedNode] | None | None = None
-    sources: list[AXValueSource] | None | None = None
+    value: Any | None = None
+    related_nodes: list[AXRelatedNode] | None = None
+    sources: list[AXValueSource] | None = None
 
 
 """
@@ -184,14 +184,14 @@ class AXNode(CDPModel):
 
     node_id: AXNodeId
     ignored: bool
-    ignored_reasons: list[AXProperty] | None | None = None
-    role: AXValue | None | None = None
-    chrome_role: AXValue | None | None = None
-    name: AXValue | None | None = None
-    description: AXValue | None | None = None
-    value: AXValue | None | None = None
-    properties: list[AXProperty] | None | None = None
-    parent_id: AXNodeId | None | None = None
-    child_ids: list[AXNodeId] | None | None = None
+    ignored_reasons: list[AXProperty] | None = None
+    role: AXValue | None = None
+    chrome_role: AXValue | None = None
+    name: AXValue | None = None
+    description: AXValue | None = None
+    value: AXValue | None = None
+    properties: list[AXProperty] | None = None
+    parent_id: AXNodeId | None = None
+    child_ids: list[AXNodeId] | None = None
     backend_dom_node_id: dom.BackendNodeId | None = None
     frame_id: page.FrameId | None = None

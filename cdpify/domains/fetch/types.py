@@ -27,9 +27,9 @@ RequestStage = Literal["Request", "Response"]
 
 @dataclass(kw_only=True)
 class RequestPattern(CDPModel):
-    url_pattern: str | None | None = None
+    url_pattern: str | None = None
     resource_type: network.ResourceType | None = None
-    request_stage: RequestStage | None | None = None
+    request_stage: RequestStage | None = None
 
 
 @dataclass(kw_only=True)
@@ -48,7 +48,7 @@ class AuthChallenge(CDPModel):
     Authorization challenge for HTTP status code 401 or 407.
     """
 
-    source: Literal["Server", "Proxy"] | None | None = None
+    source: Literal["Server", "Proxy"] | None = None
     origin: str
     scheme: str
     realm: str
@@ -61,5 +61,5 @@ class AuthChallengeResponse(CDPModel):
     """
 
     response: Literal["Default", "CancelAuth", "ProvideCredentials"]
-    username: str | None | None = None
-    password: str | None | None = None
+    username: str | None = None
+    password: str | None = None

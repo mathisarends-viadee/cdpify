@@ -35,14 +35,14 @@ class LogEntry(CDPModel):
     ]
     level: Literal["verbose", "info", "warning", "error"]
     text: str
-    category: Literal["cors"] | None | None = None
+    category: Literal["cors"] | None = None
     timestamp: runtime.Timestamp
-    url: str | None | None = None
-    line_number: int | None | None = None
+    url: str | None = None
+    line_number: int | None = None
     stack_trace: runtime.StackTrace | None = None
     network_request_id: network.RequestId | None = None
-    worker_id: str | None | None = None
-    args: list[runtime.RemoteObject] | None | None = None
+    worker_id: str | None = None
+    args: list[runtime.RemoteObject] | None = None
 
 
 @dataclass(kw_only=True)

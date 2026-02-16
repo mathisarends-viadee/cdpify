@@ -119,39 +119,39 @@ class Node(CDPModel):
     """
 
     node_id: NodeId
-    parent_id: NodeId | None | None = None
+    parent_id: NodeId | None = None
     backend_node_id: BackendNodeId
     node_type: int
     node_name: str
     local_name: str
     node_value: str
-    child_node_count: int | None | None = None
-    children: list[Node] | None | None = None
-    attributes: list[str] | None | None = None
-    document_url: str | None | None = None
-    base_url: str | None | None = None
-    public_id: str | None | None = None
-    system_id: str | None | None = None
-    internal_subset: str | None | None = None
-    xml_version: str | None | None = None
-    name: str | None | None = None
-    value: str | None | None = None
-    pseudo_type: PseudoType | None | None = None
-    pseudo_identifier: str | None | None = None
-    shadow_root_type: ShadowRootType | None | None = None
+    child_node_count: int | None = None
+    children: list[Node] | None = None
+    attributes: list[str] | None = None
+    document_url: str | None = None
+    base_url: str | None = None
+    public_id: str | None = None
+    system_id: str | None = None
+    internal_subset: str | None = None
+    xml_version: str | None = None
+    name: str | None = None
+    value: str | None = None
+    pseudo_type: PseudoType | None = None
+    pseudo_identifier: str | None = None
+    shadow_root_type: ShadowRootType | None = None
     frame_id: page.FrameId | None = None
-    content_document: Node | None | None = None
-    shadow_roots: list[Node] | None | None = None
-    template_content: Node | None | None = None
-    pseudo_elements: list[Node] | None | None = None
-    imported_document: Node | None | None = None
-    distributed_nodes: list[BackendNode] | None | None = None
-    is_svg: bool | None | None = None
-    compatibility_mode: CompatibilityMode | None | None = None
-    assigned_slot: BackendNode | None | None = None
-    is_scrollable: bool | None | None = None
-    affected_by_starting_styles: bool | None | None = None
-    adopted_style_sheets: list[StyleSheetId] | None | None = None
+    content_document: Node | None = None
+    shadow_roots: list[Node] | None = None
+    template_content: Node | None = None
+    pseudo_elements: list[Node] | None = None
+    imported_document: Node | None = None
+    distributed_nodes: list[BackendNode] | None = None
+    is_svg: bool | None = None
+    compatibility_mode: CompatibilityMode | None = None
+    assigned_slot: BackendNode | None = None
+    is_scrollable: bool | None = None
+    affected_by_starting_styles: bool | None = None
+    adopted_style_sheets: list[StyleSheetId] | None = None
 
 
 @dataclass(kw_only=True)
@@ -174,7 +174,7 @@ class RGBA(CDPModel):
     r: int
     g: int
     b: int
-    a: float | None | None = None
+    a: float | None = None
 
 
 """
@@ -196,7 +196,7 @@ class BoxModel(CDPModel):
     margin: Quad
     width: int
     height: int
-    shape_outside: ShapeOutsideInfo | None | None = None
+    shape_outside: ShapeOutsideInfo | None = None
 
 
 @dataclass(kw_only=True)

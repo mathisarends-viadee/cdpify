@@ -6,7 +6,6 @@ from cdpify.generator.generators.utils import (
 )
 from cdpify.generator.models import Domain, Parameter, TypeDefinition
 
-
 class TypesGenerator(BaseGenerator):
     def generate(self, domain: Domain) -> str:
         self._reset_tracking()
@@ -34,9 +33,8 @@ class TypesGenerator(BaseGenerator):
 
         lines = []
 
-        if self._uses_type_checking:
-            lines.append("from __future__ import annotations")
-            lines.append("")
+        lines.append("from __future__ import annotations")
+        lines.append("")
 
         typing_imports = self._build_typing_imports()
         if typing_imports:
@@ -109,6 +107,8 @@ class TypesGenerator(BaseGenerator):
         self._track_type_usage(py_type)
 
         if param.optional:
+            if py_type.endswith(" | None"):
+                return f"{field_name}: {py_type} = None"
             return f"{field_name}: {py_type} | None = None"
         return f"{field_name}: {py_type}"
 

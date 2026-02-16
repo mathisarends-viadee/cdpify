@@ -26,12 +26,12 @@ class TargetInfo(CDPModel):
     title: str
     url: str
     attached: bool
-    opener_id: TargetID | None | None = None
+    opener_id: TargetID | None = None
     can_access_opener: bool
     opener_frame_id: page.FrameId | None = None
     parent_frame_id: page.FrameId | None = None
     browser_context_id: browser.BrowserContextID | None = None
-    subtype: str | None | None = None
+    subtype: str | None = None
 
 
 @dataclass(kw_only=True)
@@ -40,8 +40,8 @@ class FilterEntry(CDPModel):
     A filter used by target query/discovery/auto-attach operations.
     """
 
-    exclude: bool | None | None = None
-    type: str | None | None = None
+    exclude: bool | None = None
+    type: str | None = None
 
 
 """

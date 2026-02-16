@@ -38,15 +38,15 @@ class CertificateSecurityState(CDPModel):
 
     protocol: str
     key_exchange: str
-    key_exchange_group: str | None | None = None
+    key_exchange_group: str | None = None
     cipher: str
-    mac: str | None | None = None
+    mac: str | None = None
     certificate: list[str]
     subject_name: str
     issuer: str
     valid_from: network.TimeSinceEpoch
     valid_to: network.TimeSinceEpoch
-    certificate_network_error: str | None | None = None
+    certificate_network_error: str | None = None
     certificate_has_weak_signature: bool
     certificate_has_sha1_signature: bool
     modern_ssl: bool
@@ -62,7 +62,7 @@ SafetyTipStatus = Literal["badReputation", "lookalike"]
 @dataclass(kw_only=True)
 class SafetyTipInfo(CDPModel):
     safety_tip_status: SafetyTipStatus
-    safe_url: str | None | None = None
+    safe_url: str | None = None
 
 
 @dataclass(kw_only=True)
@@ -72,8 +72,8 @@ class VisibleSecurityState(CDPModel):
     """
 
     security_state: SecurityState
-    certificate_security_state: CertificateSecurityState | None | None = None
-    safety_tip_info: SafetyTipInfo | None | None = None
+    certificate_security_state: CertificateSecurityState | None = None
+    safety_tip_info: SafetyTipInfo | None = None
     security_state_issue_ids: list[str]
 
 
@@ -89,7 +89,7 @@ class SecurityStateExplanation(CDPModel):
     description: str
     mixed_content_type: MixedContentType
     certificate: list[str]
-    recommendations: list[str] | None | None = None
+    recommendations: list[str] | None = None
 
 
 @dataclass(kw_only=True)

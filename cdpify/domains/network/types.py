@@ -141,8 +141,8 @@ class ResourceTiming(CDPModel):
     worker_ready: float
     worker_fetch_start: float
     worker_respond_with_settled: float
-    worker_router_evaluation_start: float | None | None = None
-    worker_cache_lookup_start: float | None | None = None
+    worker_router_evaluation_start: float | None = None
+    worker_cache_lookup_start: float | None = None
     send_start: float
     send_end: float
     push_start: float
@@ -174,7 +174,7 @@ class PostDataEntry(CDPModel):
     Post data entry for HTTP request
     """
 
-    bytes: str | None | None = None
+    bytes: str | None = None
 
 
 @dataclass(kw_only=True)
@@ -184,12 +184,12 @@ class Request(CDPModel):
     """
 
     url: str
-    url_fragment: str | None | None = None
+    url_fragment: str | None = None
     method: str
     headers: Headers
-    post_data: str | None | None = None
-    has_post_data: bool | None | None = None
-    post_data_entries: list[PostDataEntry] | None | None = None
+    post_data: str | None = None
+    has_post_data: bool | None = None
+    post_data_entries: list[PostDataEntry] | None = None
     mixed_content_type: security.MixedContentType | None = None
     initial_priority: ResourcePriority
     referrer_policy: Literal[
@@ -202,10 +202,10 @@ class Request(CDPModel):
         "strict-origin",
         "strict-origin-when-cross-origin",
     ]
-    is_link_preload: bool | None | None = None
-    trust_token_params: TrustTokenParams | None | None = None
-    is_same_site: bool | None | None = None
-    is_ad_related: bool | None | None = None
+    is_link_preload: bool | None = None
+    trust_token_params: TrustTokenParams | None = None
+    is_same_site: bool | None = None
+    is_ad_related: bool | None = None
 
 
 @dataclass(kw_only=True)
@@ -232,9 +232,9 @@ class SecurityDetails(CDPModel):
 
     protocol: str
     key_exchange: str
-    key_exchange_group: str | None | None = None
+    key_exchange_group: str | None = None
     cipher: str
-    mac: str | None | None = None
+    mac: str | None = None
     certificate_id: security.CertificateId
     subject_name: str
     san_list: list[str]
@@ -243,7 +243,7 @@ class SecurityDetails(CDPModel):
     valid_to: TimeSinceEpoch
     signed_certificate_timestamp_list: list[SignedCertificateTimestamp]
     certificate_transparency_compliance: CertificateTransparencyCompliance
-    server_signature_algorithm: int | None | None = None
+    server_signature_algorithm: int | None = None
     encrypted_client_hello: bool
 
 
@@ -333,7 +333,7 @@ class TrustTokenParams(CDPModel):
 
     operation: TrustTokenOperationType
     refresh_policy: Literal["UseCached", "Refresh"]
-    issuers: list[str] | None | None = None
+    issuers: list[str] | None = None
 
 
 TrustTokenOperationType = Literal["Issuance", "Redemption", "Signing"]
@@ -366,9 +366,9 @@ ServiceWorkerRouterSource = Literal[
 
 @dataclass(kw_only=True)
 class ServiceWorkerRouterInfo(CDPModel):
-    rule_id_matched: int | None | None = None
-    matched_source_type: ServiceWorkerRouterSource | None | None = None
-    actual_source_type: ServiceWorkerRouterSource | None | None = None
+    rule_id_matched: int | None = None
+    matched_source_type: ServiceWorkerRouterSource | None = None
+    actual_source_type: ServiceWorkerRouterSource | None = None
 
 
 @dataclass(kw_only=True)
@@ -381,29 +381,29 @@ class Response(CDPModel):
     status: int
     status_text: str
     headers: Headers
-    headers_text: str | None | None = None
+    headers_text: str | None = None
     mime_type: str
     charset: str
-    request_headers: Headers | None | None = None
-    request_headers_text: str | None | None = None
+    request_headers: Headers | None = None
+    request_headers_text: str | None = None
     connection_reused: bool
     connection_id: float
-    remote_ip_address: str | None | None = None
-    remote_port: int | None | None = None
-    from_disk_cache: bool | None | None = None
-    from_service_worker: bool | None | None = None
-    from_prefetch_cache: bool | None | None = None
-    from_early_hints: bool | None | None = None
-    service_worker_router_info: ServiceWorkerRouterInfo | None | None = None
+    remote_ip_address: str | None = None
+    remote_port: int | None = None
+    from_disk_cache: bool | None = None
+    from_service_worker: bool | None = None
+    from_prefetch_cache: bool | None = None
+    from_early_hints: bool | None = None
+    service_worker_router_info: ServiceWorkerRouterInfo | None = None
     encoded_data_length: float
-    timing: ResourceTiming | None | None = None
-    service_worker_response_source: ServiceWorkerResponseSource | None | None = None
-    response_time: TimeSinceEpoch | None | None = None
-    cache_storage_cache_name: str | None | None = None
-    protocol: str | None | None = None
-    alternate_protocol_usage: AlternateProtocolUsage | None | None = None
+    timing: ResourceTiming | None = None
+    service_worker_response_source: ServiceWorkerResponseSource | None = None
+    response_time: TimeSinceEpoch | None = None
+    cache_storage_cache_name: str | None = None
+    protocol: str | None = None
+    alternate_protocol_usage: AlternateProtocolUsage | None = None
     security_state: security.SecurityState
-    security_details: SecurityDetails | None | None = None
+    security_details: SecurityDetails | None = None
 
 
 @dataclass(kw_only=True)
@@ -424,9 +424,9 @@ class WebSocketResponse(CDPModel):
     status: int
     status_text: str
     headers: Headers
-    headers_text: str | None | None = None
-    request_headers: Headers | None | None = None
-    request_headers_text: str | None | None = None
+    headers_text: str | None = None
+    request_headers: Headers | None = None
+    request_headers_text: str | None = None
 
 
 @dataclass(kw_only=True)
@@ -449,7 +449,7 @@ class CachedResource(CDPModel):
 
     url: str
     type: ResourceType
-    response: Response | None | None = None
+    response: Response | None = None
     body_size: float
 
 
@@ -463,10 +463,10 @@ class Initiator(CDPModel):
         "parser", "script", "preload", "SignedExchange", "preflight", "FedCM", "other"
     ]
     stack: runtime.StackTrace | None = None
-    url: str | None | None = None
-    line_number: float | None | None = None
-    column_number: float | None | None = None
-    request_id: RequestId | None | None = None
+    url: str | None = None
+    line_number: float | None = None
+    column_number: float | None = None
+    request_id: RequestId | None = None
 
 
 @dataclass(kw_only=True)
@@ -496,12 +496,12 @@ class Cookie(CDPModel):
     http_only: bool
     secure: bool
     session: bool
-    same_site: CookieSameSite | None | None = None
+    same_site: CookieSameSite | None = None
     priority: CookiePriority
     source_scheme: CookieSourceScheme
     source_port: int
-    partition_key: CookiePartitionKey | None | None = None
-    partition_key_opaque: bool | None | None = None
+    partition_key: CookiePartitionKey | None = None
+    partition_key_opaque: bool | None = None
 
 
 """
@@ -581,7 +581,7 @@ class BlockedSetCookieWithReason(CDPModel):
 
     blocked_reasons: list[SetCookieBlockedReason]
     cookie_line: str
-    cookie: Cookie | None | None = None
+    cookie: Cookie | None = None
 
 
 @dataclass(kw_only=True)
@@ -606,7 +606,7 @@ class AssociatedCookie(CDPModel):
 
     cookie: Cookie
     blocked_reasons: list[CookieBlockedReason]
-    exemption_reason: CookieExemptionReason | None | None = None
+    exemption_reason: CookieExemptionReason | None = None
 
 
 @dataclass(kw_only=True)
@@ -617,17 +617,17 @@ class CookieParam(CDPModel):
 
     name: str
     value: str
-    url: str | None | None = None
-    domain: str | None | None = None
-    path: str | None | None = None
-    secure: bool | None | None = None
-    http_only: bool | None | None = None
-    same_site: CookieSameSite | None | None = None
-    expires: TimeSinceEpoch | None | None = None
-    priority: CookiePriority | None | None = None
-    source_scheme: CookieSourceScheme | None | None = None
-    source_port: int | None | None = None
-    partition_key: CookiePartitionKey | None | None = None
+    url: str | None = None
+    domain: str | None = None
+    path: str | None = None
+    secure: bool | None = None
+    http_only: bool | None = None
+    same_site: CookieSameSite | None = None
+    expires: TimeSinceEpoch | None = None
+    priority: CookiePriority | None = None
+    source_scheme: CookieSourceScheme | None = None
+    source_port: int | None = None
+    partition_key: CookiePartitionKey | None = None
 
 
 @dataclass(kw_only=True)
@@ -636,7 +636,7 @@ class AuthChallenge(CDPModel):
     Authorization challenge for HTTP status code 401 or 407.
     """
 
-    source: Literal["Server", "Proxy"] | None | None = None
+    source: Literal["Server", "Proxy"] | None = None
     origin: str
     scheme: str
     realm: str
@@ -649,8 +649,8 @@ class AuthChallengeResponse(CDPModel):
     """
 
     response: Literal["Default", "CancelAuth", "ProvideCredentials"]
-    username: str | None | None = None
-    password: str | None | None = None
+    username: str | None = None
+    password: str | None = None
 
 
 """
@@ -666,9 +666,9 @@ class RequestPattern(CDPModel):
     Request pattern for interception.
     """
 
-    url_pattern: str | None | None = None
-    resource_type: ResourceType | None | None = None
-    interception_stage: InterceptionStage | None | None = None
+    url_pattern: str | None = None
+    resource_type: ResourceType | None = None
+    interception_stage: InterceptionStage | None = None
 
 
 @dataclass(kw_only=True)
@@ -681,12 +681,12 @@ class SignedExchangeSignature(CDPModel):
     label: str
     signature: str
     integrity: str
-    cert_url: str | None | None = None
-    cert_sha256: str | None | None = None
+    cert_url: str | None = None
+    cert_sha256: str | None = None
     validity_url: str
     date: int
     expires: int
-    certificates: list[str] | None | None = None
+    certificates: list[str] | None = None
 
 
 @dataclass(kw_only=True)
@@ -723,8 +723,8 @@ class SignedExchangeError(CDPModel):
     """
 
     message: str
-    signature_index: int | None | None = None
-    error_field: SignedExchangeErrorField | None | None = None
+    signature_index: int | None = None
+    error_field: SignedExchangeErrorField | None = None
 
 
 @dataclass(kw_only=True)
@@ -735,9 +735,9 @@ class SignedExchangeInfo(CDPModel):
 
     outer_response: Response
     has_extra_info: bool
-    header: SignedExchangeHeader | None | None = None
-    security_details: SecurityDetails | None | None = None
-    errors: list[SignedExchangeError] | None | None = None
+    header: SignedExchangeHeader | None = None
+    security_details: SecurityDetails | None = None
+    errors: list[SignedExchangeError] | None = None
 
 
 """
@@ -752,10 +752,10 @@ class NetworkConditions(CDPModel):
     latency: float
     download_throughput: float
     upload_throughput: float
-    connection_type: ConnectionType | None | None = None
-    packet_loss: float | None | None = None
-    packet_queue_length: int | None | None = None
-    packet_reordering: bool | None | None = None
+    connection_type: ConnectionType | None = None
+    packet_loss: float | None = None
+    packet_queue_length: int | None = None
+    packet_reordering: bool | None = None
 
 
 @dataclass(kw_only=True)
@@ -770,31 +770,31 @@ DirectSocketDnsQueryType = Literal["ipv4", "ipv6"]
 @dataclass(kw_only=True)
 class DirectTCPSocketOptions(CDPModel):
     no_delay: bool
-    keep_alive_delay: float | None | None = None
-    send_buffer_size: float | None | None = None
-    receive_buffer_size: float | None | None = None
-    dns_query_type: DirectSocketDnsQueryType | None | None = None
+    keep_alive_delay: float | None = None
+    send_buffer_size: float | None = None
+    receive_buffer_size: float | None = None
+    dns_query_type: DirectSocketDnsQueryType | None = None
 
 
 @dataclass(kw_only=True)
 class DirectUDPSocketOptions(CDPModel):
-    remote_addr: str | None | None = None
-    remote_port: int | None | None = None
-    local_addr: str | None | None = None
-    local_port: int | None | None = None
-    dns_query_type: DirectSocketDnsQueryType | None | None = None
-    send_buffer_size: float | None | None = None
-    receive_buffer_size: float | None | None = None
-    multicast_loopback: bool | None | None = None
-    multicast_time_to_live: int | None | None = None
-    multicast_allow_address_sharing: bool | None | None = None
+    remote_addr: str | None = None
+    remote_port: int | None = None
+    local_addr: str | None = None
+    local_port: int | None = None
+    dns_query_type: DirectSocketDnsQueryType | None = None
+    send_buffer_size: float | None = None
+    receive_buffer_size: float | None = None
+    multicast_loopback: bool | None = None
+    multicast_time_to_live: int | None = None
+    multicast_allow_address_sharing: bool | None = None
 
 
 @dataclass(kw_only=True)
 class DirectUDPMessage(CDPModel):
     data: str
-    remote_addr: str | None | None = None
-    remote_port: int | None | None = None
+    remote_addr: str | None = None
+    remote_port: int | None = None
 
 
 LocalNetworkAccessRequestPolicy = Literal[
@@ -835,8 +835,8 @@ CrossOriginOpenerPolicyValue = Literal[
 class CrossOriginOpenerPolicyStatus(CDPModel):
     value: CrossOriginOpenerPolicyValue
     report_only_value: CrossOriginOpenerPolicyValue
-    reporting_endpoint: str | None | None = None
-    report_only_reporting_endpoint: str | None | None = None
+    reporting_endpoint: str | None = None
+    report_only_reporting_endpoint: str | None = None
 
 
 CrossOriginEmbedderPolicyValue = Literal["None", "Credentialless", "RequireCorp"]
@@ -846,8 +846,8 @@ CrossOriginEmbedderPolicyValue = Literal["None", "Credentialless", "RequireCorp"
 class CrossOriginEmbedderPolicyStatus(CDPModel):
     value: CrossOriginEmbedderPolicyValue
     report_only_value: CrossOriginEmbedderPolicyValue
-    reporting_endpoint: str | None | None = None
-    report_only_reporting_endpoint: str | None | None = None
+    reporting_endpoint: str | None = None
+    report_only_reporting_endpoint: str | None = None
 
 
 ContentSecurityPolicySource = Literal["HTTP", "Meta"]
@@ -862,9 +862,9 @@ class ContentSecurityPolicyStatus(CDPModel):
 
 @dataclass(kw_only=True)
 class SecurityIsolationStatus(CDPModel):
-    coop: CrossOriginOpenerPolicyStatus | None | None = None
-    coep: CrossOriginEmbedderPolicyStatus | None | None = None
-    csp: list[ContentSecurityPolicyStatus] | None | None = None
+    coop: CrossOriginOpenerPolicyStatus | None = None
+    coep: CrossOriginEmbedderPolicyStatus | None = None
+    csp: list[ContentSecurityPolicyStatus] | None = None
 
 
 """
@@ -936,7 +936,7 @@ class DeviceBoundSessionCookieCraving(CDPModel):
     path: str
     secure: bool
     http_only: bool
-    same_site: CookieSameSite | None | None = None
+    same_site: CookieSameSite | None = None
 
 
 @dataclass(kw_only=True)
@@ -972,7 +972,7 @@ class DeviceBoundSession(CDPModel):
     inclusion_rules: DeviceBoundSessionInclusionRules
     cookie_cravings: list[DeviceBoundSessionCookieCraving]
     expiry_date: network.TimeSinceEpoch
-    cached_challenge: str | None | None = None
+    cached_challenge: str | None = None
     allowed_refresh_initiators: list[str]
 
 
@@ -1063,7 +1063,7 @@ class CreationEventDetails(CDPModel):
     """
 
     fetch_result: DeviceBoundSessionFetchResult
-    new_session: DeviceBoundSession | None | None = None
+    new_session: DeviceBoundSession | None = None
 
 
 @dataclass(kw_only=True)
@@ -1081,8 +1081,8 @@ class RefreshEventDetails(CDPModel):
         "FatalError",
         "SigningQuotaExceeded",
     ]
-    fetch_result: DeviceBoundSessionFetchResult | None | None = None
-    new_session: DeviceBoundSession | None | None = None
+    fetch_result: DeviceBoundSessionFetchResult | None = None
+    new_session: DeviceBoundSession | None = None
     was_fully_proactive_refresh: bool
 
 
@@ -1123,9 +1123,9 @@ class LoadNetworkResourcePageResult(CDPModel):
     """
 
     success: bool
-    net_error: float | None | None = None
-    net_error_name: str | None | None = None
-    http_status_code: float | None | None = None
+    net_error: float | None = None
+    net_error_name: str | None = None
+    http_status_code: float | None = None
     stream: io.StreamHandle | None = None
     headers: network.Headers | None = None
 

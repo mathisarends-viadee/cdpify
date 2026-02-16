@@ -948,7 +948,9 @@ class EmulationClient:
         session_id: str | None = None,
     ) -> GetScreenInfosResult:
         """
-        Returns device's screen configuration.
+        Returns device's screen configuration. In headful mode, the physical screens
+        configuration is returned, whereas in headless mode, a virtual headless screen
+        configuration is provided instead.
         """
         result = await self._client.send_raw(
             method=EmulationCommand.GET_SCREEN_INFOS,
